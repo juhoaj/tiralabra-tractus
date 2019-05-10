@@ -7,7 +7,6 @@
 * Palautus 1: **Lauantaina 11.5. klo 23:59**
     * Dokumentaatio: Määrittelydokumentti valmis.
     * Viikkoraportti numero 1
-    * Projekti: Projekti luotu. Ohjeita tarvittaessa [täältä](/sivut/maven-gradle.md). Alustettu versionhallinta (Github). Kaikki palautettava lisätään versionhallintaan, sähköpostilla ei palauteta mitään!
 
 
 

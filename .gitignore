@@ -1,3 +1,6 @@
+# system files
+.gitignore
+
 .gradle
 /build/
 

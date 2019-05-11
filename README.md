@@ -1,6 +1,6 @@
 ## Tractus
 
-*Tietorakenteet ja algoritmit harjoitustyö alkukesä 2019.* Harjoitustyössä kokeillaan Javalla luolaston algoritmipohjaista rakentamista ja siinä liikkumista. 
+*Tietorakenteet ja algoritmit harjoitustyö alkukesä 2019.* Harjoitustyössä harjoitellaan Javalla luolaston algoritmipohjaista rakentamista ja siinä liikkumista. 
 
 
 * [Käyttöohje](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/käyttöohje.md) – miten sovellusta käytetään
@@ -14,4 +14,4 @@
 
 Viikkoraportit:
 
-[Viikkoraportti, viikko 1](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_1.md)
+* [Viikkoraportti, viikko 1](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_1.md)

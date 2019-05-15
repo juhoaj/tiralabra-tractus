@@ -1,14 +1,3 @@
-    * Gradle https://github.com/mluukkai/ohjelmistotuotanto2018/blob/master/laskarit/1.md
-
-
-
-# Viikko 1:
-
-* Palautus 1: **Lauantaina 11.5. klo 23:59**
-    * Dokumentaatio: Määrittelydokumentti valmis.
-    * Viikkoraportti numero 1
-
-
 
 # Viikko 2:
 

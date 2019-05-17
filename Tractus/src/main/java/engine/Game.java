@@ -5,14 +5,23 @@
  */
 package engine;
 
+import ui.Interface;
+
 /**
  *
  * @author juhojuutilainen
  */
 public class Game {
+    
+    private Interface ui;
+    
+    private PlayerAction playerAction;
 
     public Game() {
-        System.out.println("anna luku ");
+        System.out.println("launching terminal");
+        
+        this.playerAction = new PlayerAction();
+        this.ui = new Interface(this.playerAction,32,32);
 
         startGame();
         playGame();

@@ -15,3 +15,5 @@
 Viikkoraportit:
 
 * [Viikkoraportti, viikko 1](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_1.md)
+
+* [Viikkoraportti, viikko 1](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_2.md)

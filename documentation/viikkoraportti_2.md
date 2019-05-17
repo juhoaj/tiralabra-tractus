@@ -3,9 +3,9 @@
 Aloin ensiksi hyvin pintapuolisesti tutustua kahteen tutorialiin. [Writing a roguelike in java, Jelle Pelgrims](https://jellepelgrims.com/articles/roguelike_java) sekä [roguelike tutorial, Trystan](http://trystans.blogspot.com). Tämän jälkeen aloin suunnittelemaan sovellusrakennetta tyhjältä pöydältä MVC-mallin pohjalta. Halusin luoda sovellusrakenteen jossa riippuvuuksia voidaan injektoida ja jossa ei ole suoria riippuvuuksia model-pakkauksesta view-pakkaukseen. 
 
 * [Iteraatio 1](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/suunnittelu/iteraatio-1.jpg)
-* [Iteraatio 2](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/suunnittelu/iteraatio-1.jpg)
-* [Iteraatio 3](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/suunnittelu/iteraatio-1.jpg)
-* [Iteraatio 4](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/suunnittelu/iteraatio-1.jpg)
+* [Iteraatio 2](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/suunnittelu/iteraatio-2.jpg)
+* [Iteraatio 3](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/suunnittelu/iteraatio-3.jpg)
+* [Iteraatio 4](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/suunnittelu/iteraatio-4.jpg)
 
 Tämän viikon työajasta puolet on kulunut luodessa sovelluspohjaa jossa view -pakkauksessa oleva keylistener kutsuu controller -pakkauksessa olevaa oliota joka ratkaisee pelaajan toiminnan seurauksen (esim. siirtyykö @ vai jääkö paikalleen koska törmää seinään).
 

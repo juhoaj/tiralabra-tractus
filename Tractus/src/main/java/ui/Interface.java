@@ -1,6 +1,7 @@
 package ui;
 
 import asciiPanel.AsciiPanel;
+import asciiPanel.AsciiFont; 
 import engine.PlayerAction;
 
 import javax.swing.*;
@@ -24,7 +25,7 @@ public class Interface extends JFrame  {
     	this.screenHeight = screenHeight;
         this.keylistener = new KeyListener(playerAction);
 
-    	terminal = new AsciiPanel(screenWidth, screenHeight);
+    	terminal = new AsciiPanel(screenWidth, screenHeight, AsciiFont.DRAKE_10x10);
     	
         super.add(terminal);
         super.addKeyListener(keylistener);

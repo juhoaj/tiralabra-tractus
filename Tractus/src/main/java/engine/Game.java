@@ -6,6 +6,8 @@
 package engine;
 
 import ui.Interface;
+import domain.World;
+import domain.Creature;
 
 /**
  *
@@ -13,16 +15,31 @@ import ui.Interface;
  */
 public class Game {
     
+    private int gameareaWidth;
+    private int gameareaHeight;
+    private int viewportWidth;
+    private int viewportHeight;
+    private World world;
+    private Creature player;
+    
     private Interface ui;
     
     private PlayerAction playerAction;
 
     public Game() {
-        System.out.println("launching terminal");
+        this.gameareaHeight = 9;
+        this.gameareaWidth = 9;
+        this.viewportHeight = 33;
+        this.viewportWidth = 33;
+        this.world = new World(gameareaHeight,gameareaWidth);
+        this.player = new Creature(4,4);
         
+        System.out.println("launching terminal");
         this.playerAction = new PlayerAction();
-        this.ui = new Interface(this.playerAction,32,32);
+        this.ui = new Interface(this.world, this.player, this.playerAction,this.viewportWidth,this.viewportHeight);
 
+        this.ui.refresh();
+        
         startGame();
         playGame();
         endGame();
@@ -42,6 +59,8 @@ public class Game {
     private  void endGame() {
     
     }
+
+    
     
 }
 

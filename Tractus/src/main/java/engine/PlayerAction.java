@@ -5,18 +5,48 @@
  */
 package engine;
 
+import domain.Direction;
+import domain.Creature;
+import domain.World;
+
 /**
  *
  * @author juhojuutilainen
  */
 public class PlayerAction {
+    
+    private Creature player;
+    private World world;
+    private boolean playerTurn;
 
-    public PlayerAction() {
+    public PlayerAction(Creature player, World world) {
+        this.player = player;
+        this.world = world;
+        this.playerTurn = false;
     }
     
-    public void setAction(char c) {
-        System.out.println(c);
+    public boolean getActionHappened() {
+        System.out.println("pitäs olla false");
+        System.out.println("happened");
+        return true;
     }
+    
+    public void setAction(Direction d) {   
+        System.out.println(d);
+        switch (d) {
+            case NORTH:
+                System.out.println("N");
+                int newY = this.player.getY()-1;
+                if ( this.world.getTerrain( this.player.getX() , newY ) == 0) {
+                    this.player.setY(newY);
+                    System.out.println("pienennetty");
+                }
+                
+                
+        }
+        
+    }
+    
     
     
 }

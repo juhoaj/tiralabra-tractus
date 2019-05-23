@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import engine.PlayerAction;
+import domain.Direction;
 
 /**
  *
@@ -19,16 +20,26 @@ import engine.PlayerAction;
 class KeyListener extends KeyAdapter {
     
     private PlayerAction playerAction;
+    private Direction direction;
 
     public KeyListener(PlayerAction playerAction) {
         this.playerAction = playerAction;
     }
 
-    
     @Override
     public void keyPressed(KeyEvent event) {
-        System.out.println("painettu");
-        playerAction.setAction(event.getKeyChar());
+        char c = event.getKeyChar();
+        System.out.println("rekisterlity keylistenerissä");
+        
+        switch (c) {
+            case 'w':
+                System.out.println("w");
+                playerAction.setAction(Direction.NORTH);
+                // this.direction = Direction.NORTH;
+                
+                
+        }
+          
     }
 
    

@@ -35,21 +35,27 @@ public class Game {
         this.player = new Creature(4,4);
         
         System.out.println("launching terminal");
-        this.playerAction = new PlayerAction();
+        this.playerAction = new PlayerAction(this.player, this.world);
         this.ui = new Interface(this.world, this.player, this.playerAction,this.viewportWidth,this.viewportHeight);
 
-        this.ui.refresh();
-        
+        this.world.initialize();
+        while(true) {
+            // this.playerAction.getActionHappened();
+            this.ui.refresh();
+        }
+        /*
         startGame();
         playGame();
         endGame();
+        */
         
     }
     
 
 
     private  void playGame() {
-
+        System.out.println("playgame");
+        
     }
     
     private  void startGame() {

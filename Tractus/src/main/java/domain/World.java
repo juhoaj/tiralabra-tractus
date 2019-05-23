@@ -30,8 +30,8 @@ public class World {
     }
     
     public int getTerrain(int x, int y) {
-        if ( x<0 || y<0 || x>this.width || y>this.width ) {
-            return 0;
+        if ( x<0 || y<0 || x>=this.width || y>=this.width ) {
+            return 1;
         }
         return map[x][y];
     }

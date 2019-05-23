@@ -4,6 +4,7 @@ import asciiPanel.AsciiPanel;
 import asciiPanel.AsciiFont; 
 import engine.PlayerAction;
 import domain.Creature;
+import domain.Direction;
 import domain.World;
 
 import javax.swing.*;
@@ -38,12 +39,11 @@ public class Interface extends JFrame  {
         super.setSize(this.viewportWidth*10, this.viewportHeight*10);
         super.setVisible(true);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        super.repaint();
-        this.terminal.write("You are having fun.", 1, 1);
     }
+    
 
     public void refresh() {
-    	// terminal.repaint();
+    	//terminal.clear();
         int startX = this.player.getX() - this.viewportWidth / 2;
         int startY = this.player.getY() - this.viewportHeight / 2;
         for (int x = 0 ; x < viewportWidth ; x++) {
@@ -53,12 +53,17 @@ public class Interface extends JFrame  {
                     c = (char) 250;
                 }
                 this.terminal.write( c, x, y);
-                System.out.println(x+","+y+"-"+this.world.getTerrain(x, y));
-                
             }
         }
-        this.terminal.write("@", this.viewportWidth / 2 + 1, this.viewportHeight / 2 + 1 );
-        
+        // System.out.println(this.player.getY());
+        this.terminal.write(Integer.toString(this.player.getY()),1,1);
+        this.terminal.write("@", this.player.getX() - startX,  this.player.getY() - startY );
+        terminal.repaint();
+    }
+    
+    public void clear() {
+    	terminal.clear();
+
     }
     
 }

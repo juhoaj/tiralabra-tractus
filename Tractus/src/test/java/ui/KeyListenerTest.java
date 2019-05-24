@@ -5,7 +5,7 @@
  */
 package ui;
 
-import domain.Direction;
+import domain.Command;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,28 +38,28 @@ public class KeyListenerTest {
     public void keyWWorksAndCallsSetActionWithNORTH() {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'w');
         keyListener.keyPressed(event);
-        verify(playerAction).setAction(eq(Direction.NORTH));
+        verify(playerAction).setAction(eq(Command.NORTH));
     }
     
     @Test
     public void keyDWorksAndCallsSetActionWithEAST() {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'd');
         keyListener.keyPressed(event);
-        verify(playerAction).setAction(eq(Direction.EAST));
+        verify(playerAction).setAction(eq(Command.EAST));
     }
     
     @Test
     public void keySWorksAndCallsSetActionWithSOUTH() {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  's');
         keyListener.keyPressed(event);
-        verify(playerAction).setAction(eq(Direction.SOUTH));
+        verify(playerAction).setAction(eq(Command.SOUTH));
     }
     
     @Test
     public void keyAWorksAndCallsSetActionWithWEST() {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'a');
         keyListener.keyPressed(event);
-        verify(playerAction).setAction(eq(Direction.WEST));
+        verify(playerAction).setAction(eq(Command.WEST));
     }
     
     

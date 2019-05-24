@@ -1,8 +1,8 @@
 package engine;
 
 /**
- *
- * @author jjuho
+ * <h1>Main</h1>
+ * Only creates a new game engine.
  */
 
 public class Main {

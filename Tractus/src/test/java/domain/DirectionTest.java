@@ -42,22 +42,22 @@ public class DirectionTest {
     //
      @Test
      public void testNorth() {
-         Direction north = Direction.NORTH;
+         Command north = Command.NORTH;
          assertEquals(north.valueOf("NORTH"), north);
     }
      @Test
      public void testEast() {
-         Direction east = Direction.EAST;
+         Command east = Command.EAST;
          assertEquals(east.valueOf("EAST"), east);
     }
      @Test
      public void testSouth() {
-         Direction south = Direction.SOUTH;
+         Command south = Command.SOUTH;
          assertEquals(south.valueOf("SOUTH"), south);
     }
      @Test
      public void testwest() {
-         Direction west = Direction.WEST;
+         Command west = Command.WEST;
          assertEquals(west.valueOf("WEST"), west);
     }
 }

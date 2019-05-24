@@ -6,33 +6,49 @@
 package domain;
 
 /**
- *
- * @author juhojuutilainen
+ * <h1>World</h1>
+ * This class provides the 2D tiled map that is used in the game. Currently the
+ * map has only corridors and walls.
  */
 public class World {
+
     int width;
     int height;
     int[][] map;
 
+    /**
+     * Constructor requires the size of the map.
+     *
+     * @param width width of the map.
+     * @param height height of the map. Please note that the constructor does
+     * not initialize the map.
+     */
     public World(int width, int height) {
+
         this.width = width;
         this.height = height;
         this.map = new int[this.width][this.height];
     }
-    
+
+    /**
+     * Creates random map.
+     */
     public void initialize() {
         this.randomize();
         this.smooth(8);
     }
-    
+
+    /**
+     * Creates empty map.
+     */
     public void initializeEmpty() {
-        for (int x = 0 ; x < this.width ; x++) {
-            for (int y = 0 ; y < this.height ; y++) {
-                this.map[x][y]=0;
+        for (int x = 0; x < this.width; x++) {
+            for (int y = 0; y < this.height; y++) {
+                this.map[x][y] = 0;
             }
         }
     }
-    
+
     public void randomize() {
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
@@ -40,7 +56,7 @@ public class World {
             }
         }
     }
-    
+
     public void smooth(int times) {
         int[][] map2 = new int[width][height];
         for (int time = 0; time < times; time++) {
@@ -70,16 +86,20 @@ public class World {
             map = map2;
         }
     }
-    
-    
+
+    /**
+     * Returns the terrain of given map coordinate
+     *
+     * @param x X-coordinate
+     * @param y Y-coordinate
+     * @return terrain: 0=corridor, 1=wall
+     */
     public int getTerrain(int x, int y) {
-        if ( x<0 || y<0 || x>=this.width || y>=this.width ) {
+
+        if (x < 0 || y < 0 || x >= this.width || y >= this.width) {
             return 1;
         }
         return map[x][y];
     }
-    
-    
-    
-    
+
 }

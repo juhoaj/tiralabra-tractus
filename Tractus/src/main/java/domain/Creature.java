@@ -6,33 +6,64 @@
 package domain;
 
 /**
- *
- * @author juhojuutilainen
+ * <h1>Creature</h1>
+ * This class is used for all creatures including player(s) and monsters.
  */
 public class Creature {
+
     private int x;
     private int y;
 
-    public Creature(int x, int y) {
-        this.x = x;
-        this.y = y;
+    /**
+     * Constructor requires the starting coordinates of the creature.
+     *
+     * @param startX X-coordinate where the creature is placed when created
+     * @param startY Y-coordinate where the creature is placed when created
+     */
+    public Creature(int startX, int startY) {
+
+        this.x = startX;
+        this.y = startY;
     }
-    
+
+    /**
+     * Get creature's x-coordinate
+     *
+     * @return x-coordinate of the creature
+     */
     public int getX() {
+
         return this.x;
     }
-    
+
+    /**
+     * Get creature's y-coordinate
+     *
+     * @return y-coordinate of the creature
+     */
     public int getY() {
+
         return this.y;
     }
-    
-    public void setX(int x) {
-        this.x = x;
-    } 
-    
-    public void setY(int y) {
-        this.y = y;
-        System.out.println("kävi creaturessa" + this.y);
-    } 
-    
+
+    /**
+     * Used for setting the creatures new x-coordinate
+     *
+     * @param newX new x-coordinate
+     */
+    public void setX(int newX) {
+
+        this.x = newX;
+    }
+
+    /**
+     * Used for setting the creatures new y-coordinate
+     *
+     * @param newY new y-coordinate
+     */
+    public void setY(int newY) {
+
+        this.y = newY;
+    }
+
 }

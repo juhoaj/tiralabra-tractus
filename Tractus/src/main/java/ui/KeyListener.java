@@ -9,48 +9,51 @@ import java.awt.*;
 import java.awt.event.*;
 
 import engine.PlayerAction;
-import domain.Direction;
+import domain.Command;
 
 /**
- *
- * @author juhojuutilainen
+ * <h1>KeyListener</h1>
+ * Listens for keystrokes and calls engine.PlayerAction when relevant key is
+ * pressed (W,A,S,D).
  */
-    
-    
 class KeyListener extends KeyAdapter {
-    
-    private PlayerAction playerAction;
-    private Direction direction;
 
+    private PlayerAction playerAction;
+    private Command direction;
+
+    /**
+     * Constructor that stores the engine.PlayerAction to be called.
+     */
     public KeyListener(PlayerAction playerAction) {
+
         this.playerAction = playerAction;
     }
 
+    /**
+     * Method that override's java.awt.event.KeyPressed and calls
+     * engine.PlayerAction when relevant key is pressed (W,A,S,D).
+     */
     @Override
     public void keyPressed(KeyEvent event) {
+
         char c = event.getKeyChar();
         System.out.println("rekisterlity keylistenerissä: " + c);
-        
+
         switch (c) {
             case 'w':
-                playerAction.setAction(Direction.NORTH);
+                playerAction.setAction(Command.NORTH);
                 break;
             case 'd':
-                playerAction.setAction(Direction.EAST);
+                playerAction.setAction(Command.EAST);
                 break;
             case 's':
-                playerAction.setAction(Direction.SOUTH);
+                playerAction.setAction(Command.SOUTH);
                 break;
             case 'a':
-                playerAction.setAction(Direction.WEST);
+                playerAction.setAction(Command.WEST);
                 break;
-                
-                
         }
-          
-    }
 
-   
-            
+    }
 
 }

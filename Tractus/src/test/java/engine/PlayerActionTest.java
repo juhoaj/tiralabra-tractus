@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import domain.Direction;
+import domain.Command;
 import domain.Creature;
 import domain.World;
 
@@ -54,36 +54,36 @@ public class PlayerActionTest {
     @Test
     public void canMoveNorth() {
         playerAction.setPlayerTurn(true);
-        playerAction.setAction(Direction.NORTH);
+        playerAction.setAction(Command.NORTH);
         assertEquals(0, creature.getY());
     }
     
     @Test
     public void canMoveEast() {
         playerAction.setPlayerTurn(true);
-        playerAction.setAction(Direction.EAST);
+        playerAction.setAction(Command.EAST);
         assertEquals(2, creature.getX());
     }
     
     @Test
     public void canMoveSouth() {
         playerAction.setPlayerTurn(true);
-        playerAction.setAction(Direction.SOUTH);
+        playerAction.setAction(Command.SOUTH);
         assertEquals(2, creature.getY());
     }
     
     @Test
     public void canMoveWest() {
         playerAction.setPlayerTurn(true);
-        playerAction.setAction(Direction.WEST);
+        playerAction.setAction(Command.WEST);
         assertEquals(0, creature.getX());
     }
     
     @Test
     public void cantMoveThroughWalls() {
         playerAction.setPlayerTurn(true);
-        playerAction.setAction(Direction.NORTH);
-        playerAction.setAction(Direction.NORTH);
+        playerAction.setAction(Command.NORTH);
+        playerAction.setAction(Command.NORTH);
         assertEquals(0, creature.getY());
     }
     

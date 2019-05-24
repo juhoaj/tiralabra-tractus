@@ -10,8 +10,8 @@ import domain.World;
 import domain.Creature;
 
 /**
- *
- * @author juhojuutilainen
+ * <h1>Game</h1>
+ * Responsible for setting up, running and ending game.
  */
 public class Game {
     

@@ -56,11 +56,11 @@ public class KeyListenerTest {
     @Test
     public void hello() throws AWTException {
 
-        KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  KeyEvent.VK_W);
+        KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'w');
         keyListener.keyPressed(event);
              
-        verify(playerAction, times(1)).setAction(Direction.NORTH);
-        // verify(playerAction).setAction(Direction.NORTH);
+        // verify(playerAction, times(1)).setAction(Direction.NORTH);
+        verify(playerAction).setAction(eq(Direction.NORTH));
         
     }
 }

@@ -33,7 +33,6 @@ class KeyListener extends KeyAdapter {
         
         switch (c) {
             case 'w':
-                System.out.println("w");
                 playerAction.setAction(Direction.NORTH);
                 // this.direction = Direction.NORTH;
                 

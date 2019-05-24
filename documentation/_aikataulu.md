@@ -1,17 +1,4 @@
-
-# Viikko 2:
-
-* Palautus 2: **Perjantaina 17.5. klo 23:59**
-    * [Dokumentaatio](/sivut/dokumentaatio.md): Kirjoitettu koodi on selkeää ja kommentoitua (esim. Javalla tehdyssä työssä Javadoc-kommentit).
-    * Viikkoraportti numero 2: ks. [Palautukset](/sivut/palautukset.md)
-    * Ohjelma: Aloitettu ydinalueen toteutus käyttäen tarvittaessa esim. Javan valmiita tietorakenteita (ArrayList, HashMap yms.). Nämä korvataan myöhemmin omilla tietorakenteilla, mutta useissa tapauksissa ohjelman toteutus on helpompi aloittaa jostain muusta kuin tietorakenteista.
-    * Testaus: Koodin *kattava* yksikkötestaus. (esim. Javalla tehdyssä työssä JUnit)
-		* Varmista, että kun teet luokkia niin olet myös testannut ne mahdollisimman nopeasti/aikaisin (mieluiten testit samassa palautuksessa, kuin luokat on koodattu). Siten tiedät, että koodi, jonka juuri kirjoitit toimii kuten haluat. Tarvittaessa tutustu [OTM materiaaliin yksikkötestauksesta](https://github.com/mluukkai/ohjelmistotekniikka-kevat2019/blob/master/web/junit.md).
-
-# Viikko 3:
-
 * Palautus 3: **Perjantaina 24.5. klo 23:59**
-    * [Dokumentaatio](/sivut/dokumentaatio.md): Kirjoitettu koodi selkeää ja kommentoitua.
     * Viikkoraportti numero 3
     * Ohjelma: Ohjelman ydinalue edennyt, aloitettu mahdollisesti jo omien tietorakenteiden toteutus.
     * Testaus: Koodin *kattava* yksikkötestaus.
@@ -76,3 +63,9 @@
     * Koodin *kattava* yksikkötestaus
     * Dokumentoitu ohjelman testaus testausdokumenttiin
     * Graafinen esitys esim. aikavaativuuksien toteutumisesta empiirisen testauksen perusteella
+
+
+
+--
+
+https://github.com/mluukkai/ohjelmistotekniikka-kevat2019/blob/master/web/junit.md

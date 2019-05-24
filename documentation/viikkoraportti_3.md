@@ -2,7 +2,7 @@
 
 Valmistelin ensiksi skeletonin kuntoon ja tämän jälkeen toteutin loput KeyListeneristä ja pelaaja-oliota ohjaavasta oliosta. Tämän jälkeen kopioin melko suoraan Trystanin blogista [soluautomaatio-algoritmin](http://trystans.blogspot.com.br/2011/08/roguelike-tutorial-03-scrolling-through.html) jotta näen millaisia karttoja sellainen tuottaa. Tarkoituksena keksiä ensi viikolla jotain ovelampaa tilalle.
 
-JUnit testejä varten otin käyttöön Mockito ja tehtiin ensimmäisiä yksikkötestejä. Testikattavuus vielä heikko sillä en tehnyt testejä koodille jota saatan lähipäivinä päätyö refaktoroimaan rankemman kautta.
+JUnit testejä varten otin käyttöön Mockito ja tein ensimmäisiä yksikkötestejä. Testikattavuus vielä heikko sillä en tehnyt testejä koodille jota saatan lähipäivinä päätyö refaktoroimaan rankemman kautta.
 
 Aikaa käytetty tähän mennessä ~29t.
 
@@ -14,7 +14,9 @@ Kartalla pystyy vihdoin liikkumaan ja ensimmäiset yksikkö/testit tehty.
 
 ## Mitä opin tällä viikolla / tänään?
 
-Riippuvuuksien injektointi tekee testauksesta kivempaa kun pääsee tekemään mock -olioita.
+Event driven -malli tullut tutuksi. 
+
+Riippuvuuksien injektointia käyttänyt aikaisemmin harjoituksissa mutta nyt "omassa koodissa" huomaa kuinka se tekee testauksesta kivempaa kun pääsee tekemään mock -olioita.
 
 
 ## Mikä jäi epäselväksi tai tuottanut vaikeuksia? Vastaa tähän kohtaan rehellisesti, koska saat tarvittaessa apua tämän kohdan perusteella.

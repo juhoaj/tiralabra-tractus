@@ -18,10 +18,6 @@ public class Creature {
         this.y = y;
     }
     
-    public Coordinate getCoordinate() {
-        return new Coordinate(this.x, this.y);
-    }
-    
     public int getX() {
         return this.x;
     }
@@ -36,7 +32,7 @@ public class Creature {
     
     public void setY(int y) {
         this.y = y;
-        System.out.println("kävu creaturessa" + this.y);
+        System.out.println("kävi creaturessa" + this.y);
     } 
     
 }

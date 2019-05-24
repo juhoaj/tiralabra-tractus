@@ -27,21 +27,23 @@ public class Game {
     private PlayerAction playerAction;
 
     public Game() {
-        this.gameareaHeight = 9;
-        this.gameareaWidth = 9;
+        this.gameareaHeight = 100;
+        this.gameareaWidth = 100;
         this.viewportHeight = 33;
         this.viewportWidth = 33;
         this.world = new World(gameareaHeight,gameareaWidth);
-        this.player = new Creature(4,4);
+        this.world.initialize();
+        this.generatePlayer();
         
         System.out.println("launching terminal");
         this.playerAction = new PlayerAction(this.player, this.world);
         this.ui = new Interface(this.world, this.player, this.playerAction,this.viewportWidth,this.viewportHeight);
 
-        this.world.initialize();
+        
         while(true) {
-            // this.playerAction.getActionHappened();
+            this.playerAction.setPlayerTurn(true);
             this.ui.refresh();
+            this.playerAction.setPlayerTurn(false);
         }
         /*
         startGame();
@@ -51,11 +53,22 @@ public class Game {
         
     }
     
-
+    private void generatePlayer() {
+        int startPositionX = gameareaWidth / 2;
+        int startPositionY = gameareaHeight / 2;
+        System.out.println( startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
+        while (true) {
+            if (this.world.getTerrain(startPositionX, startPositionY) == 0) {
+                this.player = new Creature(startPositionX,startPositionY);
+                break;
+            } else {
+                startPositionX--;
+            }
+        }        
+    }
 
     private  void playGame() {
         System.out.println("playgame");
-        
     }
     
     private  void startGame() {

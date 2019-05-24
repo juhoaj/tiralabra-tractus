@@ -23,6 +23,7 @@ public class PlayerAction {
         this.player = player;
         this.world = world;
         this.playerTurn = false;
+        
     }
     
     public boolean getActionHappened() {
@@ -31,18 +32,24 @@ public class PlayerAction {
         return true;
     }
     
+    public void setPlayerTurn(boolean playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+    
     public void setAction(Direction d) {   
         System.out.println(d);
-        switch (d) {
-            case NORTH:
-                System.out.println("N");
-                int newY = this.player.getY()-1;
-                if ( this.world.getTerrain( this.player.getX() , newY ) == 0) {
-                    this.player.setY(newY);
-                    System.out.println("pienennetty");
-                }
-                
-                
+        if (this.playerTurn == true) {
+            switch (d) {
+                case NORTH:
+                    System.out.println("N");
+                    int newY = this.player.getY()-1;
+                    if ( this.world.getTerrain( this.player.getX() , newY ) == 0) {
+                        this.player.setY(newY);
+                        System.out.println("pienennetty");
+                    }
+
+
+            }
         }
         
     }

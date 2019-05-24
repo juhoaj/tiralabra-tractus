@@ -11,10 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
-
 public class Interface extends JFrame  {
-
 	
 	private AsciiPanel terminal;
 	private KeyListener keylistener;
@@ -22,10 +19,14 @@ public class Interface extends JFrame  {
 	private int viewportHeight;
         private Creature player;
         private World world;
-
 	
     public Interface(World world, Creature player, PlayerAction playerAction, int viewportWidth, int viewportHeight) {
     	
+        if (viewportWidth <= 3 || viewportHeight <=3 || viewportWidth > 52 || viewportHeight > 52) {
+            System.out.println("viewport size incompatible with ui");
+            return;
+        }
+        
     	this.viewportWidth = viewportWidth;
     	this.viewportHeight = viewportHeight;
         this.keylistener = new KeyListener(playerAction);
@@ -55,7 +56,7 @@ public class Interface extends JFrame  {
                 this.terminal.write( c, x, y);
             }
         }
-        // System.out.println(this.player.getY());
+
         this.terminal.write(Integer.toString(this.player.getY()),1,1);
         this.terminal.write("@", this.player.getX() - startX,  this.player.getY() - startY );
         terminal.repaint();

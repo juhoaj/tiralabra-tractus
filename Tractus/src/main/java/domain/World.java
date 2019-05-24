@@ -14,20 +14,63 @@ public class World {
     int height;
     int[][] map;
 
-    public World(int x, int y) {
-        this.width = x;
-        this.height = y;
-        this.map = new int[x][y];
+    public World(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.map = new int[this.width][this.height];
     }
     
     public void initialize() {
+        this.randomize();
+        this.smooth(8);
+    }
+    
+    public void initializeEmpty() {
         for (int x = 0 ; x < this.width ; x++) {
             for (int y = 0 ; y < this.height ; y++) {
                 this.map[x][y]=0;
             }
         }
-        this.map[1][1]=1;
     }
+    
+    public void randomize() {
+        for (int x = 0; x < this.width; x++) {
+            for (int y = 0; y < this.height; y++) {
+                map[x][y] = Math.random() < 0.5 ? 0 : 1;
+            }
+        }
+    }
+    
+    public void smooth(int times) {
+        int[][] map2 = new int[width][height];
+        for (int time = 0; time < times; time++) {
+
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    int floors = 0;
+                    int rocks = 0;
+
+                    for (int ox = -1; ox < 2; ox++) {
+                        for (int oy = -1; oy < 2; oy++) {
+                            if (x + ox < 0 || x + ox >= width || y + oy < 0
+                                    || y + oy >= height) {
+                                continue;
+                            }
+
+                            if (map[x + ox][y + oy] == 0) {
+                                floors++;
+                            } else {
+                                rocks++;
+                            }
+                        }
+                    }
+                    map2[x][y] = floors >= rocks ? 0 : 1;
+                }
+            }
+            map = map2;
+        }
+    }
+    
     
     public int getTerrain(int x, int y) {
         if ( x<0 || y<0 || x>=this.width || y>=this.width ) {

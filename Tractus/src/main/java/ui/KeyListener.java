@@ -29,14 +29,13 @@ class KeyListener extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent event) {
         char c = event.getKeyChar();
-        System.out.println("rekisterlity keylistenerissä");
+        System.out.println("rekisterlity keylistenerissä: " + c);
         
         switch (c) {
             case 'w':
                 System.out.println("w");
                 playerAction.setAction(Direction.NORTH);
                 // this.direction = Direction.NORTH;
-                
                 
         }
           

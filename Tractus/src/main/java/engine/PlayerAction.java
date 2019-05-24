@@ -14,7 +14,7 @@ import domain.World;
  * @author juhojuutilainen
  */
 public class PlayerAction {
-    
+
     private Creature player;
     private World world;
     private boolean playerTurn;
@@ -23,37 +23,54 @@ public class PlayerAction {
         this.player = player;
         this.world = world;
         this.playerTurn = false;
-        
     }
-    
+
     public boolean getActionHappened() {
         System.out.println("pitäs olla false");
         System.out.println("happened");
         return true;
     }
-    
+
     public void setPlayerTurn(boolean playerTurn) {
         this.playerTurn = playerTurn;
     }
-    
-    public void setAction(Direction d) {   
+
+    public void setAction(Direction d) {
         System.out.println(d);
         if (this.playerTurn == true) {
+            int newY = this.player.getY();
+            int newX = this.player.getX();
             switch (d) {
+                
                 case NORTH:
                     System.out.println("N");
-                    int newY = this.player.getY()-1;
-                    if ( this.world.getTerrain( this.player.getX() , newY ) == 0) {
+                    newY--;
+                    if (this.world.getTerrain(this.player.getX(), newY) == 0) {
                         this.player.setY(newY);
-                        System.out.println("pienennetty");
                     }
-
-
+                    break;
+                case EAST:
+                    System.out.println("E");
+                    newX++;
+                    if (this.world.getTerrain(newX, this.player.getY()) == 0) {
+                        this.player.setX(newX);
+                    }
+                    break;
+                case SOUTH:
+                    System.out.println("S");
+                    newY++;
+                    if (this.world.getTerrain(this.player.getX(), newY) == 0) {
+                        this.player.setY(newY);
+                    }
+                    break;
+                case WEST:
+                    System.out.println("W");
+                    newX--;
+                    if (this.world.getTerrain(newX, this.player.getY()) == 0) {
+                        this.player.setX(newX);
+                    }
+                    break;
             }
         }
-        
     }
-    
-    
-    
 }

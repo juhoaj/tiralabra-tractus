@@ -17,26 +17,13 @@ import static org.mockito.Mockito.*;
 import engine.PlayerAction;
 import java.awt.AWTException;
 import java.awt.event.KeyEvent;
-import java.awt.Robot;
 import javax.swing.JFrame;
 
-/**
- * 
- * @author juhojuutilainen
- */
 public class KeyListenerTest {
 
     JFrame instance;
     PlayerAction playerAction;
     KeyListener keyListener;
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
 
     @Before
     public void setUp() {
@@ -44,23 +31,36 @@ public class KeyListenerTest {
         playerAction = mock(PlayerAction.class);
         keyListener = new KeyListener(playerAction);
         instance.addKeyListener(keyListener);
-        instance.requestFocus();
-        
-    }
-
-    @After
-    public void tearDown() {
-
+        instance.requestFocus(); 
     }
 
     @Test
-    public void hello() throws AWTException {
-
+    public void keyWWorksAndCallsSetActionWithNORTH() {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'w');
         keyListener.keyPressed(event);
-             
-        // verify(playerAction, times(1)).setAction(Direction.NORTH);
         verify(playerAction).setAction(eq(Direction.NORTH));
-        
     }
+    
+    @Test
+    public void keyDWorksAndCallsSetActionWithEAST() {
+        KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'd');
+        keyListener.keyPressed(event);
+        verify(playerAction).setAction(eq(Direction.EAST));
+    }
+    
+    @Test
+    public void keySWorksAndCallsSetActionWithSOUTH() {
+        KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  's');
+        keyListener.keyPressed(event);
+        verify(playerAction).setAction(eq(Direction.SOUTH));
+    }
+    
+    @Test
+    public void keyAWorksAndCallsSetActionWithWEST() {
+        KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'a');
+        keyListener.keyPressed(event);
+        verify(playerAction).setAction(eq(Direction.WEST));
+    }
+    
+    
 }

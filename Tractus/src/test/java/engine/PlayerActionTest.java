@@ -59,6 +59,27 @@ public class PlayerActionTest {
     }
     
     @Test
+    public void canMoveEast() {
+        playerAction.setPlayerTurn(true);
+        playerAction.setAction(Direction.EAST);
+        assertEquals(2, creature.getX());
+    }
+    
+    @Test
+    public void canMoveSouth() {
+        playerAction.setPlayerTurn(true);
+        playerAction.setAction(Direction.SOUTH);
+        assertEquals(2, creature.getY());
+    }
+    
+    @Test
+    public void canMoveWest() {
+        playerAction.setPlayerTurn(true);
+        playerAction.setAction(Direction.WEST);
+        assertEquals(0, creature.getX());
+    }
+    
+    @Test
     public void cantMoveThroughWalls() {
         playerAction.setPlayerTurn(true);
         playerAction.setAction(Direction.NORTH);

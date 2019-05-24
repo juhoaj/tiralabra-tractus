@@ -34,7 +34,17 @@ class KeyListener extends KeyAdapter {
         switch (c) {
             case 'w':
                 playerAction.setAction(Direction.NORTH);
-                // this.direction = Direction.NORTH;
+                break;
+            case 'd':
+                playerAction.setAction(Direction.EAST);
+                break;
+            case 's':
+                playerAction.setAction(Direction.SOUTH);
+                break;
+            case 'a':
+                playerAction.setAction(Direction.WEST);
+                break;
+                
                 
         }
           

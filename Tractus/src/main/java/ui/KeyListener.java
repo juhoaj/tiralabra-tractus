@@ -8,7 +8,7 @@ package ui;
 import java.awt.*;
 import java.awt.event.*;
 
-import engine.PlayerAction;
+import engine.PlayerController;
 import domain.Command;
 
 /**
@@ -18,15 +18,15 @@ import domain.Command;
  */
 class KeyListener extends KeyAdapter {
 
-    private PlayerAction playerAction;
+    private PlayerController playerController;
     private Command direction;
 
     /**
      * Constructor that stores the engine.PlayerAction to be called.
      */
-    public KeyListener(PlayerAction playerAction) {
+    public KeyListener(PlayerController playerController) {
 
-        this.playerAction = playerAction;
+        this.playerController = playerController;
     }
 
     /**
@@ -41,16 +41,16 @@ class KeyListener extends KeyAdapter {
 
         switch (c) {
             case 'w':
-                playerAction.setAction(Command.NORTH);
+                playerController.setAction(Command.NORTH);
                 break;
             case 'd':
-                playerAction.setAction(Command.EAST);
+                playerController.setAction(Command.EAST);
                 break;
             case 's':
-                playerAction.setAction(Command.SOUTH);
+                playerController.setAction(Command.SOUTH);
                 break;
             case 'a':
-                playerAction.setAction(Command.WEST);
+                playerController.setAction(Command.WEST);
                 break;
         }
 

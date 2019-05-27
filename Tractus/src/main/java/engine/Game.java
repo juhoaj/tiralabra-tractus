@@ -8,6 +8,7 @@ package engine;
 import ui.Interface;
 import domain.World;
 import domain.Creature;
+import java.util.ArrayList;
 
 /**
  * <h1>Game</h1>
@@ -15,16 +16,19 @@ import domain.Creature;
  */
 public class Game {
     
+    
     private int gameareaWidth;
     private int gameareaHeight;
     private int viewportWidth;
     private int viewportHeight;
     private World world;
     private Creature player;
+    private ArrayList<Creature> monsters;
+    private GameController gameController;
     
     private Interface ui;
     
-    private PlayerAction playerAction;
+    private PlayerController playerController;
 
     public Game() {
         this.gameareaHeight = 100;
@@ -32,54 +36,14 @@ public class Game {
         this.viewportHeight = 33;
         this.viewportWidth = 33;
         this.world = new World(gameareaHeight,gameareaWidth);
-        this.world.initialize();
-        this.generatePlayer();
-        
+        this.gameController = new GameController();
+        this.player = new Creature();
+        this.playerController = new PlayerController(this.player, this.world, this.gameController);
         System.out.println("launching terminal");
-        this.playerAction = new PlayerAction(this.player, this.world);
-        this.ui = new Interface(this.world, this.player, this.playerAction,this.viewportWidth,this.viewportHeight);
-
-        
-        while(true) {
-            this.playerAction.setPlayerTurn(true);
-            this.ui.refresh();
-            this.playerAction.setPlayerTurn(false);
-        }
-        /*
-        startGame();
-        playGame();
-        endGame();
-        */
-        
+        this.ui = new Interface(this.world, this.player, this.playerController, this.viewportWidth,this.viewportHeight);
+        this.gameController.addDependencies(this.world, this.ui, this.playerController);
+        this.gameController.startGame();
     }
-    
-    private void generatePlayer() {
-        int startPositionX = gameareaWidth / 2;
-        int startPositionY = gameareaHeight / 2;
-        System.out.println( startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
-        while (true) {
-            if (this.world.getTerrain(startPositionX, startPositionY) == 0) {
-                this.player = new Creature(startPositionX,startPositionY);
-                break;
-            } else {
-                startPositionX--;
-            }
-        }        
-    }
-
-    private  void playGame() {
-        System.out.println("playgame");
-    }
-    
-    private  void startGame() {
-        
-    }
-    
-    private  void endGame() {
-    
-    }
-
-    
-    
+       
 }
 

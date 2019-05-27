@@ -21,7 +21,7 @@ import domain.World;
  * @author juhojuutilainen
  */
 public class PlayerActionTest {
-    
+    /*
     World world;
     Creature creature;
     PlayerAction playerAction;
@@ -86,5 +86,6 @@ public class PlayerActionTest {
         playerAction.setAction(Command.NORTH);
         assertEquals(0, creature.getY());
     }
-    
+    */
+  
 }

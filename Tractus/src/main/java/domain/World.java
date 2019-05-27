@@ -101,5 +101,13 @@ public class World {
         }
         return map[x][y];
     }
+    
+    public int getWidth(){
+        return this.width;
+    }
+    
+    public int getHeight() {
+        return this.height;
+    }
 
 }

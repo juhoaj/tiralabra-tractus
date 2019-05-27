@@ -14,8 +14,18 @@ public class Creature {
     private int x;
     private int y;
 
+    
     /**
-     * Constructor requires the starting coordinates of the creature.
+     * Creature constructor without starting coordinates, please note that
+     * if coordinates are not set creatures position is -100,-100;
+     * */
+    public Creature() {
+        this.x = -100;
+        this.y = -100;
+    }
+    
+    /**
+     * Creature constructor with starting coordinates of the creature.
      *
      * @param startX X-coordinate where the creature is placed when created
      * @param startY Y-coordinate where the creature is placed when created
@@ -32,7 +42,6 @@ public class Creature {
      * @return x-coordinate of the creature
      */
     public int getX() {
-
         return this.x;
     }
 
@@ -42,7 +51,6 @@ public class Creature {
      * @return y-coordinate of the creature
      */
     public int getY() {
-
         return this.y;
     }
 
@@ -52,7 +60,6 @@ public class Creature {
      * @param newX new x-coordinate
      */
     public void setX(int newX) {
-
         this.x = newX;
     }
 

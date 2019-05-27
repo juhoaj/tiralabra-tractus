@@ -2,7 +2,7 @@ package ui;
 
 import asciiPanel.AsciiPanel;
 import asciiPanel.AsciiFont;
-import engine.PlayerAction;
+import engine.PlayerController;
 import domain.Creature;
 import domain.Command;
 import domain.World;
@@ -35,7 +35,7 @@ public class Interface extends JFrame {
      * @param viewportWidth width of viewport (characters)
      * @param viewportHeight height of viewport (characters)
      */
-    public Interface(World world, Creature player, PlayerAction playerAction, int viewportWidth, int viewportHeight) {
+    public Interface(World world, Creature player, PlayerController playerController, int viewportWidth, int viewportHeight) {
 
         if (viewportWidth <= 3 || viewportHeight <= 3 || viewportWidth > 52 || viewportHeight > 52) {
             System.out.println("viewport size incompatible with ui");
@@ -44,7 +44,7 @@ public class Interface extends JFrame {
 
         this.viewportWidth = viewportWidth;
         this.viewportHeight = viewportHeight;
-        this.keylistener = new KeyListener(playerAction);
+        this.keylistener = new KeyListener(playerController);
         this.world = world;
         this.player = player;
 
@@ -61,7 +61,7 @@ public class Interface extends JFrame {
      * Renders and draws the view around the player on AsciiPanel object.
      */
     public void refresh() {
-
+        System.out.println("refresh");
         //terminal.clear();
         int startX = this.player.getX() - this.viewportWidth / 2;
         int startY = this.player.getY() - this.viewportHeight / 2;
@@ -75,7 +75,7 @@ public class Interface extends JFrame {
             }
         }
 
-        this.terminal.write(Integer.toString(this.player.getY()), 1, 1);
+        this.terminal.write("x,y;" + this.player.getX() + "," + this.player.getY(), 1, 1);
         this.terminal.write("@", this.player.getX() - startX, this.player.getY() - startY);
         terminal.repaint();
     }

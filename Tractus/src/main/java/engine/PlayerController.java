@@ -99,8 +99,25 @@ public class PlayerController {
         this.gameController.playerActed();
     }
     
-    public Creature getPlayer() {
-        return this.player;
+    public int[] getPlayerPosition() {
+        int[] position = new int[2];
+        position[0]=this.player.getX();
+        position[1]=this.player.getY();
+        return position;
+    }
+    
+    public void insertPlayer() {
+        int startPositionX = this.world.getWidth() / 2;
+        int startPositionY = this.world.getHeight() / 2;
+        System.out.println( startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
+        while (true) {
+            if (this.world.getTerrain(startPositionX, startPositionY) == 0) {
+                this.moveTo(startPositionX, startPositionY);
+                break;
+            } else {
+                startPositionX--;
+            }
+        }        
     }
 }
 

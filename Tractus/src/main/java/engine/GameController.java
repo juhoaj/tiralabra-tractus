@@ -20,19 +20,22 @@ public class GameController
             
     private World world;
     private PlayerController playerController;
+    private MonsterController monsterController;
     private Interface ui;
     
-    public void addDependencies(World world, Interface ui, PlayerController playerController) {
+    public void addDependencies(World world, Interface ui, PlayerController playerController, MonsterController monsterController) {
         System.out.println("dependencies received");
         this.playerController = playerController;
         this.ui = ui;
         this.world=world;
+        this.monsterController=monsterController;
     }
     
     public void startGame() {
         System.out.println("game started");
         this.world.initialize();
-        this.insertPlayer();
+        this.playerController.insertPlayer();
+        this.monsterController.createMonsters(10);
         this.ui.refresh();
         this.playerController.setPlayerTurn(true);
     }
@@ -50,6 +53,7 @@ public class GameController
     
     private void monsterTurn() {
         //monsterin liikkuu, jokaisen monsterin jälkeen refresh ja // this.checkEndgame();
+        
         this.playerController.setPlayerTurn(true);
     }
 
@@ -57,19 +61,7 @@ public class GameController
         
     }
     
-    private void insertPlayer() {
-        int startPositionX = this.world.getWidth() / 2;
-        int startPositionY = this.world.getHeight() / 2;
-        System.out.println( startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
-        while (true) {
-            if (this.world.getTerrain(startPositionX, startPositionY) == 0) {
-                this.playerController.moveTo(startPositionX, startPositionY);
-                break;
-            } else {
-                startPositionX--;
-            }
-        }        
-    }
+
 
     
 }

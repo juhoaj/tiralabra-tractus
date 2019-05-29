@@ -23,12 +23,13 @@ public class Game {
     private int viewportHeight;
     private World world;
     private Creature player;
-    private ArrayList<Creature> monsters;
+    private ArrayList<Creature> monsterlist;
     private GameController gameController;
+    private PlayerController playerController;
+    private MonsterController monsterController;
     
     private Interface ui;
     
-    private PlayerController playerController;
 
     public Game() {
         this.gameareaHeight = 100;
@@ -39,9 +40,11 @@ public class Game {
         this.gameController = new GameController();
         this.player = new Creature();
         this.playerController = new PlayerController(this.player, this.world, this.gameController);
+        this.monsterlist = new ArrayList<>();
+        this.monsterController = new MonsterController(this.monsterlist, this.world, this.gameController);
         System.out.println("launching terminal");
-        this.ui = new Interface(this.world, this.player, this.playerController, this.viewportWidth,this.viewportHeight);
-        this.gameController.addDependencies(this.world, this.ui, this.playerController);
+        this.ui = new Interface(this.world, this.playerController, this.monsterController, this.viewportWidth,this.viewportHeight);
+        this.gameController.addDependencies(this.world, this.ui, this.playerController, this.monsterController);
         this.gameController.startGame();
     }
        

@@ -6,10 +6,12 @@ import engine.PlayerController;
 import domain.Creature;
 import domain.Command;
 import domain.World;
+import engine.MonsterController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * <h1>Interface</h1>
@@ -23,7 +25,8 @@ public class Interface extends JFrame {
     private KeyListener keylistener;
     private int viewportWidth;
     private int viewportHeight;
-    private Creature player;
+    private MonsterController monsterController;
+    private PlayerController playerController;
     private World world;
 
     /**
@@ -35,7 +38,7 @@ public class Interface extends JFrame {
      * @param viewportWidth width of viewport (characters)
      * @param viewportHeight height of viewport (characters)
      */
-    public Interface(World world, Creature player, PlayerController playerController, int viewportWidth, int viewportHeight) {
+    public Interface(World world, PlayerController playerController, MonsterController monsterController, int viewportWidth, int viewportHeight) {
 
         if (viewportWidth <= 3 || viewportHeight <= 3 || viewportWidth > 52 || viewportHeight > 52) {
             System.out.println("viewport size incompatible with ui");
@@ -46,7 +49,8 @@ public class Interface extends JFrame {
         this.viewportHeight = viewportHeight;
         this.keylistener = new KeyListener(playerController);
         this.world = world;
-        this.player = player;
+        this.monsterController = monsterController;
+        this.playerController = playerController;
 
         this.terminal = new AsciiPanel(this.viewportWidth, this.viewportHeight, AsciiFont.DRAKE_10x10);
 
@@ -61,10 +65,15 @@ public class Interface extends JFrame {
      * Renders and draws the view around the player on AsciiPanel object.
      */
     public void refresh() {
-        System.out.println("refresh");
-        //terminal.clear();
-        int startX = this.player.getX() - this.viewportWidth / 2;
-        int startY = this.player.getY() - this.viewportHeight / 2;
+        terminal.clear();
+        this.drawMap();
+        this.drawCreatures();
+        terminal.repaint();
+    }
+    
+    private void drawMap() {
+        int startX = this.playerController.getPlayerPosition()[0] - this.viewportWidth / 2;
+        int startY = this.playerController.getPlayerPosition()[1] - this.viewportHeight / 2;
         for (int x = 0; x < viewportWidth; x++) {
             for (int y = 0; y < viewportHeight; y++) {
                 char c = (char) 177;
@@ -74,10 +83,19 @@ public class Interface extends JFrame {
                 this.terminal.write(c, x, y);
             }
         }
+    }
+    
+    private void drawCreatures() {
+        this.terminal.write("@", this.playerController.getPlayerPosition()[0] - startX, this.playerController.getPlayerPosition()[1] - startY);
 
-        this.terminal.write("x,y;" + this.player.getX() + "," + this.player.getY(), 1, 1);
-        this.terminal.write("@", this.player.getX() - startX, this.player.getY() - startY);
-        terminal.repaint();
+        int[][] monsterPositions = this.monsterController.getMonsterPositions();
+        for (int i = 0 ; i < monsterPositions.length ; i ++) {
+            int monsterX = monsterPositions[i][0] - startX;
+            int monsterY = monsterPositions[i][1] - startY;
+            if ( monsterX > 0 && monsterX < viewportWidth && monsterY > 0 && monsterY < viewportHeight) {
+                this.terminal.write("*", monsterX, monsterY);
+            }
+        }
     }
 
     /**

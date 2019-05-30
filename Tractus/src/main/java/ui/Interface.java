@@ -66,14 +66,19 @@ public class Interface extends JFrame {
      */
     public void refresh() {
         terminal.clear();
-        this.drawMap();
-        this.drawCreatures();
+        int startX = this.playerController.getPlayerPosition()[0] - this.viewportWidth / 2;
+        int startY = this.playerController.getPlayerPosition()[1] - this.viewportHeight / 2;
+        this.drawMap(startX, startY);
+        this.drawCreatures(startX, startY);
         terminal.repaint();
     }
     
-    private void drawMap() {
-        int startX = this.playerController.getPlayerPosition()[0] - this.viewportWidth / 2;
-        int startY = this.playerController.getPlayerPosition()[1] - this.viewportHeight / 2;
+    public void message(String message) {
+        this.terminal.write(message,1,1);
+    }
+    
+    private void drawMap(int startX, int startY) {
+
         for (int x = 0; x < viewportWidth; x++) {
             for (int y = 0; y < viewportHeight; y++) {
                 char c = (char) 177;
@@ -85,7 +90,7 @@ public class Interface extends JFrame {
         }
     }
     
-    private void drawCreatures() {
+    private void drawCreatures(int startX, int startY) {
         this.terminal.write("@", this.playerController.getPlayerPosition()[0] - startX, this.playerController.getPlayerPosition()[1] - startY);
 
         int[][] monsterPositions = this.monsterController.getMonsterPositions();

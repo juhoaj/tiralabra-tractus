@@ -8,6 +8,7 @@ package engine;
 
 import domain.Creature;
 import domain.World;
+import java.util.Arrays;
 import ui.Interface;
 
 /**
@@ -33,10 +34,13 @@ public class GameController
     
     public void startGame() {
         System.out.println("game started");
+        this.playerController.setGameRunning(true);
         this.world.initialize();
         this.playerController.insertPlayer();
+        this.monsterController.dumpMonsters();
         this.monsterController.createMonsters(10);
         this.ui.refresh();
+        this.ui.message("Use W,A,S&D for movement!");
         this.playerController.setPlayerTurn(true);
     }
     
@@ -44,10 +48,16 @@ public class GameController
         this.playerController.setPlayerTurn(true);        
     }
     
+    public void endGame() {
+        this.ui.message("Press 'a' for a new game.");
+        this.playerController.setGameRunning(false);
+    }
+    
     public void playerActed() {
         // this.checkEndgame();
         System.out.println("playeracted");
         this.ui.refresh();
+        this.checkEndgame();
         this.monsterTurn();
 }
     
@@ -57,8 +67,15 @@ public class GameController
         this.playerController.setPlayerTurn(true);
     }
 
-    private void checkEndgame() {
-        
+    private boolean checkEndgame() {
+        int[][]monsterpositions = this.monsterController.getMonsterPositions();
+        for ( int i = 0 ; i < monsterpositions.length ; i ++ ) {
+            if (Arrays.equals(monsterpositions[i], this.playerController.getPlayerPosition())) {
+                System.out.println("endgame");
+                this.endGame();
+            }
+        }
+        return false;
     }
     
 

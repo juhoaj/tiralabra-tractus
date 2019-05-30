@@ -9,6 +9,7 @@ import domain.Command;
 import domain.Creature;
 import domain.World;
 
+
 // muutetaan kontrolleriksi, ei suoria kutsuja Playeriin!
 
 /**
@@ -22,6 +23,7 @@ public class PlayerController {
     private Creature player;
     private World world;
     private boolean playerTurn;
+    private boolean gameRunning;
     private GameController gameController;
 
     /**
@@ -34,6 +36,7 @@ public class PlayerController {
         this.player = player;
         this.world = world;
         this.playerTurn = false;
+        this.gameRunning = true;
         this.gameController = gameController;
     }
 
@@ -45,6 +48,10 @@ public class PlayerController {
     public void setPlayerTurn(boolean playerTurn) {
         this.playerTurn = playerTurn;
     }
+    
+    public void setGameRunning(boolean gameRunning) {
+        this.gameRunning = gameRunning;
+    }
 
     /**
      * Receives calls from ui layer (ui.KeyListener to be more specific) and
@@ -54,7 +61,12 @@ public class PlayerController {
      */
     public void setAction(Command command) {
         System.out.println(command);
-        if (this.playerTurn == true) {
+        
+        if (this.gameRunning == false && command == command.WEST) {
+            this.gameController.startGame();
+        }
+        
+        if (this.playerTurn == true && this.gameRunning == true) {
             int newY = this.player.getY();
             int newX = this.player.getX();
             switch (command) {

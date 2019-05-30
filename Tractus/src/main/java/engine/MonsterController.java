@@ -53,6 +53,10 @@ public class MonsterController {
         }        
     }
     
+    public void dumpMonsters() {
+        this.monsterlist.clear();
+    }
+    
     public int[][] getMonsterPositions() {
         if ( this.monsterlist.isEmpty()) {
             return new int[0][0];

@@ -82,6 +82,7 @@ public class GameController {
         //monsterin liikkuu, liikkeen jälkeen refresh ja // this.checkEndgame();
         this.monsterController.monsterActions();
         this.ui.refresh();
+        this.checkEndgame();
         this.playerController.setPlayerTurn(true);
     }
 

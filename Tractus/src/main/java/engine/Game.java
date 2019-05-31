@@ -35,8 +35,8 @@ public class Game {
      * PlayerController, MonsterController, GameController and Interface.
      */
     public Game() {
-        this.gameareaHeight = 5;
-        this.gameareaWidth = 5;
+        this.gameareaHeight = 10;
+        this.gameareaWidth = 10;
         this.viewportHeight = 33;
         this.viewportWidth = 33;
         this.world = new World(gameareaHeight,gameareaWidth);

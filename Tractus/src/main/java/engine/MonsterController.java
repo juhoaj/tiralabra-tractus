@@ -80,7 +80,8 @@ public class MonsterController {
      * Sets new monster position if it's terrain is corridor. Sets terrain to
      * corridor if it is a wall.
      */
-    public void monsterActions() {
+    public boolean monsterActions() {
+        System.out.println("--");
         for ( Creature monster : this.monsterlist ) {
             int newPosition[] = this.routeFinder.getNextMove(monster.getPosition(), this.gameController.getPlayerPosition());
             if (this.world.getTerrain(newPosition[0], newPosition[1]) == 1) {
@@ -89,6 +90,7 @@ public class MonsterController {
                 this.world.setTerrain(newPosition[0], newPosition[1], 1);
             }
         }
+        return true;
     }
     
     /**

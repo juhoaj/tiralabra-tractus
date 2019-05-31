@@ -109,6 +109,6 @@ public class Interface extends JFrame {
      * @param message message content
      */
     public void message(String message) {
-        this.terminal.write(message, 1, 1);
+        this.terminal.write(message, 0, 0);
     }
 }

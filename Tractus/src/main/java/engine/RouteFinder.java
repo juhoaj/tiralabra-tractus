@@ -37,6 +37,7 @@ public class RouteFinder {
      * @return
      */
     public int[] getNextMove(int[] startPosition, int[] endPosition) {
+        System.out.println("getNextMove alko");
         int startX = startPosition[0];
         int startY = startPosition[1];
         int endX = endPosition[0];
@@ -54,6 +55,7 @@ public class RouteFinder {
         }
 
         ArrayList<Node> route = this.AStar(endX, endY, startX, startY);
+        System.out.println("reitti saatiin");
         System.out.println(route);
         System.out.println(route.size());
         Node secondLastNode = route.get(1);
@@ -71,49 +73,52 @@ public class RouteFinder {
         Node startNode = new Node(startX, startY, 0, startNodeHeuristic, 0);
         nodeHeap.add(startNode);
         openList[startX][startY] = startNode;
-        
-        while ( !nodeHeap.isEmpty() ) {
+
+        while (true) {
             Node currentNode = nodeHeap.poll();
             // closedList[currentNode.getX()][currentNode.getY()] = currentNode;
-            
+
             if (endX == currentNode.getX() && endY == currentNode.getY()) {
                 System.out.println("löyty");
-                ArrayList<Node> route = new ArrayList<>();
-                Node nextAddedNode = openList[endX][endY];
-                route.add(nextAddedNode);
-                while (true) {
-                    if (nextAddedNode.getX() == startX && nextAddedNode.getY() == startY) {
-                        return route;
-                    }
-                    nextAddedNode = nextAddedNode.getParent();
-                    route.add(nextAddedNode);
-                    System.out.println("reitti" + nextAddedNode.getX() + "," + nextAddedNode.getY());
-                }
-                
+                break;
+
             }
 
             ArrayList<int[]> childrenPositions = this.world.getNeighborPositions(currentNode.getPosition());
-            
-            for ( int[] childPosition : childrenPositions ) {
+
+            for (int[] childPosition : childrenPositions) {
                 int ChildX = childPosition[0];
                 int ChildY = childPosition[1];
                 /*
                 if (closedList[ChildX][ChildY] != null) {
                     break;
                 }
-                */
+                 */
                 int h = this.getHeuristic(ChildX, ChildY, endX, endY);
                 int g = currentNode.getG() + this.world.getTerrain(ChildX, ChildY);
-                Node childNode = new Node(ChildX, ChildY, g, h, g+h, currentNode);
-                if (openList[ChildX][ChildX]==null || openList[ChildX][ChildX].getG()>g) {
+                Node childNode = new Node(ChildX, ChildY, g, h, g + h, currentNode);
+                if (openList[ChildX][ChildX] == null || openList[ChildX][ChildX].getG() > g) {
                     nodeHeap.add(childNode);
                     openList[ChildX][ChildY] = childNode;
                 }
             }
-            
+
         }
-        
-        return null;
+
+        ArrayList<Node> route = new ArrayList<>();
+        Node nextAddedNode = openList[endX][endY];
+        route.add(nextAddedNode);
+        while (true) {
+            if (nextAddedNode.getX() == startX && nextAddedNode.getY() == startY) {
+                nodeHeap.clear();
+                break;
+            }
+            nextAddedNode = nextAddedNode.getParent();
+            route.add(nextAddedNode);
+            System.out.println("reitti" + nextAddedNode.getX() + "," + nextAddedNode.getY());
+        }
+
+        return route;
     }
 
     private int getHeuristic(int startX, int startY, int endX, int endY) {

@@ -14,7 +14,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import engine.PlayerAction;
+import engine.PlayerController;
 import java.awt.AWTException;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
@@ -22,14 +22,14 @@ import javax.swing.JFrame;
 public class KeyListenerTest {
 
     JFrame instance;
-    PlayerAction playerAction;
+    PlayerController playerController;
     KeyListener keyListener;
 
     @Before
     public void setUp() {
         instance = new JFrame();
-        playerAction = mock(PlayerAction.class);
-        keyListener = new KeyListener(playerAction);
+        playerController = mock(PlayerController.class);
+        keyListener = new KeyListener(playerController);
         instance.addKeyListener(keyListener);
         instance.requestFocus(); 
     }
@@ -38,28 +38,28 @@ public class KeyListenerTest {
     public void keyWWorksAndCallsSetActionWithNORTH() {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'w');
         keyListener.keyPressed(event);
-        verify(playerAction).setAction(eq(Command.NORTH));
+        verify(playerController).setAction(eq(Command.NORTH));
     }
     
     @Test
     public void keyDWorksAndCallsSetActionWithEAST() {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'd');
         keyListener.keyPressed(event);
-        verify(playerAction).setAction(eq(Command.EAST));
+        verify(playerController).setAction(eq(Command.EAST));
     }
     
     @Test
     public void keySWorksAndCallsSetActionWithSOUTH() {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  's');
         keyListener.keyPressed(event);
-        verify(playerAction).setAction(eq(Command.SOUTH));
+        verify(playerController).setAction(eq(Command.SOUTH));
     }
     
     @Test
     public void keyAWorksAndCallsSetActionWithWEST() {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'a');
         keyListener.keyPressed(event);
-        verify(playerAction).setAction(eq(Command.WEST));
+        verify(playerController).setAction(eq(Command.WEST));
     }
     
     

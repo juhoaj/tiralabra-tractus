@@ -15,3 +15,4 @@
 
 
 ## Lähteet
+* A* algoritmi [Easy A* (star) Pathfinding, Nicholas Swift](https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2)

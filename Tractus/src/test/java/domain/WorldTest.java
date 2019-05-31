@@ -17,43 +17,61 @@ import static org.junit.Assert.*;
  * @author juhojuutilainen
  */
 public class WorldTest {
-    
+
     World oneWorld;
-    
+    World nineWorld;
+
     public WorldTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
-        oneWorld = new World(1,1);
+        oneWorld = new World(1, 1);
         oneWorld.initializeEmpty();
+        nineWorld = new World(3, 3);
     }
-    
+
     @After
     public void tearDown() {
     }
 
-    
-     @Test
-     public void getTerrainWorks() {
-         assertEquals(0, oneWorld.getTerrain(0, 0));
-     }
-     
-     @Test
-     public void outOfBoundsReturnsOne() {
-         assertEquals(1, oneWorld.getTerrain(0, 1));
-         assertEquals(1, oneWorld.getTerrain(1, 0));
-         assertEquals(1, oneWorld.getTerrain(0, -1));
-         assertEquals(1, oneWorld.getTerrain(-1, 0));
-     }
-     
-     
+    @Test
+    public void getTerrainWorks() {
+        assertEquals(1, oneWorld.getTerrain(0, 0));
+    }
+
+    @Test
+    public void setTerrainWorks() {
+        oneWorld.setTerrain(0, 0, 2);
+        assertEquals(2, oneWorld.getTerrain(0, 0));
+    }
+
+    @Test
+    public void outOfBoundsReturnsTwo() {
+        assertEquals(2, oneWorld.getTerrain(0, 1));
+        assertEquals(2, oneWorld.getTerrain(1, 0));
+        assertEquals(2, oneWorld.getTerrain(0, -1));
+        assertEquals(2, oneWorld.getTerrain(-1, 0));
+    }
+
+    @Test
+    public void noNeighborsReturnedIfNoneExist() {
+        int[] position = {0, 0};
+        assertEquals(0, oneWorld.getNeighborPositions(position).size());
+    }
+
+    @Test
+    public void neighborsReturned() {
+        int[] position = {1, 1};
+        assertEquals(4, nineWorld.getNeighborPositions(position).size());
+    }
+
 }

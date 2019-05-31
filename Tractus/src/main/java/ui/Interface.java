@@ -30,21 +30,20 @@ public class Interface extends JFrame {
     private World world;
 
     /**
-     * Constructor that receives parameters and objects used in rendering
-     * PlayerAction for calling it from ui.KeyListener.
-     * @param world World object
-     * @param playerAction PlayerAction object
-     * @param player Creature object
+     * Constructor that receives parameters and objects used for output
+     * and receiving player actions.
+     *
+     * @param world contains and controls the map
+     * @param playerController receives imput from ui and controls player-object
+     * @param monsterController controls monsters
      * @param viewportWidth width of viewport (characters)
      * @param viewportHeight height of viewport (characters)
      */
     public Interface(World world, PlayerController playerController, MonsterController monsterController, int viewportWidth, int viewportHeight) {
-
         if (viewportWidth <= 3 || viewportHeight <= 3 || viewportWidth > 52 || viewportHeight > 52) {
             System.out.println("viewport size incompatible with ui");
             return;
         }
-
         this.viewportWidth = viewportWidth;
         this.viewportHeight = viewportHeight;
         this.keylistener = new KeyListener(playerController);
@@ -72,32 +71,27 @@ public class Interface extends JFrame {
         this.drawCreatures(startX, startY);
         terminal.repaint();
     }
-    
-    public void message(String message) {
-        this.terminal.write(message,1,1);
-    }
-    
-    private void drawMap(int startX, int startY) {
 
+    private void drawMap(int startX, int startY) {
         for (int x = 0; x < viewportWidth; x++) {
             for (int y = 0; y < viewportHeight; y++) {
                 char c = (char) 177;
-                if (this.world.getTerrain(x + startX, y + startY) == 0) {
+                if (this.world.getTerrain(x + startX, y + startY) == 1) {
                     c = (char) 250;
                 }
                 this.terminal.write(c, x, y);
             }
         }
     }
-    
+
     private void drawCreatures(int startX, int startY) {
         this.terminal.write("@", this.playerController.getPlayerPosition()[0] - startX, this.playerController.getPlayerPosition()[1] - startY);
 
         int[][] monsterPositions = this.monsterController.getMonsterPositions();
-        for (int i = 0 ; i < monsterPositions.length ; i ++) {
+        for (int i = 0; i < monsterPositions.length; i++) {
             int monsterX = monsterPositions[i][0] - startX;
             int monsterY = monsterPositions[i][1] - startY;
-            if ( monsterX > 0 && monsterX < viewportWidth && monsterY > 0 && monsterY < viewportHeight) {
+            if (monsterX > 0 && monsterX < viewportWidth && monsterY > 0 && monsterY < viewportHeight) {
                 this.terminal.write("*", monsterX, monsterY);
             }
         }
@@ -107,9 +101,14 @@ public class Interface extends JFrame {
      * Clears the view on AsciiPanel object.
      */
     public void clear() {
-
         terminal.clear();
-
     }
-
+    
+    /**
+     * Shows a short message to player.
+     * @param message message content
+     */
+    public void message(String message) {
+        this.terminal.write(message, 1, 1);
+    }
 }

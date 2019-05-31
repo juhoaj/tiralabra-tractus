@@ -26,7 +26,7 @@ public class Creature {
     
     /**
      * Creature constructor with starting coordinates of the creature.
-     *
+     * 
      * @param startX X-coordinate where the creature is placed when created
      * @param startY Y-coordinate where the creature is placed when created
      */
@@ -38,7 +38,7 @@ public class Creature {
 
     /**
      * Get creature's x-coordinate
-     *
+     * 
      * @return x-coordinate of the creature
      */
     public int getX() {
@@ -47,7 +47,7 @@ public class Creature {
 
     /**
      * Get creature's y-coordinate
-     *
+     * 
      * @return y-coordinate of the creature
      */
     public int getY() {
@@ -55,8 +55,8 @@ public class Creature {
     }
 
     /**
-     * Used for setting the creatures new x-coordinate
-     *
+     * Set creatures new x-coordinate
+     * 
      * @param newX new x-coordinate
      */
     public void setX(int newX) {
@@ -64,13 +64,38 @@ public class Creature {
     }
 
     /**
-     * Used for setting the creatures new y-coordinate
-     *
+     * Set creatures new y-coordinate
+     * 
      * @param newY new y-coordinate
      */
     public void setY(int newY) {
 
         this.y = newY;
+    }
+    
+    /**
+     * Sets creature's position with array 
+     * 
+     * @param newPosition = {x-coordinate,y-coordinate}
+     */
+    public void setPosition (int[] newPosition) {
+        if (newPosition.length > 2) {
+            return;
+        }
+        this.x = newPosition[0];
+        this.y = newPosition[1];
+    }
+    
+    /**
+     * Get creature's position in array 
+     * 
+     * @return {x-coordinate,y-coordinate}
+     */
+    public int[] getPosition() {
+        int[] position = new int[2];
+        position[0]=this.x;
+        position[1]=this.y;
+        return position;
     }
 
 }

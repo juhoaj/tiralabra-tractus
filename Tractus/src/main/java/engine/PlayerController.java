@@ -10,10 +10,9 @@ import domain.Creature;
 import domain.World;
 
 
-// muutetaan kontrolleriksi, ei suoria kutsuja Playeriin!
-
 /**
  * <h1>PlayerAction</h1>
+ * Responsible for receiving player's commands and determing outcome.
  * Receives method calls from ui layer (ui.KeyListener to be more specific).
  * Determines the consequence of player input, mainly if the player can move to
  * a given direction.
@@ -29,8 +28,9 @@ public class PlayerController {
     /**
      * Constructor for PlayerAction.
      *
-     * @param player Player-object that is being controlled.
-     * @param world World-object where player moves.
+     * @param player object that is being controlled by the player
+     * @param world contains and controls the map
+     * @param gameController controls the game
      */
     public PlayerController(Creature player, World world, GameController gameController) {
         this.player = player;
@@ -48,7 +48,11 @@ public class PlayerController {
     public void setPlayerTurn(boolean playerTurn) {
         this.playerTurn = playerTurn;
     }
-    
+
+    /**
+     *
+     * @param gameRunning
+     */
     public void setGameRunning(boolean gameRunning) {
         this.gameRunning = gameRunning;
     }
@@ -61,11 +65,11 @@ public class PlayerController {
      */
     public void setAction(Command command) {
         System.out.println(command);
-        
+
         if (this.gameRunning == false && command == command.WEST) {
             this.gameController.startGame();
         }
-        
+
         if (this.playerTurn == true && this.gameRunning == true) {
             int newY = this.player.getY();
             int newX = this.player.getX();
@@ -74,62 +78,72 @@ public class PlayerController {
                 case NORTH:
                     System.out.println("N");
                     newY--;
-                    if (this.world.getTerrain(this.player.getX(), newY) == 0) {
+                    if (this.world.getTerrain(this.player.getX(), newY) == 1) {
                         this.moveTo(newX, newY);
                     }
                     break;
                 case EAST:
                     System.out.println("E");
                     newX++;
-                    if (this.world.getTerrain(newX, this.player.getY()) == 0) {
+                    if (this.world.getTerrain(newX, this.player.getY()) == 1) {
                         this.moveTo(newX, newY);
                     }
                     break;
                 case SOUTH:
                     System.out.println("S");
                     newY++;
-                    if (this.world.getTerrain(this.player.getX(), newY) == 0) {
+                    if (this.world.getTerrain(this.player.getX(), newY) == 1) {
                         this.moveTo(newX, newY);
                     }
                     break;
                 case WEST:
                     System.out.println("W");
                     newX--;
-                    if (this.world.getTerrain(newX, this.player.getY()) == 0) {
+                    if (this.world.getTerrain(newX, this.player.getY()) == 1) {
                         this.moveTo(newX, newY);
                     }
                     break;
             }
+            
         }
     }
-    
+
+    /**
+     *
+     * @param newX
+     * @param newY
+     */
     public void moveTo(int newX, int newY) {
         System.out.println("vastaanotettu movessa");
         this.player.setX(newX);
         this.player.setY(newY);
+        System.out.println("player x,y:" + newX + "," + newY);
         this.playerTurn = false;
         this.gameController.playerActed();
     }
-    
+
+    /**
+     *
+     * @return {x-coordinate,y-coordinate}
+     */
     public int[] getPlayerPosition() {
-        int[] position = new int[2];
-        position[0]=this.player.getX();
-        position[1]=this.player.getY();
-        return position;
+        return this.player.getPosition();
     }
-    
+
+    /**
+     *
+     */
     public void insertPlayer() {
         int startPositionX = this.world.getWidth() / 2;
         int startPositionY = this.world.getHeight() / 2;
-        System.out.println( startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
+        System.out.println(startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
         while (true) {
-            if (this.world.getTerrain(startPositionX, startPositionY) == 0) {
+            if (this.world.getTerrain(startPositionX, startPositionY) == 1) {
                 this.moveTo(startPositionX, startPositionY);
                 break;
             } else {
                 startPositionX--;
             }
-        }        
+        }
     }
 }
-

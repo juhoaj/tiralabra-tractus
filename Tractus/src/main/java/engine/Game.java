@@ -15,8 +15,7 @@ import java.util.ArrayList;
  * Responsible for setting up, running and ending game.
  */
 public class Game {
-    
-    
+
     private int gameareaWidth;
     private int gameareaHeight;
     private int viewportWidth;
@@ -29,11 +28,15 @@ public class Game {
     private MonsterController monsterController;
     
     private Interface ui;
-    
 
+    /**
+     * Game's constructor that parametrizes the game and set's it up. 
+     * Most importantly creates monsterList & instances of World, Player, 
+     * PlayerController, MonsterController, GameController and Interface.
+     */
     public Game() {
-        this.gameareaHeight = 100;
-        this.gameareaWidth = 100;
+        this.gameareaHeight = 5;
+        this.gameareaWidth = 5;
         this.viewportHeight = 33;
         this.viewportWidth = 33;
         this.world = new World(gameareaHeight,gameareaWidth);

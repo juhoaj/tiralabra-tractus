@@ -7,7 +7,8 @@ package engine;
 
 import domain.Creature;
 import domain.World;
-import domain.Node;
+import helpers.Node;
+import helpers.Distance;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
@@ -24,10 +25,11 @@ public class RouteFinder {
     GameController gameController;
     boolean debugging;
     ArrayList<Creature> monsterList;
+    Distance distance;
 
     /**
      * Constructor which injects also gameController which is required by 
-     * debugging (drawing algorithm's routefinding).
+     * debugging (drawing algorithm's routefinding). Initializes Distance.
      * 
      * @param world contains and controls the map
      * @param monsterList list of all monsters
@@ -39,6 +41,7 @@ public class RouteFinder {
         this.gameController = gameController;
         this.debugging = debugging;
         this.monsterList = monsterList;
+        this.distance = new Distance();
     }
     
     /**
@@ -50,6 +53,7 @@ public class RouteFinder {
     public RouteFinder(World world, ArrayList<Creature> monsterList) {
         this.world = world;
         this.monsterList = monsterList;
+        this.distance = new Distance();
     }
 
     /**
@@ -92,7 +96,7 @@ public class RouteFinder {
         PriorityQueue<Node> nodeHeap = new PriorityQueue<>();
 
         // create first node 
-        int startNodeHeuristic = this.getHeuristic(startX, startY, endX, endY);
+        int startNodeHeuristic = this.distance.getDistance(startX, startY, endX, endY);
         Node startNode = new Node(startX, startY, 0, startNodeHeuristic, 0);
         nodeHeap.add(startNode);
         openList[startX][startY] = startNode;
@@ -113,7 +117,7 @@ public class RouteFinder {
             for (int[] childPosition : childrenPositions) {
                 int ChildX = childPosition[0];
                 int ChildY = childPosition[1];
-                int h = this.getHeuristic(ChildX, ChildY, endX, endY);
+                int h =this.distance.getDistance(ChildX, ChildY, endX, endY);
                 int g = currentNode.getG() + this.world.getTerrain(ChildX, ChildY);
                 if (openList[ChildX][ChildY] == null || openList[ChildX][ChildY].getG() > g) {
                     Node childNode = new Node(ChildX, ChildY, g, h, g + h, currentNode);
@@ -154,11 +158,6 @@ public class RouteFinder {
         return route;
     }
 
-    private int getHeuristic(int startX, int startY, int endX, int endY) {
-        int width = Math.max(startX, endX) - Math.min(startX, endX);
-        int height = Math.max(startY, endY) - Math.min(startY, endY);
-        return (int) Math.sqrt((width * width) + (height * height));
-    }
 
     private void setSearchArea(int increment) {
         int smallerX = Math.min(startPosition[0], endPosition[0]);

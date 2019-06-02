@@ -1,5 +1,5 @@
-* Palautus 4: **Perjantaina 31.5. klo 23:59**
-    * Ohjelma: Ohjelman ydintoiminta valmis. Omia tietorakenteita aloitettu.
+
+   * Ohjelma: Ohjelman ydintoiminta valmis. Omia tietorakenteita aloitettu.
     * Toiset vertaisarvioinnit jaetaan viikon palautuksen jälkeen. Katso [labtoolista](https://studies.cs.helsinki.fi/labtool/) linkki katselmoitavaan repoon. **Vertaisarvionnin deadline on sama kuin DL 6.**
    * [Dokumentaatio](/sivut/dokumentaatio.md): Koodi kommentoitua. Aloitettu kirjoittamaan toteutus- ja testausdokumentaatiota.
    * Viikkoraportti numero 5

@@ -8,6 +8,7 @@ package engine;
 import domain.Command;
 import domain.Creature;
 import domain.World;
+import helpers.Distance;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,6 +24,7 @@ public class MonsterController {
     private GameController gameController;
     private RouteFinder routeFinder;
     private Random random = new Random();
+    private Distance distance;
 
     /**
      * Constructor which also creates a instance of RouteFinder that is used
@@ -41,6 +43,7 @@ public class MonsterController {
             this.routeFinder = new RouteFinder(this.world, this.monsterlist, this.gameController, false);
         }
         this.routeFinder = new RouteFinder(this.world, this.monsterlist);
+        this.distance = new Distance();
     }
 
     /**
@@ -60,13 +63,18 @@ public class MonsterController {
      * @param amount of monsters
      */
     public void createMonsters(int amount) {
+        int playerX = this.gameController.getPlayerPosition()[0];
+        int playerY = this.gameController.getPlayerPosition()[1];
 
         for (int i = 0 ; i < amount ; i++) {
             Creature creature = new Creature();
             while (true) {
-                int startPositionX = this.random.nextInt(this.world.getWidth() / 2);
-                int startPositionY = this.random.nextInt(this.world.getHeight() / 2);
-                if ( this.world.getTerrain(startPositionX, startPositionY) == 1 ) {
+                int startPositionX = this.random.nextInt(this.world.getWidth() );
+                int startPositionY = this.random.nextInt(this.world.getHeight() );
+                if ( this.world.getTerrain(startPositionX, startPositionY) == 1 &&
+                     distance.getDistance(playerX, playerY, startPositionX, startPositionY) > this.world.getWidth() * 0.3 &&
+                     distance.getDistance(playerX, playerY, startPositionX, startPositionY) > this.world.getHeight()* 0.3
+                        ) {
                     this.moveTo(startPositionX, startPositionY, creature);
                     this.monsterlist.add(creature);
                     break;

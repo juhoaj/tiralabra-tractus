@@ -41,7 +41,8 @@ public class PlayerController {
     }
 
     /**
-     * Used to determine if player input is processed or not.
+     * Used to determine if player input is resolved or not.
+     * Set to false during monster turn.
      *
      * @param playerTurn set true to process user input
      */
@@ -50,8 +51,11 @@ public class PlayerController {
     }
 
     /**
-     *
-     * @param gameRunning
+     * Tell's PlayerController that the game is running and player input
+     * should be resolved. Set to true in the beginning of the game and
+     * false in the end of the game.
+     * 
+     * @param gameRunning Set true if game is on!
      */
     public void setGameRunning(boolean gameRunning) {
         this.gameRunning = gameRunning;
@@ -65,10 +69,14 @@ public class PlayerController {
      */
     public void setAction(Command command) {
         System.out.println(command);
+        
+        // resolved when the game is not running
 
         if (this.gameRunning == false && command == command.WEST) {
             this.gameController.startGame();
         }
+        
+        // resolved when the game is running
 
         if (this.playerTurn == true && this.gameRunning == true) {
             int newY = this.player.getY();
@@ -109,21 +117,21 @@ public class PlayerController {
     }
 
     /**
-     *
-     * @param newX
-     * @param newY
+     * Moves the player on the map.
+     * 
+     * @param newX X-coordinate where the player is moved to
+     * @param newY Y-coordinate where the player is moved to
      */
     public void moveTo(int newX, int newY) {
-        System.out.println("vastaanotettu movessa");
         this.player.setX(newX);
         this.player.setY(newY);
-        System.out.println("player x,y:" + newX + "," + newY);
         this.playerTurn = false;
         this.gameController.playerActed();
     }
 
     /**
-     *
+     * Get player's position
+     * 
      * @return {x-coordinate,y-coordinate}
      */
     public int[] getPlayerPosition() {
@@ -131,7 +139,8 @@ public class PlayerController {
     }
 
     /**
-     *
+     * Inserts player on the center of the map.
+     * Used in the beginning of the game.
      */
     public void insertPlayer() {
         int startPositionX = this.world.getWidth() / 2;

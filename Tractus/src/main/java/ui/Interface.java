@@ -97,6 +97,14 @@ public class Interface extends JFrame {
         }
     }
     
+    /**
+     * Draw's a single character on AsciiPanel
+     * 
+     * @param character character to be drawn
+     * @param x x-coordinate of the character
+     * @param y y-coordinate of the character
+     */
+    
     public void drawCharacter(char character, int x, int y) {
         int originX =  this.viewportWidth / 2 - this.playerController.getPlayerPosition()[0];
         int originY =  this.viewportHeight / 2 - this.playerController.getPlayerPosition()[1];

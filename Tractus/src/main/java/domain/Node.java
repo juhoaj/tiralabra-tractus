@@ -6,7 +6,9 @@
 package domain;
 
 /**
- *
+ * <h1>Node</h1>
+ * Nodes can be used by route finding algorithms.
+ * 
  * @author juhojuutilainen
  */
 public class Node implements Comparable<Node>{
@@ -18,13 +20,14 @@ public class Node implements Comparable<Node>{
     private Node parent;
 
     /**
-     *
+     * Constructor for normal node.
+     * 
      * @param x x-coordinate
      * @param y y-coordinate
      * @param g distance between the current node and the start node
      * @param h heuristic — estimated distance from the current node to the end
      * @param f total cost of the node
-     * @param parent parent Node (node where the algorithm is coming from
+     * @param parent parent Node (node where the algorithm is coming from)
      */
     public Node(int x, int y, int g, int h, int f, Node parent) {
         this.x = x;
@@ -36,7 +39,8 @@ public class Node implements Comparable<Node>{
     }
 
     /**
-     *
+     * Constructor for root node that has no parent.
+     * 
      * @param x x-coordinate
      * @param y y-coordinate
      * @param g distance between the current node and the start node
@@ -52,14 +56,29 @@ public class Node implements Comparable<Node>{
         this.parent = null;
     }
     
+    /**
+     * Return node's x-coordinate.
+     *
+     * @return node's x-coordinate
+     */
     public int getX() {
         return this.x;
     }
     
+    /**
+     * Return node's y-coordinate.
+     * 
+     * @return node's y-coordinate
+     */
     public int getY() {
         return this.y;
     }
     
+    /**
+     * Return node's position.
+     * 
+     * @return {x-coordinate,y-coordinate}
+     */
     public int[] getPosition() {
         int[] position = new int[2];
         position[0] = this.x;
@@ -68,14 +87,29 @@ public class Node implements Comparable<Node>{
         
     }
     
+    /**
+     * Get distance from start node. 
+     * 
+     * @return distance between the current node and the start node
+     */
     public int getG() {
         return this.g;
     }
     
+    /**
+     * Get total cost (distance from start node and heuristic to end node)
+     * 
+     * @return total cost of the node
+     */
     public int getF() {
         return this.f;
     }
     
+    /**
+     * Get parent node.
+     * 
+     * @return parent node.
+     */
     public Node getParent() {
         return this.parent;
     }

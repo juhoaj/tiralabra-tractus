@@ -1,26 +1,6 @@
-* Palautus 3: **Perjantaina 24.5. klo 23:59**
-    * Viikkoraportti numero 3
-    * Ohjelma: Ohjelman ydinalue edennyt, aloitettu mahdollisesti jo omien tietorakenteiden toteutus.
-    * Testaus: Koodin *kattava* yksikkötestaus.
-
-# Viikko 4:
-
-* Ensimmäiset vertaisarvioinnit jaetaan viikon palautuksen jälkeen. Katso [labtoolista](https://studies.cs.helsinki.fi/labtool/) linkki katselmoitavaan repoon. **Vertaisarvionnin deadline on sama kuin viikon 5 deadline.**
-* Ohjeet vertaisarviointiin [täällä](/sivut/vertaisarvioinnit.md)
-* Salli issuet vertaisarviointia varten, katso [Issueiden luonnin salliminen repoon](/sivut/issuet.md)
-
 * Palautus 4: **Perjantaina 31.5. klo 23:59**
-    * [Dokumentaatio](/sivut/dokumentaatio.md): Koodi kommentoitua. Aloitettu kirjoittamaan toteutus- ja testausdokumentaatiota.
-    * Viikkoraportti numero 4
     * Ohjelma: Ohjelman ydintoiminta valmis. Omia tietorakenteita aloitettu.
-    * Testaus: Koodin *kattava* yksikkötestaus. Aloitettu suorituskyky- tai muu aiheeseen sopiva testaus (kirjoita näistä testausdokumenttiin).
-
-# Viikko 5:
-
-* Toiset vertaisarvioinnit jaetaan viikon palautuksen jälkeen. Katso [labtoolista](https://studies.cs.helsinki.fi/labtool/) linkki katselmoitavaan repoon. **Vertaisarvionnin deadline on sama kuin DL 6.**
-
-* Palautus 5: **Perjantaina 7.6. klo 23:59**
-   * Ensimmäinen vertaisarviointi tehtynä (Löydät linkin katselmoitavaan repoon [labtoolista](https://studies.cs.helsinki.fi/labtool/))
+    * Toiset vertaisarvioinnit jaetaan viikon palautuksen jälkeen. Katso [labtoolista](https://studies.cs.helsinki.fi/labtool/) linkki katselmoitavaan repoon. **Vertaisarvionnin deadline on sama kuin DL 6.**
    * [Dokumentaatio](/sivut/dokumentaatio.md): Koodi kommentoitua. Aloitettu kirjoittamaan toteutus- ja testausdokumentaatiota.
    * Viikkoraportti numero 5
    * Ohjelma: Ohjelman ydintoiminta valmis. Omia tietorakenteita aloitettu.

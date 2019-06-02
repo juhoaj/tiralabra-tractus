@@ -5,14 +5,16 @@
  */
 package engine;
 
+import domain.Creature;
 import domain.World;
 import domain.Node;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 /**
- *
- * @author juhojuutilainen
+ * Routefinder that utilizes A* algorithm for fast route resolving.
+ * A* algorithm processes the route as Node's which are generated based on
+ * information received from World.
  */
 public class RouteFinder {
 
@@ -20,127 +22,133 @@ public class RouteFinder {
     int[] endPosition;
     World world;
     GameController gameController;
+    boolean debugging;
+    ArrayList<Creature> monsterList;
 
     /**
-     *
-     * @param world
+     * Constructor which injects also gameController which is required by 
+     * debugging (drawing algorithm's routefinding).
+     * 
+     * @param world contains and controls the map
+     * @param monsterList list of all monsters
+     * @param gameController controls the game
+     * @param debugging set true to draw algorithm's routefinding
      */
-    public RouteFinder(World world, GameController gameController) {
+    public RouteFinder(World world, ArrayList<Creature> monsterList, GameController gameController, boolean debugging) {
         this.world = world;
         this.gameController = gameController;
+        this.debugging = debugging;
+        this.monsterList = monsterList;
+    }
+    
+    /**
+     * Constructor which does not allow for debugging.
+     * 
+     * @param world contains and controls the map
+     * @param monsterList list of all monsters
+     */
+    public RouteFinder(World world, ArrayList<Creature> monsterList) {
+        this.world = world;
+        this.monsterList = monsterList;
     }
 
     /**
-     * Called to determine next step on route between two positions. Returns
-     * null if either position is outside the map.
+     * Called to determine next step on route between two positions. 
+     * Determines the step by getting the route from player to monster from
+     * the actual algorithm. After this it returns the position of the second 
+     * last node (next step on monster's route). Returns null if either 
+     * position is outside the map.
      *
-     * @param startPosition
-     * @param endPosition
-     * @return
+     * @param startPosition Start position {x-coordinate,y-coordinate}
+     * @param endPosition End position {x-coordinate,y-coordinate}
+     * @return {x-coordinate,y-coordinate} or null if out of bounds
      */
     public int[] getNextMove(int[] startPosition, int[] endPosition) {
-        System.out.println("getNextMove alko");
         int startX = startPosition[0];
         int startY = startPosition[1];
         int endX = endPosition[0];
         int endY = endPosition[1];
 
-        if (startX < 0
-                || startY < 0
-                || endX < 0
-                || endY < 0
-                || startX >= this.world.getWidth()
-                || startY >= this.world.getHeight()
-                || endX >= this.world.getWidth()
-                || endY >= this.world.getHeight()) {
+        if (startX < 0 || 
+            startY < 0 || 
+            endX < 0 || 
+            endY < 0 || 
+            startX >= this.world.getWidth() || 
+            startY >= this.world.getHeight() || 
+            endX >= this.world.getWidth() || 
+            endY >= this.world.getHeight()
+        ) {
             return null;
         }
 
         ArrayList<Node> route = this.AStar(endX, endY, startX, startY);
-        System.out.println("reitti saatiin");
-        System.out.println(route);
-        System.out.println(route.size());
         Node secondLastNode = route.get(1);
-        System.out.println("monsteri x,y" + secondLastNode.getX() + "," + secondLastNode.getY());
         return secondLastNode.getPosition();
 
     }
     
-    
-
-    
-    
-    
-    
-    
-    
-
     private ArrayList<Node> AStar(int startX, int startY, int endX, int endY) {
         Node[][] openList = new Node[this.world.getWidth()][this.world.getHeight()];
-        // Node[][] closedList = new Node[this.world.getWidth()][this.world.getHeight()];
         PriorityQueue<Node> nodeHeap = new PriorityQueue<>();
 
+        // create first node 
         int startNodeHeuristic = this.getHeuristic(startX, startY, endX, endY);
         Node startNode = new Node(startX, startY, 0, startNodeHeuristic, 0);
         nodeHeap.add(startNode);
         openList[startX][startY] = startNode;
-
-        while (!nodeHeap.isEmpty()) {
-            Node currentNode = nodeHeap.poll();
+        
+        // potential nodes on route are inserted in nodeHeap and most promising
+        // node is retrieved until heap is empty or end node 
+        while (!nodeHeap.isEmpty() ) {
             
-            // closedList[currentNode.getX()][currentNode.getY()] = currentNode;
-
-            if (endX == currentNode.getX() && endY == currentNode.getY()) {
-                System.out.println("löyty");
+            // check if target found
+            Node currentNode = nodeHeap.poll();
+            if (currentNode.getX() == endX && currentNode.getY() == endY) {
                 break;
-
             }
-
-
+            
+            // Check adjacent Nodes from World and create new Nodes if nessecary
             ArrayList<int[]> childrenPositions = this.world.getNeighborPositions(currentNode.getPosition());
 
             for (int[] childPosition : childrenPositions) {
                 int ChildX = childPosition[0];
                 int ChildY = childPosition[1];
-                /*
-                if (closedList[ChildX][ChildY] != null) {
-                    break;
-                }
-                 */
                 int h = this.getHeuristic(ChildX, ChildY, endX, endY);
                 int g = currentNode.getG() + this.world.getTerrain(ChildX, ChildY);
-                Node childNode = new Node(ChildX, ChildY, g, h, g + h, currentNode);
-                if (ChildX==endX && ChildY == endY) {
-                    System.out.println("jepu");
-                }
                 if (openList[ChildX][ChildY] == null || openList[ChildX][ChildY].getG() > g) {
+                    Node childNode = new Node(ChildX, ChildY, g, h, g + h, currentNode);
                     nodeHeap.add(childNode);
                     openList[ChildX][ChildY] = childNode;
-                    this.gameController.drawCharacter('/', ChildX, ChildY);
+                    if (debugging == true) {
+                        this.gameController.drawCharacter('/', ChildX, ChildY);
+                    }
                 }
             }
             
-            this.gameController.drawCharacter('X', currentNode.getX(), currentNode.getY());
-            
-            if (nodeHeap.isEmpty()) {
-                System.out.println("tyhyjä");
+            if (debugging == true) {
+                this.gameController.drawCharacter('X', currentNode.getX(), currentNode.getY());
             }
-
         }
 
+        // traverse route and create ArrayList of the route 
+        // (nodes along the route)
+        
         ArrayList<Node> route = new ArrayList<>();
+ 
+        // get the node on end x&y
         Node nextAddedNode = openList[endX][endY];
         route.add(nextAddedNode);
         while (true) {
+            //end if node if start node
             if (nextAddedNode.getX() == startX && nextAddedNode.getY() == startY) {
-                nodeHeap.clear();
-                
                 break;
             }
+            // add parent Node
             nextAddedNode = nextAddedNode.getParent();
-            this.gameController.drawCharacter('R', nextAddedNode.getX(), nextAddedNode.getY());
+            if (debugging == true) {
+                this.gameController.drawCharacter('R', nextAddedNode.getX(), nextAddedNode.getY());
+            }
             route.add(nextAddedNode);
-            System.out.println("reitti" + nextAddedNode.getX() + "," + nextAddedNode.getY());
         }
 
         return route;
@@ -150,7 +158,6 @@ public class RouteFinder {
         int width = Math.max(startX, endX) - Math.min(startX, endX);
         int height = Math.max(startY, endY) - Math.min(startY, endY);
         return (int) Math.sqrt((width * width) + (height * height));
-
     }
 
     private void setSearchArea(int increment) {

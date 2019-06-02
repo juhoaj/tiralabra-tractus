@@ -103,6 +103,13 @@ public class World {
         return this.map[x][y];
     }
     
+    /**
+     * Return's positions of given coordinates neighbors. Does not return
+     * out of bounds positions.
+     * 
+     * @param position {x-coordinate,y-coordinate}
+     * @return position {x-coordinate,y-coordinate}
+     */
     public ArrayList<int[]> getNeighborPositions(int[] position) {
         ArrayList<int[]> neighborPositions = new ArrayList<>();
         int parentX = position[0];

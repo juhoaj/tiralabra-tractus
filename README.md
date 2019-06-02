@@ -19,3 +19,13 @@ Viikkoraportit:
 * [Viikkoraportti, viikko 2](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_2.md)
 
 * [Viikkoraportti, viikko 3](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_3.md)
+
+
+Todo:
+* Kartan yhtenäistäminen ja nätitys
+* Monsterien reitinhakuun monstereiden tunnistus
+* Monstereiden luontiin tarkistus etäisyydestä pelaajaan
+* ? Debuggaustila
+* ? FOV
+* Tietorakenteet
+* Dokumenointi

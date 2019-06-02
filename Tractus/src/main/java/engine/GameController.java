@@ -27,7 +27,8 @@ public class GameController {
 
          
     /**
-     *
+     * Used to recieve dependencies. 
+     * 
      * @param world contains and controls the map
      * @param ui game's user interface, responsible for output and input
      * @param playerController receives imput from ui and controls player-object
@@ -42,9 +43,14 @@ public class GameController {
     }
 
     /**
-     *
+     * Start's a new game. Draw's new map, put's player on map and creates
+     * monsters.
      */
     public void startGame() {
+        if (this.playerController == null) {
+            System.out.println("game not initialized with addDependencies");
+            return;
+        }
         System.out.println("game started");
         this.playerController.setGameRunning(true);
         this.world.initialize();
@@ -53,7 +59,7 @@ public class GameController {
         this.playerController.insertPlayer();
         System.out.println("player inserted");
         this.monsterController.dumpMonsters();
-        this.monsterController.createMonsters(1);
+        this.monsterController.createMonsters(20);
         System.out.println("monsters created");
         this.ui.refresh();
         this.ui.message("Use W,A,S&D for movement!");
@@ -61,7 +67,7 @@ public class GameController {
     }
 
     /**
-     *
+     * Responsible for game over.
      */
     public void endGame() {
         this.ui.message("Press 'a' for a new game.");
@@ -69,28 +75,33 @@ public class GameController {
     }
 
     /**
-     *
+     * Called by PlayerController after valid keyboard input.
+     * Give's turn to monsters.
      */
     public void playerActed() {
-        System.out.println("playeracted");
-        // this.ui.refresh();
+        this.ui.refresh();
         this.checkEndgame();
         this.monsterTurn();
     }
 
+    /**
+     * Resonsible for monster's turn. Give's turn back to player after
+     * monsters actions.
+     */
     private void monsterTurn() {
-        this.ui.refresh();
         this.monsterController.monsterActions();
-        // this.ui.refresh();
+        this.ui.refresh();
         this.checkEndgame();
         this.playerController.setPlayerTurn(true);
     }
 
+     /**
+     * Calls endGame() if game is over.
+     */
     private boolean checkEndgame() {
         int[][] monsterpositions = this.monsterController.getMonsterPositions();
         for (int i = 0; i < monsterpositions.length; i++) {
             if (Arrays.equals(monsterpositions[i], this.playerController.getPlayerPosition())) {
-                System.out.println("endgame");
                 this.endGame();
             }
         }
@@ -98,7 +109,7 @@ public class GameController {
     }
 
     /**
-     * Get player's position in array 
+     * Get player's position in array.
      * 
      * @return {x-coordinate,y-coordinate}
      */
@@ -106,6 +117,14 @@ public class GameController {
         return this.playerController.getPlayerPosition();
     }
     
+    /**
+     * Asks Interface to draw a character on output.
+     * Useful for debugging.
+     * 
+     * @param character character to be drawn
+     * @param x x-coordinate of the character
+     * @param y y-coordinate of the character
+     */
     public void drawCharacter(char character, int x, int y) {
         this.ui.drawCharacter(character,x,y);
     }

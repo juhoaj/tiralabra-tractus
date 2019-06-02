@@ -81,7 +81,7 @@ public class GameController {
     private void monsterTurn() {
         //monsterin liikkuu, liikkeen jälkeen refresh ja // this.checkEndgame();
         this.monsterController.monsterActions();
-        this.ui.refresh();
+        // this.ui.refresh();
         this.checkEndgame();
         this.playerController.setPlayerTurn(true);
     }
@@ -104,6 +104,10 @@ public class GameController {
      */
     public int[] getPlayerPosition() {
         return this.playerController.getPlayerPosition();
+    }
+    
+    public void drawCharacter(char character, int x, int y) {
+        this.ui.drawCharacter(character,x,y);
     }
 
 }

@@ -19,13 +19,15 @@ public class RouteFinder {
     int[] startPosition;
     int[] endPosition;
     World world;
+    GameController gameController;
 
     /**
      *
      * @param world
      */
-    public RouteFinder(World world) {
+    public RouteFinder(World world, GameController gameController) {
         this.world = world;
+        this.gameController = gameController;
     }
 
     /**
@@ -76,6 +78,7 @@ public class RouteFinder {
 
         while (true) {
             Node currentNode = nodeHeap.poll();
+            this.gameController.drawCharacter('/', currentNode.getX(), currentNode.getY());
             // closedList[currentNode.getX()][currentNode.getY()] = currentNode;
 
             if (endX == currentNode.getX() && endY == currentNode.getY()) {
@@ -83,6 +86,7 @@ public class RouteFinder {
                 break;
 
             }
+
 
             ArrayList<int[]> childrenPositions = this.world.getNeighborPositions(currentNode.getPosition());
 
@@ -100,7 +104,12 @@ public class RouteFinder {
                 if (openList[ChildX][ChildX] == null || openList[ChildX][ChildX].getG() > g) {
                     nodeHeap.add(childNode);
                     openList[ChildX][ChildY] = childNode;
+                    this.gameController.drawCharacter('/', ChildX, ChildY);
                 }
+            }
+            
+            if (nodeHeap.isEmpty()) {
+                System.out.println("tyhyjä");
             }
 
         }

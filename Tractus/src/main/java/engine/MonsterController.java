@@ -34,7 +34,7 @@ public class MonsterController {
         this.monsterlist = monsterlist;
         this.world = world;
         this.gameController = gameController;
-        this.routeFinder = new RouteFinder(this.world);
+        this.routeFinder = new RouteFinder(this.world, this.gameController);
     }
     
     /**

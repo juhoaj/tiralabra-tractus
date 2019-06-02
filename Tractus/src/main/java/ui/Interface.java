@@ -96,6 +96,14 @@ public class Interface extends JFrame {
             }
         }
     }
+    
+    public void drawCharacter(char character, int x, int y) {
+        int originX =  this.viewportWidth / 2 - this.playerController.getPlayerPosition()[0];
+        
+        int originY =  this.viewportHeight / 2 - this.playerController.getPlayerPosition()[1];
+        System.out.println(originX + "," + originY);
+        this.terminal.write(character,x+originX,y+originY);
+    }
 
     /**
      * Clears the view on AsciiPanel object.

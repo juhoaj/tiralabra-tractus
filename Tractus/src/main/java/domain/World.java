@@ -104,7 +104,7 @@ public class World {
     }
     
     public ArrayList<int[]> getNeighborPositions(int[] position) {
-        ArrayList<int[]> neighborPositions = new ArrayList<>(4);
+        ArrayList<int[]> neighborPositions = new ArrayList<>();
         int parentX = position[0];
         int parentY = position[1];
         

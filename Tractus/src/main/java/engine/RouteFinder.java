@@ -65,6 +65,15 @@ public class RouteFinder {
         return secondLastNode.getPosition();
 
     }
+    
+    
+
+    
+    
+    
+    
+    
+    
 
     private ArrayList<Node> AStar(int startX, int startY, int endX, int endY) {
         Node[][] openList = new Node[this.world.getWidth()][this.world.getHeight()];
@@ -76,9 +85,9 @@ public class RouteFinder {
         nodeHeap.add(startNode);
         openList[startX][startY] = startNode;
 
-        while (true) {
+        while (!nodeHeap.isEmpty()) {
             Node currentNode = nodeHeap.poll();
-            this.gameController.drawCharacter('/', currentNode.getX(), currentNode.getY());
+            
             // closedList[currentNode.getX()][currentNode.getY()] = currentNode;
 
             if (endX == currentNode.getX() && endY == currentNode.getY()) {
@@ -101,12 +110,17 @@ public class RouteFinder {
                 int h = this.getHeuristic(ChildX, ChildY, endX, endY);
                 int g = currentNode.getG() + this.world.getTerrain(ChildX, ChildY);
                 Node childNode = new Node(ChildX, ChildY, g, h, g + h, currentNode);
-                if (openList[ChildX][ChildX] == null || openList[ChildX][ChildX].getG() > g) {
+                if (ChildX==endX && ChildY == endY) {
+                    System.out.println("jepu");
+                }
+                if (openList[ChildX][ChildY] == null || openList[ChildX][ChildY].getG() > g) {
                     nodeHeap.add(childNode);
                     openList[ChildX][ChildY] = childNode;
                     this.gameController.drawCharacter('/', ChildX, ChildY);
                 }
             }
+            
+            this.gameController.drawCharacter('X', currentNode.getX(), currentNode.getY());
             
             if (nodeHeap.isEmpty()) {
                 System.out.println("tyhyjä");
@@ -120,9 +134,11 @@ public class RouteFinder {
         while (true) {
             if (nextAddedNode.getX() == startX && nextAddedNode.getY() == startY) {
                 nodeHeap.clear();
+                
                 break;
             }
             nextAddedNode = nextAddedNode.getParent();
+            this.gameController.drawCharacter('R', nextAddedNode.getX(), nextAddedNode.getY());
             route.add(nextAddedNode);
             System.out.println("reitti" + nextAddedNode.getX() + "," + nextAddedNode.getY());
         }

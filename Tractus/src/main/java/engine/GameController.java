@@ -47,8 +47,8 @@ public class GameController {
     public void startGame() {
         System.out.println("game started");
         this.playerController.setGameRunning(true);
-        // this.world.initialize();
-        this.world.initializeEmpty();
+        this.world.initialize();
+        // this.world.initializeEmpty();
         System.out.println("world initialized");
         this.playerController.insertPlayer();
         System.out.println("player inserted");
@@ -73,13 +73,13 @@ public class GameController {
      */
     public void playerActed() {
         System.out.println("playeracted");
-        this.ui.refresh();
+        // this.ui.refresh();
         this.checkEndgame();
         this.monsterTurn();
     }
 
     private void monsterTurn() {
-        //monsterin liikkuu, liikkeen jälkeen refresh ja // this.checkEndgame();
+        this.ui.refresh();
         this.monsterController.monsterActions();
         // this.ui.refresh();
         this.checkEndgame();

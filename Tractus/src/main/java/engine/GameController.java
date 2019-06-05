@@ -59,7 +59,7 @@ public class GameController {
         this.playerController.insertPlayer();
         System.out.println("player inserted");
         this.monsterController.dumpMonsters();
-        this.monsterController.createMonsters(20);
+        this.monsterController.createMonsters(0);
         System.out.println("monsters created");
         this.ui.refresh();
         this.ui.message("Use W,A,S&D for movement!");

@@ -91,7 +91,18 @@ public class RouteFinder {
 
     }
     
-    private ArrayList<Node> AStar(int startX, int startY, int endX, int endY) {
+    /**
+     * A* routefinding algorithm which returns the route as ArrayList
+     * containing positions in arrays {x-coordinate, y-coordinate}.
+     * 
+     * @param startX starting x-coordinate
+     * @param startY starting y-coordinate
+     * @param endX end x-coordinate
+     * @param endY end y-coordinate
+     * @return route as ArrayList<{x-coordinate, y-coordinate}>
+     */
+    
+    public ArrayList<Node> AStar(int startX, int startY, int endX, int endY) {
         Node[][] openList = new Node[this.world.getWidth()][this.world.getHeight()];
         PriorityQueue<Node> nodeHeap = new PriorityQueue<>();
 

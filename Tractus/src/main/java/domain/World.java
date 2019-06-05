@@ -5,7 +5,9 @@
  */
 package domain;
 
+
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * <h1>World</h1>
@@ -17,6 +19,7 @@ public class World {
     int width;
     int height;
     int[][] map;
+    Random random = new Random();
 
     /**
      * Constructor requires the size of the map.
@@ -30,6 +33,7 @@ public class World {
         this.width = width;
         this.height = height;
         this.map = new int[this.width][this.height];
+        this.random = random;
     }
 
     /**
@@ -37,7 +41,9 @@ public class World {
      */
     public void initialize() {
         this.randomize();
-        this.smooth(8);
+        this.smooth(5);
+        this.createEmptyAreas(4);
+        this.smooth(2);
     }
 
     /**
@@ -54,35 +60,50 @@ public class World {
     private void randomize() {
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
-                map[x][y] = Math.random() < 0.5 ? 1 : 2;
+                map[x][y] = Math.random() < 0.47 ? 1 : 2;
             }
         }
     }
+    
+    private void createEmptyAreas(int areas) {
+        for (int i = 0 ; i < areas ; i++) {
+            int areaWidth = this.random.nextInt(this.width / 10) + this.width / 10;
+            int areaHeight = this.random.nextInt(this.height / 10) + this.width / 10;
+            int startX = this.random.nextInt(this.width - areaWidth);
+            int startY = this.random.nextInt(this.height - areaHeight);
+            for (int x = startX; x < startX + areaWidth ; x++) {
+                for (int y = startY; y < startY + areaHeight ; y++) {
+                    map[x][y] = 1;
+                }
+            }
+        }     
+    }
+    
+    
 
     private void smooth(int times) {
-        int[][] map2 = new int[width][height];
-        for (int time = 0; time < times; time++) {
+        int[][] map2 = new int[this.width][this.height];
+        for (int i = 0; i < times; i++) {
 
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
+            for (int x = 1; x < this.width -1; x++) {
+                for (int y = 1; y < this.height -1; y++) {
                     int floors = 0;
-                    int rocks = 0;
+                    int walls = 0;
 
-                    for (int ox = -1; ox < 2; ox++) {
-                        for (int oy = -1; oy < 2; oy++) {
-                            if (x + ox < 0 || x + ox >= width || y + oy < 0
-                                    || y + oy >= height) {
-                                continue;
-                            }
-
-                            if (map[x + ox][y + oy] == 1) {
+                    for (int relativeX = -1; relativeX < 2; relativeX++) {
+                        for (int relativeY = -1; relativeY < 2; relativeY++) {
+                            if (map[x + relativeX][y + relativeY] == 1) {
                                 floors++;
                             } else {
-                                rocks++;
+                                walls++;
                             }
                         }
                     }
-                    map2[x][y] = floors >= rocks ? 1 : 2;
+                    
+                    map2[x][y] = 1;
+                    if (floors < walls) {
+                        map2[x][y] = 2;
+                    }
                 }
             }
             map = map2;

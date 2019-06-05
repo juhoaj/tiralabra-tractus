@@ -8,6 +8,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Random;
+import helpers.Distance;
 
 /**
  * <h1>World</h1>
@@ -37,9 +38,19 @@ public class World {
     }
 
     /**
-     * Creates random caves to the map.
+     * Creates a map with rooms INCOMPLETE
      */
-    public void initialize() {
+    public void initializeRooms() {
+        this.initializeFull();
+        this.createEmptyAreasAndCorridors(10);
+
+    }
+    
+    /**
+     * Creates a map with caves
+     */
+    
+    public void initializeCaves() {
         this.randomize();
         this.smooth(5);
         this.createEmptyAreas(4);
@@ -53,6 +64,14 @@ public class World {
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
                 this.map[x][y] = 1;
+            }
+        }
+    }
+    
+    private void initializeFull() {
+        for (int x = 0; x < this.width; x++) {
+            for (int y = 0; y < this.height; y++) {
+                this.map[x][y] = 2;
             }
         }
     }
@@ -79,7 +98,56 @@ public class World {
         }     
     }
     
+    private void createEmptyAreasAndCorridors(int areas) {
+        ArrayList<int[]> roomCenters = new ArrayList<>();
+        for (int i = 0 ; i < areas ; i++) {
+            int areaWidth = this.random.nextInt(this.width / 10) + this.width / 10;
+            int areaHeight = this.random.nextInt(this.height / 10) + this.width / 10;
+            int startX = this.random.nextInt(this.width - areaWidth);
+            int startY = this.random.nextInt(this.height - areaHeight);
+            int[] newRoomCenter = {startX + areaWidth / 2, startY + areaHeight / 2};
+            roomCenters.add(newRoomCenter);
+            for (int x = startX; x < startX + areaWidth ; x++) {
+                for (int y = startY; y < startY + areaHeight ; y++) {
+                    map[x][y] = 1;
+                }
+            }
+            
+        }
+        
+        this.getCorridors(roomCenters);
+ 
+    }
     
+    
+    private void getCorridors(ArrayList<int[]> roomCenters) {
+        Distance distance = new Distance();
+
+        for (int i = 0 ; i < roomCenters.size() ; i++) {
+            int shortestDistance = this.width + this.height;
+            int shortestDistanceRoom = roomCenters.size()+1;
+            for (int j = 0 ; j < roomCenters.size() ; j++) {
+                
+                int currentDistance = distance.getDistance(roomCenters.get(i)[0], roomCenters.get(i)[1], roomCenters.get(j)[0], roomCenters.get(j)[1]);
+                if (currentDistance > 0 && currentDistance < shortestDistance) {
+                    currentDistance = shortestDistance;
+                    shortestDistanceRoom = j;
+                }
+            }
+            this.drawCorridor(roomCenters.get(i)[0], roomCenters.get(i)[1], roomCenters.get(shortestDistanceRoom)[0], roomCenters.get(shortestDistanceRoom)[1]);
+        }
+    }
+    
+    private void drawCorridor(int startX, int startY, int endX, int endY) {
+        // if (endX - startX < endX -  startY) {
+            for (int i = startX ; i < endX ; i++) {
+                this.map[i][startY] = 1;
+            }
+            for (int i = startY ; i < endY ; i++) {
+                this.map[endX][i] = 1;
+            
+        }
+    }
 
     private void smooth(int times) {
         int[][] map2 = new int[this.width][this.height];
@@ -99,7 +167,6 @@ public class World {
                             }
                         }
                     }
-                    
                     map2[x][y] = 1;
                     if (floors < walls) {
                         map2[x][y] = 2;
@@ -109,6 +176,12 @@ public class World {
             map = map2;
         }
     }
+    
+    private void connectRooms(int minimumSize) {
+        int connected[][] = new int[this.width][this.height];
+        
+    }
+    
 
     /**
      * Returns the terrain of given map coordinate

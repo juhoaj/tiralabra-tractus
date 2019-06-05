@@ -53,7 +53,7 @@ public class GameController {
         }
         System.out.println("game started");
         this.playerController.setGameRunning(true);
-        this.world.initialize();
+        this.world.initializeCaves();
         // this.world.initializeEmpty();
         System.out.println("world initialized");
         this.playerController.insertPlayer();

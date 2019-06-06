@@ -9,6 +9,8 @@ package domain;
 import java.util.ArrayList;
 import java.util.Random;
 import helpers.Distance;
+import helpers.Node;
+import helpers.Cave;
 
 /**
  * <h1>World</h1>
@@ -20,7 +22,9 @@ public class World {
     int width;
     int height;
     int[][] map;
+    boolean[][] visited;
     Random random = new Random();
+    private boolean[][] connected;
 
     /**
      * Constructor requires the size of the map.
@@ -44,10 +48,16 @@ public class World {
      */
     
     public void initializeCaves() {
-        this.randomize();
-        this.smooth(5);
-        this.createEmptyAreas(4);
-        this.smooth(2);
+        while (true) {
+            this.connected = new boolean[this.width][this.height];
+            this.randomize();
+            this.smooth(5);
+            if (this.validateAndFillUnconnectedCaves() == true) {
+                break;
+            }
+            System.out.println("eip");
+            this.map = new int[this.width][this.height];
+        }
     }
 
     /**
@@ -81,6 +91,7 @@ public class World {
         this.smooth(4);
     }
     
+    
     private void initializeFull() {
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
@@ -92,7 +103,7 @@ public class World {
     private void randomize() {
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
-                map[x][y] = Math.random() < 0.47 ? 1 : 2;
+                map[x][y] = Math.random() < 0.5 ? 1 : 2;
             }
         }
     }
@@ -165,8 +176,73 @@ public class World {
         }
     }
     
-    private void connectRooms(int minimumSize) {
-        int connected[][] = new int[this.width][this.height];
+    private boolean validateAndFillUnconnectedCaves() {
+        int largestCaveSize = 0;
+        int largestCaveIndex = -1;
+        this.visited = new boolean[this.width][this.height];
+        ArrayList<Cave> caves = new ArrayList<>();
+        for (int x = 0 ; x < this.width ; x++) {
+            for (int y = 0 ; y < this.height ; y++) {
+                if (this.map[x][y] == 1 && this.visited[x][y] != true ) {
+                    Cave nextCave = this.getRoom(x,y);
+                    caves.add(nextCave);
+                    if ( nextCave.getSize() > largestCaveSize ) {
+                        largestCaveSize = nextCave.getSize();
+                        largestCaveIndex = caves.size() -1;
+                    }
+                }
+            }
+        }
+        if (largestCaveSize < this.width * this.getHeight() / 10) {
+            return false;
+        }
+        this.connected=new boolean[this.width][this.height];
+        ArrayList<Node> connectedNodes = caves.get(largestCaveIndex).getNodes();
+        for (Node node : connectedNodes ) {
+            this.connected[node.getX()][node.getY()] = true;
+        }
+        
+        /*
+        caves.remove(largestCave);
+        
+        for (int i = 0 ; caves.size() > i ; i++) {
+            ArrayList<Node> nodes = caves.get(i).getNodes();
+            for (int j = 0 ; nodes.size > i ; i++) {
+                this.connected
+            }
+            
+        }
+        
+        System.out.println("huoneita oli " + rooms.size());
+        */
+        return true;
+        
+    }
+    
+    private Cave getRoom(int startX, int startY) {
+        ArrayList<Node> nodes = new ArrayList<>();
+        nodes.add(new Node(startX, startY));
+        int i = 0;
+        while (nodes.size() > i) {
+            Node node = nodes.get(i);
+            i++;
+            int[] nodePosition = {node.getX(),node.getY()};
+            ArrayList<int[]> neighbors = this.getNeighborPositions(nodePosition);
+            for (int[] neighborPosition : neighbors) {
+                int x = neighborPosition[0];
+                int y = neighborPosition[1];
+                if (this.map[x][y] == 1 && this.visited[x][y] != true) {
+                    this.visited[x][y] = true;
+                    nodes.add(new Node(x, y));
+                }
+                
+            }
+        }
+        Cave newCave = new Cave(nodes, startX, startY );
+        return newCave;
+    }
+    
+    private void fillRoom(int startX, int startY) {
         
     }
     
@@ -270,6 +346,13 @@ public class World {
             return 2;
         }
         return this.map[x][y];
+    }
+    
+    public boolean getConnected(int x, int y) {
+        if (x < 0 || y < 0 || x >= this.width || y >= this.width) {
+            return false;
+        }
+        return this.connected[x][y];
     }
     
     /**

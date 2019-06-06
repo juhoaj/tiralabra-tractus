@@ -142,17 +142,23 @@ public class PlayerController {
      * Inserts player on the center of the map.
      * Used in the beginning of the game.
      */
-    public void insertPlayer() {
+    public boolean insertPlayer() {
         int startPositionX = this.world.getWidth() / 2;
         int startPositionY = this.world.getHeight() / 2;
         System.out.println(startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
         while (true) {
-            if (this.world.getTerrain(startPositionX, startPositionY) == 1) {
-                this.moveTo(startPositionX, startPositionY);
+            if (this.world.getTerrain(startPositionX, startPositionY) == 1 && this.world.getConnected(startPositionX, startPositionY) == true) {
+            // if (this.world.getTerrain(startPositionX, startPositionY) == 1 ) {
+               this.moveTo(startPositionX, startPositionY);
                 break;
-            } else {
+            } else if (startPositionX == 0) {
+                System.out.println("pelaaja ei asettunut connectediin, uusiks");
+                return false;
+            }
+            else {
                 startPositionX--;
             }
         }
+        return true;
     }
 }

@@ -20,7 +20,7 @@ public class Node implements Comparable<Node>{
     private Node parent;
 
     /**
-     * Constructor for normal node.
+     * Constructor for A* algorithm normal node.
      * 
      * @param x x-coordinate
      * @param y y-coordinate
@@ -39,7 +39,7 @@ public class Node implements Comparable<Node>{
     }
 
     /**
-     * Constructor for root node that has no parent.
+     * Constructor for A* algorithm root node that has no parent.
      * 
      * @param x x-coordinate
      * @param y y-coordinate
@@ -54,6 +54,15 @@ public class Node implements Comparable<Node>{
         this.h = h;
         this.f = f;
         this.parent = null;
+    }
+    /**
+     * Constructor for fill algorithm node
+     * @param x x-coordinate
+     * @param y y-coordinate
+     */
+    public Node(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
     
     /**

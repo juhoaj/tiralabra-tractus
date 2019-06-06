@@ -53,11 +53,15 @@ public class GameController {
         }
         System.out.println("game started");
         this.playerController.setGameRunning(true);
-        this.world.initializeCaves();
-        // this.world.initializeEmpty();
-        System.out.println("world initialized");
-        this.playerController.insertPlayer();
-        System.out.println("player inserted");
+        while (true) {
+            this.world.initializeCaves();
+            System.out.println("world initialized");
+            if ( this.playerController.insertPlayer() == true); {
+                System.out.println("player inserted");
+                break;
+            }
+            
+        }
         this.monsterController.dumpMonsters();
         this.monsterController.createMonsters(0);
         System.out.println("monsters created");

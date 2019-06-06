@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helpers;
+package engine;
 
 /**
  * <h1>Node</h1>
@@ -11,13 +11,13 @@ package helpers;
  * 
  * @author juhojuutilainen
  */
-public class Node implements Comparable<Node>{
+public class RouteFinderNode implements Comparable<RouteFinderNode>{
     private int x;
     private int y;
     private int g;
     private int h;
     private int f;
-    private Node parent;
+    private RouteFinderNode parent;
 
     /**
      * Constructor for A* algorithm normal node.
@@ -29,7 +29,7 @@ public class Node implements Comparable<Node>{
      * @param f total cost of the node
      * @param parent parent Node (node where the algorithm is coming from)
      */
-    public Node(int x, int y, int g, int h, int f, Node parent) {
+    public RouteFinderNode(int x, int y, int g, int h, int f, RouteFinderNode parent) {
         this.x = x;
         this.y = y;
         this.g = g;
@@ -47,7 +47,7 @@ public class Node implements Comparable<Node>{
      * @param h heuristic — estimated distance from the current node to the end
      * @param f total cost of the node
      */
-    public Node(int x, int y, int g, int h, int f) {
+    public RouteFinderNode(int x, int y, int g, int h, int f) {
         this.x = x;
         this.y = y;
         this.g = g;
@@ -60,7 +60,7 @@ public class Node implements Comparable<Node>{
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    public Node(int x, int y) {
+    public RouteFinderNode(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -119,12 +119,12 @@ public class Node implements Comparable<Node>{
      * 
      * @return parent node.
      */
-    public Node getParent() {
+    public RouteFinderNode getParent() {
         return this.parent;
     }
 
     @Override
-    public int compareTo(Node node) {
+    public int compareTo(RouteFinderNode node) {
         if(this.f > node.getF()) {
             return 1;
         } else if (this.f < node.getF()) {

@@ -6,11 +6,10 @@
 package domain;
 
 
+import engine.RouteFinderNode;
 import java.util.ArrayList;
 import java.util.Random;
 import helpers.Distance;
-import helpers.Node;
-import helpers.Cave;
 
 /**
  * <h1>World</h1>
@@ -197,9 +196,9 @@ public class World {
             return false;
         }
         this.connected=new boolean[this.width][this.height];
-        ArrayList<Node> connectedNodes = caves.get(largestCaveIndex).getNodes();
-        for (Node node : connectedNodes ) {
-            this.connected[node.getX()][node.getY()] = true;
+        ArrayList<Tile> connectedTiles = caves.get(largestCaveIndex).getTiles();
+        for (Tile tile : connectedTiles ) {
+            this.connected[tile.getX()][tile.getY()] = true;
         }
         
         /*
@@ -220,11 +219,11 @@ public class World {
     }
     
     private Cave getRoom(int startX, int startY) {
-        ArrayList<Node> nodes = new ArrayList<>();
-        nodes.add(new Node(startX, startY));
+        ArrayList<Tile> tiles = new ArrayList<>();
+        tiles.add(new Tile(startX, startY));
         int i = 0;
-        while (nodes.size() > i) {
-            Node node = nodes.get(i);
+        while (tiles.size() > i) {
+            Tile node = tiles.get(i);
             i++;
             int[] nodePosition = {node.getX(),node.getY()};
             ArrayList<int[]> neighbors = this.getNeighborPositions(nodePosition);
@@ -233,12 +232,12 @@ public class World {
                 int y = neighborPosition[1];
                 if (this.map[x][y] == 1 && this.visited[x][y] != true) {
                     this.visited[x][y] = true;
-                    nodes.add(new Node(x, y));
+                    tiles.add(new Tile(x, y));
                 }
                 
             }
         }
-        Cave newCave = new Cave(nodes, startX, startY );
+        Cave newCave = new Cave(tiles, startX, startY );
         return newCave;
     }
     

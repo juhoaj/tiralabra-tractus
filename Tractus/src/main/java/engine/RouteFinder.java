@@ -7,7 +7,6 @@ package engine;
 
 import domain.Creature;
 import domain.World;
-import helpers.Node;
 import helpers.Distance;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
@@ -85,8 +84,8 @@ public class RouteFinder {
             return null;
         }
 
-        ArrayList<Node> route = this.AStar(endX, endY, startX, startY);
-        Node secondLastNode = route.get(1);
+        ArrayList<RouteFinderNode> route = this.AStar(endX, endY, startX, startY);
+        RouteFinderNode secondLastNode = route.get(1);
         return secondLastNode.getPosition();
 
     }
@@ -102,13 +101,13 @@ public class RouteFinder {
      * @return route as ArrayList<{x-coordinate, y-coordinate}>
      */
     
-    public ArrayList<Node> AStar(int startX, int startY, int endX, int endY) {
-        Node[][] openList = new Node[this.world.getWidth()][this.world.getHeight()];
-        PriorityQueue<Node> nodeHeap = new PriorityQueue<>();
+    public ArrayList<RouteFinderNode> AStar(int startX, int startY, int endX, int endY) {
+        RouteFinderNode[][] openList = new RouteFinderNode[this.world.getWidth()][this.world.getHeight()];
+        PriorityQueue<RouteFinderNode> nodeHeap = new PriorityQueue<>();
 
         // create first node 
         int startNodeHeuristic = this.distance.getDistance(startX, startY, endX, endY);
-        Node startNode = new Node(startX, startY, 0, startNodeHeuristic, 0);
+        RouteFinderNode startNode = new RouteFinderNode(startX, startY, 0, startNodeHeuristic, 0);
         nodeHeap.add(startNode);
         openList[startX][startY] = startNode;
         
@@ -117,7 +116,7 @@ public class RouteFinder {
         while (!nodeHeap.isEmpty() ) {
             
             // check if target found
-            Node currentNode = nodeHeap.poll();
+            RouteFinderNode currentNode = nodeHeap.poll();
             if (currentNode.getX() == endX && currentNode.getY() == endY) {
                 break;
             }
@@ -131,7 +130,7 @@ public class RouteFinder {
                 int h =this.distance.getDistance(ChildX, ChildY, endX, endY);
                 int g = currentNode.getG() + this.world.getTerrain(ChildX, ChildY);
                 if (openList[ChildX][ChildY] == null || openList[ChildX][ChildY].getG() > g) {
-                    Node childNode = new Node(ChildX, ChildY, g, h, g + h, currentNode);
+                    RouteFinderNode childNode = new RouteFinderNode(ChildX, ChildY, g, h, g + h, currentNode);
                     nodeHeap.add(childNode);
                     openList[ChildX][ChildY] = childNode;
                     if (debugging == true) {
@@ -148,10 +147,10 @@ public class RouteFinder {
         // traverse route and create ArrayList of the route 
         // (nodes along the route)
         
-        ArrayList<Node> route = new ArrayList<>();
+        ArrayList<RouteFinderNode> route = new ArrayList<>();
  
         // get the node on end x&y
-        Node nextAddedNode = openList[endX][endY];
+        RouteFinderNode nextAddedNode = openList[endX][endY];
         route.add(nextAddedNode);
         while (true) {
             //end if node if start node

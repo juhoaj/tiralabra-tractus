@@ -3,38 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helpers;
+package domain;
 
 import java.util.ArrayList;
 
 /**
  *
- * @author juhojuutilainen
  */
 public class Cave implements Comparable<Cave>{
     private int someX;
     private int someY;
-    private ArrayList<Node> nodes;
+    private ArrayList<Tile> tiles;
 
-    public Cave(ArrayList<Node> nodes, int someX, int someY) {
-        this.nodes =nodes;
+    public Cave(ArrayList<Tile> tiles, int someX, int someY) {
+        this.tiles = tiles;
         this.someX = someX;
         this.someY = someY;
     }
     
     public int getSize(){
-        return this.nodes.size();
+        return this.tiles.size();
     }
     
-    public ArrayList<Node> getNodes() {
-        return this.nodes;
+    public ArrayList<Tile> getTiles() {
+        return this.tiles;
     }
     
     @Override
     public int compareTo(Cave cave) {
-        if(this.nodes.size() > cave.getSize()) {
+        if(this.tiles.size() > cave.getSize()) {
             return 1;
-        } else if (this.nodes.size() < cave.getSize()) {
+        } else if (this.tiles.size() < cave.getSize()) {
             return -1;
         } else {
             return 0;

@@ -35,10 +35,10 @@ public class Game {
      * PlayerController, MonsterController, GameController and Interface.
      */
     public Game() {
-        this.gameareaHeight = 100;
-        this.gameareaWidth = 100;
-        this.viewportHeight = 33;
-        this.viewportWidth = 33;
+        this.gameareaHeight = 200;
+        this.gameareaWidth = 200;
+        this.viewportHeight = 51;
+        this.viewportWidth = 51;
         this.world = new World(gameareaHeight,gameareaWidth);
         this.gameController = new GameController();
         this.player = new Creature();

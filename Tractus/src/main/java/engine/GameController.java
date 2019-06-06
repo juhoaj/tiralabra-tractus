@@ -64,6 +64,8 @@ public class GameController {
         this.ui.refresh();
         this.ui.message("Use W,A,S&D for movement!");
         this.playerController.setPlayerTurn(true);
+        System.out.println("new game started");
+        
     }
 
     /**

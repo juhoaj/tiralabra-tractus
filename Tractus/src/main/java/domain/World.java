@@ -37,14 +37,7 @@ public class World {
         this.random = random;
     }
 
-    /**
-     * Creates a map with rooms INCOMPLETE
-     */
-    public void initializeRooms() {
-        this.initializeFull();
-        this.createEmptyAreasAndCorridors(10);
 
-    }
     
     /**
      * Creates a map with caves
@@ -68,6 +61,26 @@ public class World {
         }
     }
     
+    /**
+     * Creates a map with rooms. INCOMPLETE AND DEPRICATED.
+     */
+    public void initializeRooms() {
+        this.initializeFull();
+        this.createEmptyAreasAndCorridors(10);
+
+    }
+    
+    /**
+     * Creates a map with caves utilizing random walk algorithm and 
+     * cellular automation. DEPRICATED.
+     */
+    
+    public void initializeCavesWithRandomwalker() {
+        this.randomize();
+        this.randomWalker(this.height + this.width / 4, this.height + this.width / 40 );
+        this.smooth(4);
+    }
+    
     private void initializeFull() {
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
@@ -84,6 +97,97 @@ public class World {
         }
     }
     
+    private void randomWalker(int iterations, int roomInterval) {
+        int startX = random.nextInt(this.width);
+        int startY = random.nextInt(this.height);
+        int destinationX = 0;
+        int destinationY = 0;
+        int iteration = 0;
+        for (int i = 0; i < iterations ; i++) {
+            iteration ++;
+            int direction = random.nextInt(4);
+            switch (direction) {
+                case 0:
+                    destinationX = startX - random.nextInt( startX );
+                    destinationY = startY;
+                    
+                    break;
+                case 1:
+                    destinationX = startX; 
+                    destinationY = startY + random.nextInt( this.width - startY );
+                    
+                    break;
+                case 2:
+                    destinationX = startX + random.nextInt( this.height - startX);
+                    destinationY = startY;
+                    break;
+                case 3:
+                    destinationX = startX; 
+                    destinationY = startY - random.nextInt( startY );
+                    break;
+            }
+            this.drawCorridor(startX, startY, destinationX, destinationY);
+            if (iteration % roomInterval == 0) {
+                this.createEmptyArea(destinationX, destinationY);
+            }
+            
+            startX = destinationX;
+            startY = destinationY;
+            
+        }
+    }
+    
+    private void smooth(int times) {
+        int[][] map2 = new int[this.width][this.height];
+        for (int i = 0; i < times; i++) {
+
+            for (int x = 1; x < this.width -1; x++) {
+                for (int y = 1; y < this.height -1; y++) {
+                    int floors = 0;
+                    int walls = 0;
+
+                    for (int relativeX = -1; relativeX < 2; relativeX++) {
+                        for (int relativeY = -1; relativeY < 2; relativeY++) {
+                            if (map[x + relativeX][y + relativeY] == 1) {
+                                floors++;
+                            } else {
+                                walls++;
+                            }
+                        }
+                    }
+                    map2[x][y] = 1;
+                    if (floors < walls) {
+                        map2[x][y] = 2;
+                    }
+                }
+            }
+            map = map2;
+        }
+    }
+    
+    private void connectRooms(int minimumSize) {
+        int connected[][] = new int[this.width][this.height];
+        
+    }
+    
+    private void createEmptyArea(int centerX, int centerY) {
+        int areaWidth = this.random.nextInt(this.width / 10) + this.width / 10;
+        int areaHeight = this.random.nextInt(this.height / 10) + this.width / 10;
+        if (areaWidth > 15 || areaHeight > 15) {
+            areaWidth = 15;
+            areaHeight = 15;
+        }
+        int startX = centerX - areaWidth / 2;
+        int startY = centerY - areaHeight / 2;
+        for (int x = startX; x < startX + areaWidth ; x++) {
+            for (int y = startY; y < startY + areaHeight ; y++) {
+                // map[x][y] = 1;
+                this.setTerrain(x, y, 1);
+            }
+        }
+          
+    }
+    
     private void createEmptyAreas(int areas) {
         for (int i = 0 ; i < areas ; i++) {
             int areaWidth = this.random.nextInt(this.width / 10) + this.width / 10;
@@ -92,7 +196,8 @@ public class World {
             int startY = this.random.nextInt(this.height - areaHeight);
             for (int x = startX; x < startX + areaWidth ; x++) {
                 for (int y = startY; y < startY + areaHeight ; y++) {
-                    map[x][y] = 1;
+                    // map[x][y] = 1;
+                    this.setTerrain(x, y, 1);
                 }
             }
         }     
@@ -109,7 +214,8 @@ public class World {
             roomCenters.add(newRoomCenter);
             for (int x = startX; x < startX + areaWidth ; x++) {
                 for (int y = startY; y < startY + areaHeight ; y++) {
-                    map[x][y] = 1;
+                    // map[x][y] = 1;
+                    this.setTerrain(x, y, 1);
                 }
             }
             
@@ -149,38 +255,7 @@ public class World {
         }
     }
 
-    private void smooth(int times) {
-        int[][] map2 = new int[this.width][this.height];
-        for (int i = 0; i < times; i++) {
 
-            for (int x = 1; x < this.width -1; x++) {
-                for (int y = 1; y < this.height -1; y++) {
-                    int floors = 0;
-                    int walls = 0;
-
-                    for (int relativeX = -1; relativeX < 2; relativeX++) {
-                        for (int relativeY = -1; relativeY < 2; relativeY++) {
-                            if (map[x + relativeX][y + relativeY] == 1) {
-                                floors++;
-                            } else {
-                                walls++;
-                            }
-                        }
-                    }
-                    map2[x][y] = 1;
-                    if (floors < walls) {
-                        map2[x][y] = 2;
-                    }
-                }
-            }
-            map = map2;
-        }
-    }
-    
-    private void connectRooms(int minimumSize) {
-        int connected[][] = new int[this.width][this.height];
-        
-    }
     
 
     /**

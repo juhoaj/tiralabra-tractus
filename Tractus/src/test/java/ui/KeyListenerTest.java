@@ -39,6 +39,7 @@ public class KeyListenerTest {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'w');
         keyListener.keyPressed(event);
         verify(playerController).setAction(eq(Command.NORTH));
+        verify(playerController, times(1)).setAction(Command.NORTH);
     }
     
     @Test
@@ -46,6 +47,7 @@ public class KeyListenerTest {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'd');
         keyListener.keyPressed(event);
         verify(playerController).setAction(eq(Command.EAST));
+        verify(playerController, times(1)).setAction(Command.EAST);
     }
     
     @Test
@@ -53,6 +55,7 @@ public class KeyListenerTest {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  's');
         keyListener.keyPressed(event);
         verify(playerController).setAction(eq(Command.SOUTH));
+        verify(playerController, times(1)).setAction(Command.SOUTH);
     }
     
     @Test
@@ -60,6 +63,7 @@ public class KeyListenerTest {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'a');
         keyListener.keyPressed(event);
         verify(playerController).setAction(eq(Command.WEST));
+        verify(playerController, times(1)).setAction(Command.WEST);
     }
     
     

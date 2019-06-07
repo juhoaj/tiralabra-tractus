@@ -19,10 +19,9 @@ import domain.Command;
 class KeyListener extends KeyAdapter {
 
     private PlayerController playerController;
-    private Command direction;
 
     /**
-     * Constructor that stores the engine.PlayerAction to be called.
+     * Constructor that injects the PlayerController for relaying commands. 
      */
     public KeyListener(PlayerController playerController) {
 

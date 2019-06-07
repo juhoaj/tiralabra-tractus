@@ -18,28 +18,39 @@ import static org.junit.Assert.*;
  */
 public class TileTest {
     
-    public TileTest() {
-    }
+    private Tile testTile;
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
     @Before
     public void setUp() {
+        this.testTile = new Tile(1,1);
     }
     
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void TileInitialized() {
+        
+        assertNotNull(testTile);
+    }
+    
+    @Test
+    public void cannotInitializeWithNegativeValue() {
+        try {
+            Tile tile = new Tile(1,-1);
+            fail("Map has no negative coordinates");
+        } catch (IllegalArgumentException e) {}
+    }
+    
+    @Test
+    public void getYWorks() {
+        assertEquals(1, this.testTile.getY());
+    }
+
+    @Test
+    public void setXWorks() {
+        assertEquals(1, this.testTile.getX());
+    }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package engine;
+package helpers;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,20 +11,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 /**
  *
  * @author juhojuutilainen
  */
-public class RouteFinderNodeTest {
+public class ArrayListhelper {
     
-    public RouteFinderNodeTest() {
+    public ArrayListhelper() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-        
     }
     
     @AfterClass

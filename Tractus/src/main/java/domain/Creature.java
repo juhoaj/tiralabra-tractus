@@ -31,7 +31,9 @@ public class Creature {
      * @param startY Y-coordinate where the creature is placed when created
      */
     public Creature(int startX, int startY) {
-
+        if (startX < 0 || startY < 0 ) {
+            throw new IllegalArgumentException("Map has no negative coordinates");
+        }
         this.x = startX;
         this.y = startY;
     }
@@ -60,6 +62,9 @@ public class Creature {
      * @param newX new x-coordinate
      */
     public void setX(int newX) {
+        if (newX < 0) {
+            throw new IllegalArgumentException("Map has no negative coordinates");
+        }
         this.x = newX;
     }
 
@@ -69,7 +74,9 @@ public class Creature {
      * @param newY new y-coordinate
      */
     public void setY(int newY) {
-
+        if (newY < 0) {
+            throw new IllegalArgumentException("Map has no negative coordinates");
+        }
         this.y = newY;
     }
     
@@ -79,8 +86,8 @@ public class Creature {
      * @param newPosition = {x-coordinate,y-coordinate}
      */
     public void setPosition (int[] newPosition) {
-        if (newPosition.length > 2) {
-            return;
+        if (newPosition.length != 2) {
+            throw new IllegalArgumentException("Array should have only x and y coordinates");
         }
         this.x = newPosition[0];
         this.y = newPosition[1];

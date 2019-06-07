@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package engine;
+package helpers;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,37 +11,25 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 /**
  *
  * @author juhojuutilainen
  */
-public class RouteFinderNodeTest {
-    
-    public RouteFinderNodeTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-        
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
+public class DistanceTest {
+    Distance distance;
+   
     
     @Before
     public void setUp() {
+        this.distance = new Distance();
     }
     
-    @After
-    public void tearDown() {
-    }
-
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void getDistanceWorks() {
+        assertEquals(11, this.distance.getDistance(0, 0, 10, 5));
+    }
 }

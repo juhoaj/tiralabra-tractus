@@ -33,5 +33,5 @@ Todo:
 Jos ehtii:
 * FOV
 * Monsterit estävät liikkumisen
-* Debuggaustilan näityts
+* Debuggaustilan nätitys
 * Monstereiden liikkeisiin randomin mahdollisuus

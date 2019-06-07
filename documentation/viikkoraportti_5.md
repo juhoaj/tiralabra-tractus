@@ -8,6 +8,7 @@ Muokattu kartan piirtämistä nätimmäksi sen varalle että FOV ei toteuteta.
 
 Refaktoroitu sovellusrakennetta.
 
+Tehty testejä.
 
 ## Miten ohjelma on edistynyt?
 
@@ -26,4 +27,7 @@ Kantapään kautta oppiminen.
 
 ## Mitä teen seuraavaksi?
 
-xx
+* Testaus kuosiin
+* Tietorakenteet ja niiden testaus
+* Dokumenointi
+* jos ehtii niin FOV algoritmi

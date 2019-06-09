@@ -35,7 +35,6 @@ public class GameController {
      * @param monsterController controls monsters 
      */
     public void addDependencies(World world, Interface ui, PlayerController playerController, MonsterController monsterController) {
-        System.out.println("dependencies received");
         this.playerController = playerController;
         this.ui = ui;
         this.world = world;
@@ -48,27 +47,26 @@ public class GameController {
      */
     public void startGame() {
         if (this.playerController == null) {
-            System.out.println("game not initialized with addDependencies");
-            return;
+            throw new IllegalArgumentException("Game not initialized with addDependencies");
         }
-        System.out.println("game started");
+        System.out.println("game starting..");
         this.playerController.setGameRunning(true);
         while (true) {
             this.world.initializeCaves();
-            System.out.println("world initialized");
+            System.out.println("..world initialized");
             if ( this.playerController.insertPlayer() == true); {
-                System.out.println("player inserted");
+                System.out.println("..player inserted");
                 break;
             }
             
         }
         this.monsterController.dumpMonsters();
         this.monsterController.createMonsters(20);
-        System.out.println("monsters created");
+        System.out.println("..monsters created");
         this.ui.refresh();
         this.ui.message("Use W,A,S&D for movement!");
         this.playerController.setPlayerTurn(true);
-        System.out.println("new game started");
+        System.out.println("..new game started");
         
     }
 
@@ -132,6 +130,13 @@ public class GameController {
      * @param y y-coordinate of the character
      */
     public void drawCharacter(char character, int x, int y) {
+        if (x < 0 ||
+            y < 0 ||
+            x > this.world.getWidth() -1 ||
+            y > this.world.getHeight() -1
+            ) {
+            throw new IllegalArgumentException("Coordinate outside map.");
+        }
         this.ui.drawCharacter(character,x,y);
     }
 

@@ -46,12 +46,21 @@ public class GameControllerTest {
         this.testGameController.startGame();
         verify(this.playerController).setGameRunning(true);
         verify(this.world).initializeCaves();
-        verify(this.playerController).insertPlayer();
+        verify(this.playerController, atLeast(1)).insertPlayer();
         verify(this.monsterController).dumpMonsters();
         verify(this.monsterController).createMonsters(anyInt());
         verify(this.ui).refresh();
         verify(this.ui).message(anyString());
         verify(this.playerController).setPlayerTurn(true);
+        assertNotNull(this.testGameController);
+    }
+    
+    @Test
+    public void insertPlayerGetsCalledOnlyOnceIfTrue() {
+        when(this.playerController.insertPlayer()).thenReturn(true);
+        this.testGameController.startGame();
+        verify(this.playerController).setPlayerTurn(true);
+        
     }
     
     @Test
@@ -106,12 +115,22 @@ public class GameControllerTest {
         when(this.world.getHeight()).thenReturn(1);
         
         try {
-            this.testGameController.drawCharacter('x',-1,-1);
+            this.testGameController.drawCharacter('x',-1,0);
             fail("Coordinate outside map.");
         } catch (IllegalArgumentException e) { }
         
         try {
-            this.testGameController.drawCharacter('x',1,1);
+            this.testGameController.drawCharacter('x',1,0);
+            fail("Coordinate outside map.");
+        } catch (IllegalArgumentException e) { }
+        
+        try {
+            this.testGameController.drawCharacter('x',0,-1);
+            fail("Coordinate outside map.");
+        } catch (IllegalArgumentException e) { }
+        
+        try {
+            this.testGameController.drawCharacter('x',0,1);
             fail("Coordinate outside map.");
         } catch (IllegalArgumentException e) { }
         

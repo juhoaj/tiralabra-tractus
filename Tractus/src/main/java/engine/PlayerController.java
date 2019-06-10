@@ -21,9 +21,9 @@ public class PlayerController {
 
     private Creature player;
     private World world;
+    private GameController gameController;
     private boolean playerTurn;
     private boolean gameRunning;
-    private GameController gameController;
 
     /**
      * Constructor for PlayerAction.
@@ -84,28 +84,24 @@ public class PlayerController {
             switch (command) {
 
                 case NORTH:
-                    System.out.println("N");
                     newY--;
                     if (this.world.getTerrain(this.player.getX(), newY) == 1) {
                         this.moveTo(newX, newY);
                     }
                     break;
                 case EAST:
-                    System.out.println("E");
                     newX++;
                     if (this.world.getTerrain(newX, this.player.getY()) == 1) {
                         this.moveTo(newX, newY);
                     }
                     break;
                 case SOUTH:
-                    System.out.println("S");
                     newY++;
                     if (this.world.getTerrain(this.player.getX(), newY) == 1) {
                         this.moveTo(newX, newY);
                     }
                     break;
                 case WEST:
-                    System.out.println("W");
                     newX--;
                     if (this.world.getTerrain(newX, this.player.getY()) == 1) {
                         this.moveTo(newX, newY);
@@ -123,6 +119,13 @@ public class PlayerController {
      * @param newY Y-coordinate where the player is moved to
      */
     public void moveTo(int newX, int newY) {
+        if ( newX < 0 ||
+             newY < 0 ||
+             newX > this.world.getWidth() -1 ||
+             newY > this.world.getHeight()-1 
+            ) {
+            throw new IllegalArgumentException("Cannot move player outside map.");
+        }
         this.player.setX(newX);
         this.player.setY(newY);
         this.playerTurn = false;
@@ -137,6 +140,8 @@ public class PlayerController {
     public int[] getPlayerPosition() {
         return this.player.getPosition();
     }
+    
+
 
     /**
      * Inserts player on the center of the map.
@@ -145,14 +150,14 @@ public class PlayerController {
     public boolean insertPlayer() {
         int startPositionX = this.world.getWidth() / 2;
         int startPositionY = this.world.getHeight() / 2;
-        System.out.println(startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
         while (true) {
             if (this.world.getTerrain(startPositionX, startPositionY) == 1 && this.world.getConnected(startPositionX, startPositionY) == true) {
-            // if (this.world.getTerrain(startPositionX, startPositionY) == 1 ) {
+            
                this.moveTo(startPositionX, startPositionY);
+                System.out.println("..player's x,y-terrain "+startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
                 break;
             } else if (startPositionX == 0) {
-                System.out.println("pelaaja ei asettunut connectediin, uusiks");
+                System.out.println("..suitable starting position was not sound");
                 return false;
             }
             else {
@@ -160,5 +165,22 @@ public class PlayerController {
             }
         }
         return true;
+    }
+    
+    
+    /**
+     * Returns true if game is running. Used for testing.
+     *  
+     */
+    public boolean getGameRunning() {
+        return this.gameRunning;
+    }
+    
+    /**
+     * Returns true if it is player's turn. Used for testing.
+     *  
+     */
+    public boolean getPlayerTurn() {
+        return this.playerTurn;
     }
 }

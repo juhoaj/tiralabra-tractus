@@ -157,7 +157,7 @@ public class PlayerController {
                 System.out.println("..player's x,y-terrain "+startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
                 break;
             } else if (startPositionX == 0) {
-                System.out.println("..suitable starting position was not sound");
+                System.out.println("..suitable starting position was not found");
                 return false;
             }
             else {

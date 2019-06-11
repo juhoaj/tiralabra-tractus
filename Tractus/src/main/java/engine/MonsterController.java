@@ -128,4 +128,17 @@ public class MonsterController {
         return positions;
     }
     
+
+    /**
+     * Constructor which is only used in testing
+     */ 
+    public MonsterController(ArrayList<Creature> monsterlist, World world, GameController gameController, RouteFinder routeFinder, Distance distance) {
+        this.monsterlist = monsterlist;
+        this.world = world;
+        this.gameController = gameController;
+        this.routeFinder = routeFinder;
+        this.distance = distance;
+    }
+    
+    
 }

@@ -13,6 +13,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+import org.mockito.stubbing.Stubber;
 import ui.Interface;
 
 /**
@@ -43,6 +46,7 @@ public class GameControllerTest {
 
     @Test
     public void startGameWorks() {
+        when(this.playerController.insertPlayer()).thenReturn(true);
         this.testGameController.startGame();
         verify(this.playerController).setGameRunning(true);
         verify(this.world).initializeCaves();
@@ -54,6 +58,30 @@ public class GameControllerTest {
         verify(this.playerController).setPlayerTurn(true);
         assertNotNull(this.testGameController);
     }
+    
+    /*
+    @Test
+    public void startGameRecalledIfPlayerNotInserted() {
+        
+        int rounds = 10;
+        when(this.playerController.insertPlayer()).thenAnswer(new Answer() {
+            private int count = 0;
+
+            public Object answer(InvocationOnMock invocation) {
+                count++;
+                if (count == rounds) {
+                    return true;
+                }
+                return false;
+            }
+        });
+        
+        // when(this.playerController.insertPlayer()).thenReturn(false);
+        this.testGameController.startGame();
+        verify(this.playerController, atLeast(2)).insertPlayer();
+ 
+    }
+    */
     
     @Test
     public void insertPlayerGetsCalledOnlyOnceIfTrue() {

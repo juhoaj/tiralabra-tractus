@@ -42,14 +42,15 @@ public class PlayerControllerTest {
         // Creates two instances of World and PlayerController for testing unobstucted and obstucted movement
         
         this.worldThatReturnsOneForTerrain = mock(World.class);
+        when (this.worldThatReturnsOneForTerrain.getTerrain(anyInt(), anyInt())).thenReturn(1);
+        when (this.worldThatReturnsOneForTerrain.getWidth()).thenReturn(3);
+        when (this.worldThatReturnsOneForTerrain.getHeight()).thenReturn(3);        
         this.worldThatReturnsTwoForTerrain = mock(World.class);
+        when (this.worldThatReturnsTwoForTerrain.getTerrain(anyInt(), anyInt())).thenReturn(2);
+        when (this.worldThatReturnsTwoForTerrain.getWidth()).thenReturn(3);
+        when (this.worldThatReturnsTwoForTerrain.getHeight()).thenReturn(3);        
         this.testPlayerControllerWithWorldOne = new PlayerController(this.player, this.worldThatReturnsOneForTerrain, this.gameController);
         this.testPlayerControllerWithWorldTwo = new PlayerController(this.player, this.worldThatReturnsTwoForTerrain, this.gameController);
-        when(this.worldThatReturnsOneForTerrain.getTerrain(anyInt(), anyInt())).thenReturn(1);
-        when (this.worldThatReturnsOneForTerrain.getWidth()).thenReturn(3);
-        when (this.worldThatReturnsOneForTerrain.getHeight()).thenReturn(3);
-        when(this.worldThatReturnsTwoForTerrain.getTerrain(anyInt(), anyInt())).thenReturn(2);
-        
         this.testPlayerControllerWithWorldOne.setGameRunning(true);
         this.testPlayerControllerWithWorldOne.setPlayerTurn(true);
 
@@ -165,7 +166,24 @@ public class PlayerControllerTest {
         when (this.player.getPosition()).thenReturn(returnedPosition);
         assertEquals(1, this.testPlayerControllerWithWorldOne.getPlayerPosition()[0]);
         assertEquals(1, this.testPlayerControllerWithWorldOne.getPlayerPosition()[1]);
-        
+    }
+    
+    @Test 
+    public void playerGetsInsertedIfTerrainEmptyAndConnected() {
+        when (this.worldThatReturnsOneForTerrain.getConnected(anyInt(), anyInt())).thenReturn(true);
+        assertEquals(true, this.testPlayerControllerWithWorldOne.insertPlayer());
+    }
+    
+    @Test 
+    public void playerDoesNotGetInsertedIfTerrainEmptyButNotConnected() {
+        when (this.worldThatReturnsOneForTerrain.getConnected(anyInt(), anyInt())).thenReturn(true);
+        assertEquals(true, this.testPlayerControllerWithWorldOne.insertPlayer());
+    }
+    
+    
+    @Test 
+    public void playerDoesNotGetInsertedIfTerrainNotEmpty() {
+        assertEquals(false, this.testPlayerControllerWithWorldTwo.insertPlayer());
     }
     
     

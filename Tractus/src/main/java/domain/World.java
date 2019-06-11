@@ -84,8 +84,8 @@ public class World {
             }
         }
     }
-    
-    
+ 
+
     
     private void smooth(int times) {
         int[][] map2 = new int[this.width][this.height];

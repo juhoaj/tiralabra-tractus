@@ -47,7 +47,7 @@ public class Game {
         this.viewportHeight = 51;
         this.viewportWidth = 51;
         this.world = new World(gameareaHeight,gameareaWidth, this.testPerformance);
-        this.gameController = new GameController();
+        this.gameController = new GameController(this.debugging);
         this.player = new Creature();
         this.playerController = new PlayerController(this.player, this.world, this.gameController, this.debugging);
         this.monsterlist = new ArrayList<>();

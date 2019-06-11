@@ -33,7 +33,7 @@ public class InterfaceTest {
         this.world = mock(World.class);
         this.playerController = mock(PlayerController.class);
         this.monsterController = mock(MonsterController.class);
-        this.testInterface = new Interface(this.world, this.playerController, this.monsterController, 10, 10);
+        this.testInterface = new Interface(this.world, this.playerController, this.monsterController, 10, 10, false);
     }
     
     @After

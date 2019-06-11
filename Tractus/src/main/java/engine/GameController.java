@@ -24,7 +24,29 @@ public class GameController {
     private PlayerController playerController;
     private MonsterController monsterController;
     private Interface ui;
+    private boolean debugging;
 
+    
+    
+    /**
+     * PLain controller
+     */
+    
+    public GameController() {
+        this.debugging = false;
+    }
+
+    
+    /**
+     * Constructor which can be used to set debugging on.
+     * @param debugging set for printing debugging information to console
+     */
+    
+    public GameController(boolean debugging) {
+        this.debugging = debugging;
+    }
+
+    
          
     /**
      * Used to recieve dependencies. 
@@ -49,27 +71,33 @@ public class GameController {
         if (this.playerController == null) {
             throw new IllegalArgumentException("Game not initialized with addDependencies");
         }
-        System.out.println("game starting..");
+        if (this.debugging == true) {
+            System.out.println("game starting..");
+        }
         this.playerController.setGameRunning(true);
      
         boolean insertionSuccesfull = false;
         while ( true) {
             this.world.initializeCaves();
-            System.out.println("..world initialized");
             insertionSuccesfull = this.playerController.insertPlayer();
-            System.out.println("..player inserted");
             if (insertionSuccesfull == true) {
                 break;
             }
         }
+        
+        if (this.debugging == true) {
+            System.out.println("..world initialized and player inserted");
+        }
 
         this.monsterController.dumpMonsters();
         this.monsterController.createMonsters(20);
-        System.out.println("..monsters created");
         this.ui.refresh();
         this.ui.message("Use W,A,S&D for movement!");
         this.playerController.setPlayerTurn(true);
-        System.out.println("..new game started");
+        
+        if (this.debugging == true) {
+            System.out.println("..monsters created and new game started");
+        }
         
     }
 
@@ -77,6 +105,9 @@ public class GameController {
      * Responsible for game over.
      */
     public void endGame() {
+        if (this.debugging == true) {
+            System.out.println("Game ended");
+        }
         this.ui.message("Press 'a' for a new game.");
         this.playerController.setGameRunning(false);
     }
@@ -86,6 +117,9 @@ public class GameController {
      * Give's turn to monsters.
      */
     public void playerActed() {
+        if (this.debugging == true) {
+            System.out.println("player acted");
+        }
         this.ui.refresh();
         this.checkEndgame();
         this.monsterTurn();

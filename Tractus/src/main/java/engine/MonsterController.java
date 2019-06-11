@@ -25,6 +25,8 @@ public class MonsterController {
     private RouteFinder routeFinder;
     private Random random = new Random();
     private Distance distance;
+    private boolean debugging;
+    private boolean testPerformance;
 
     /**
      * Constructor which also creates a instance of RouteFinder that is used
@@ -33,17 +35,20 @@ public class MonsterController {
      * @param monsterlist list of all monsters
      * @param world contains and controls the map
      * @param gameController controls the game
-     * @param debugging set true to draw routefinding
+     * @param debugging print debugging information to console and terminal
+     * * @param testPerformance print performance of algorithms to console
      */ 
-    public MonsterController(ArrayList<Creature> monsterlist, World world, GameController gameController, boolean debugging) {
+    public MonsterController(ArrayList<Creature> monsterlist, World world, GameController gameController, boolean debugging, boolean testPerformance) {
+        this.testPerformance = testPerformance;
         this.monsterlist = monsterlist;
         this.world = world;
         this.gameController = gameController;
         if (debugging == true) {
-            this.routeFinder = new RouteFinder(this.world, this.monsterlist, this.gameController, false);
+            this.routeFinder = new RouteFinder(this.world, this.monsterlist, this.gameController, this.debugging);
         }
         this.routeFinder = new RouteFinder(this.world, this.monsterlist);
         this.distance = new Distance();
+        this.debugging = debugging;
     }
 
     /**
@@ -98,7 +103,9 @@ public class MonsterController {
      * @return true after ready
      */
     public boolean monsterActions() {
-        System.out.println("--");
+        if (this.debugging == true) {
+            System.out.println("monsters' actions started");
+        }
         for ( Creature monster : this.monsterlist ) {
             int newPosition[] = this.routeFinder.getNextMove(monster.getPosition(), this.gameController.getPlayerPosition());
             if (this.world.getTerrain(newPosition[0], newPosition[1]) == 1) {

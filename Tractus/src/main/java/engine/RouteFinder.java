@@ -33,7 +33,7 @@ public class RouteFinder {
      * @param world contains and controls the map
      * @param monsterList list of all monsters
      * @param gameController controls the game
-     * @param debugging set true to draw algorithm's routefinding
+     * @param debugging set true to draw algorithm's routefinding to terminal
      */
     public RouteFinder(World world, ArrayList<Creature> monsterList, GameController gameController, boolean debugging) {
         this.world = world;

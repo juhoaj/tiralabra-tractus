@@ -26,6 +26,8 @@ public class Game {
     private GameController gameController;
     private PlayerController playerController;
     private MonsterController monsterController;
+    private boolean debugging;
+    private boolean testPerformance;
     
     private Interface ui;
 
@@ -33,20 +35,24 @@ public class Game {
      * Game's constructor that parametrizes the game and set's it up. 
      * Most importantly creates monsterList and instances of World, Player, 
      * PlayerController, MonsterController, GameController and Interface.
+     * 
+     * @param debugging print debugging information to console and terminal
+     * @param testPerformance tprint performance of algorithms to console
      */
-    public Game() {
+    public Game(boolean debugging, boolean testPerformance) {
+        this.testPerformance = testPerformance;
+        this.debugging = debugging;
         this.gameareaHeight = 200;
         this.gameareaWidth = 200;
         this.viewportHeight = 51;
         this.viewportWidth = 51;
-        this.world = new World(gameareaHeight,gameareaWidth);
+        this.world = new World(gameareaHeight,gameareaWidth, this.testPerformance);
         this.gameController = new GameController();
         this.player = new Creature();
-        this.playerController = new PlayerController(this.player, this.world, this.gameController);
+        this.playerController = new PlayerController(this.player, this.world, this.gameController, this.debugging);
         this.monsterlist = new ArrayList<>();
-        this.monsterController = new MonsterController(this.monsterlist, this.world, this.gameController, false);
-        System.out.println("launching terminal");
-        this.ui = new Interface(this.world, this.playerController, this.monsterController, this.viewportWidth,this.viewportHeight);
+        this.monsterController = new MonsterController(this.monsterlist, this.world, this.gameController, this.debugging, this.testPerformance);
+        this.ui = new Interface(this.world, this.playerController, this.monsterController, this.viewportWidth,this.viewportHeight, this.debugging);
         this.gameController.addDependencies(this.world, this.ui, this.playerController, this.monsterController);
         this.gameController.startGame();
     }

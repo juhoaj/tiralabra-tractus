@@ -36,7 +36,6 @@ class KeyListener extends KeyAdapter {
     public void keyPressed(KeyEvent event) {
 
         char c = event.getKeyChar();
-        System.out.println("rekisterlity keylistenerissä: " + c);
 
         switch (c) {
             case 'w':

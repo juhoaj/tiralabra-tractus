@@ -34,9 +34,9 @@ public class WorldTest {
 
     @Before
     public void setUp() {
-        this.oneWorld = new World(1, 1);
+        this.oneWorld = new World(1, 1, false);
         this.oneWorld.initializeEmpty();
-        this.nineWorld = new World(3, 3);
+        this.nineWorld = new World(3, 3, false);
         this.nineWorld.initializeEmpty();
         
     }
@@ -49,14 +49,14 @@ public class WorldTest {
     @Test
     public void cannotInitializeWithNegativeCoordinates() {
         try {
-            World world = new World(-1, 1);
+            World world = new World(-1, 1, false);
             fail("Map size has to be positive.");
         } catch (IllegalArgumentException e) { }
     }
     
     @Test 
         public void initializedMapHasTerrain() {
-        World world = new World(100, 100);
+        World world = new World(100, 100, false);
         world.initializeCaves();
         assertNotNull(oneWorld.getTerrain(0, 0));
     }

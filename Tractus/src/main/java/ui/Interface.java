@@ -33,6 +33,7 @@ public class Interface extends JFrame {
     private int centerX;
     private int centerY;
     private int viewDistance;
+    private boolean debugging;
 
     /**
      * Constructor that receives parameters and objects used for output and
@@ -44,7 +45,11 @@ public class Interface extends JFrame {
      * @param viewportWidth width of viewport (characters)
      * @param viewportHeight height of viewport (characters)
      */
-    public Interface(World world, PlayerController playerController, MonsterController monsterController, int viewportWidth, int viewportHeight) {
+    public Interface(World world, PlayerController playerController, MonsterController monsterController, int viewportWidth, int viewportHeight, boolean debugging) {
+        this.debugging = debugging;
+        if (this.debugging==true) {
+            System.out.println("launching terminal");
+        }
         if (viewportWidth <= 3 || viewportHeight <= 3 || viewportWidth > 52 || viewportHeight > 52) {
             System.out.println("viewport size incompatible with ui");
             return;
@@ -67,6 +72,8 @@ public class Interface extends JFrame {
         this.centerX = this.viewportWidth / 2;
         this.centerY = this.viewportWidth / 2;
         this.viewDistance = Math.min(this.viewportWidth, this.viewportWidth) / 2 - 2;
+        
+        
     }
 
     /**

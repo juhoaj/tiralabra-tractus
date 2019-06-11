@@ -49,8 +49,8 @@ public class PlayerControllerTest {
         when (this.worldThatReturnsTwoForTerrain.getTerrain(anyInt(), anyInt())).thenReturn(2);
         when (this.worldThatReturnsTwoForTerrain.getWidth()).thenReturn(3);
         when (this.worldThatReturnsTwoForTerrain.getHeight()).thenReturn(3);        
-        this.testPlayerControllerWithWorldOne = new PlayerController(this.player, this.worldThatReturnsOneForTerrain, this.gameController);
-        this.testPlayerControllerWithWorldTwo = new PlayerController(this.player, this.worldThatReturnsTwoForTerrain, this.gameController);
+        this.testPlayerControllerWithWorldOne = new PlayerController(this.player, this.worldThatReturnsOneForTerrain, this.gameController, false);
+        this.testPlayerControllerWithWorldTwo = new PlayerController(this.player, this.worldThatReturnsTwoForTerrain, this.gameController, false);
         this.testPlayerControllerWithWorldOne.setGameRunning(true);
         this.testPlayerControllerWithWorldOne.setPlayerTurn(true);
 

@@ -24,6 +24,7 @@ public class World {
     boolean[][] visited;
     Random random = new Random();
     private boolean[][] connected;
+    private boolean testPerformance;
     
 
     /**
@@ -32,8 +33,10 @@ public class World {
      * @param width width of the world.
      * @param height height of the world. Please note that the constructor does
      * not create the map.
+     * @param testPerformance print performance of algorithms to console
      */
-    public World(int width, int height) {
+    public World(int width, int height, boolean testPerformance) {
+        this.testPerformance = testPerformance;
         if (width < 0 || height < 0) {
             throw new IllegalArgumentException("Map size has to be positive.");
         }

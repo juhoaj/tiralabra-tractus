@@ -36,19 +36,21 @@ public class MonsterController {
      * @param world contains and controls the map
      * @param gameController controls the game
      * @param debugging print debugging information to console and terminal
-     * * @param testPerformance print performance of algorithms to console
+     * @param testPerformance print performance of algorithms to console
      */ 
     public MonsterController(ArrayList<Creature> monsterlist, World world, GameController gameController, boolean debugging, boolean testPerformance) {
+        this.debugging = debugging;
         this.testPerformance = testPerformance;
         this.monsterlist = monsterlist;
         this.world = world;
         this.gameController = gameController;
-        if (debugging == true) {
-            this.routeFinder = new RouteFinder(this.world, this.monsterlist, this.gameController, this.debugging);
+        if (debugging == true || this.testPerformance == true ) {
+            this.routeFinder = new RouteFinder(this.world, this.monsterlist, this.gameController, this.debugging, this.testPerformance);
+        } else {
+            this.routeFinder = new RouteFinder(this.world, this.monsterlist);
         }
-        this.routeFinder = new RouteFinder(this.world, this.monsterlist);
         this.distance = new Distance();
-        this.debugging = debugging;
+
     }
 
     /**

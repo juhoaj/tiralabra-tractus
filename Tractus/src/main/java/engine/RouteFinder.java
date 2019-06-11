@@ -25,6 +25,7 @@ public class RouteFinder {
     boolean debugging;
     ArrayList<Creature> monsterList;
     Distance distance;
+    boolean testPerformance;
 
     /**
      * Constructor which injects also gameController which is required by 
@@ -34,17 +35,19 @@ public class RouteFinder {
      * @param monsterList list of all monsters
      * @param gameController controls the game
      * @param debugging set true to draw algorithm's routefinding to terminal
+     * @param testPerformance print performance of algorithms to console
      */
-    public RouteFinder(World world, ArrayList<Creature> monsterList, GameController gameController, boolean debugging) {
+    public RouteFinder(World world, ArrayList<Creature> monsterList, GameController gameController, boolean debugging, boolean testPerformance) {
         this.world = world;
         this.gameController = gameController;
         this.debugging = debugging;
         this.monsterList = monsterList;
         this.distance = new Distance();
+        this.testPerformance = testPerformance;
     }
     
     /**
-     * Constructor which does not allow for debugging.
+     * Constructor which does not allow for debugging or testing performance.
      * 
      * @param world contains and controls the map
      * @param monsterList list of all monsters
@@ -53,6 +56,8 @@ public class RouteFinder {
         this.world = world;
         this.monsterList = monsterList;
         this.distance = new Distance();
+        this.debugging = false;
+        this.testPerformance = false;
     }
 
     /**

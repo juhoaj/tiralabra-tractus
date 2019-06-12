@@ -23,7 +23,6 @@ public class PlayerController {
     private GameController gameController;
     private boolean playerTurn;
     private boolean gameRunning;
-    private boolean debugging;
 
     /**
      * Constructor for PlayerAction.
@@ -31,15 +30,13 @@ public class PlayerController {
      * @param player object that is being controlled by the player
      * @param world contains and controls the map
      * @param gameController controls the game
-     * @param debugging set for printing debugging information to console
      */
-    public PlayerController(Creature player, World world, GameController gameController, boolean debugging) {
+    public PlayerController(Creature player, World world, GameController gameController) {
         this.player = player;
         this.world = world;
         this.playerTurn = false;
         this.gameRunning = true;
         this.gameController = gameController;
-        this.debugging = debugging;
     }
 
     /**
@@ -70,9 +67,7 @@ public class PlayerController {
      * @param command utilizes enumeration domain.Command
      */
     public void setAction(Command command) {
-        if (this.debugging==true) {
-            System.out.println(command);
-        }
+
         
 
         // resolved when the game is not running
@@ -154,14 +149,8 @@ public class PlayerController {
             if (this.world.getTerrain(startPositionX, startPositionY) == 1 && this.world.getConnected(startPositionX, startPositionY) == true) {
 
                 this.moveTo(startPositionX, startPositionY);
-                if (this.debugging = true) {
-                    System.out.println("..player's x,y-terrain " + startPositionX + "," + startPositionY + "-" + this.world.getTerrain(startPositionX, startPositionY));
-                }
                 break;
             } else if (startPositionX == 0) {
-                if (this.debugging = true) {
-                    System.out.println("..suitable starting position was not found");
-                }
                 return false;
             } else {
                 startPositionX--;

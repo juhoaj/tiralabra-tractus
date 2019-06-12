@@ -39,21 +39,21 @@ public class Game {
      * @param debugging print debugging information to console and terminal
      * @param testPerformance tprint performance of algorithms to console
      */
-    public Game(boolean debugging, boolean testPerformance) {
-        this.testPerformance = testPerformance;
-        this.debugging = debugging;
+    public Game() {
+        this.testPerformance = true;
+        this.debugging = false;
         this.gameareaHeight = 200;
         this.gameareaWidth = 200;
         this.viewportHeight = 51;
         this.viewportWidth = 51;
         this.world = new World(gameareaHeight,gameareaWidth, this.testPerformance);
-        this.gameController = new GameController(this.debugging);
+        this.gameController = new GameController();
         this.player = new Creature();
-        this.playerController = new PlayerController(this.player, this.world, this.gameController, this.debugging);
+        this.playerController = new PlayerController(this.player, this.world, this.gameController);
         this.monsterlist = new ArrayList<>();
         this.monsterController = new MonsterController(this.monsterlist, this.world, this.gameController, this.debugging, this.testPerformance);
         this.ui = new Interface(this.world, this.playerController, this.monsterController, this.viewportWidth,this.viewportHeight, this.debugging);
-        this.gameController.addDependencies(this.world, this.ui, this.playerController, this.monsterController);
+        this.gameController.addDependencies(this.world, this.ui, this.playerController, this.monsterController, this.debugging);
         this.gameController.startGame();
     }
        

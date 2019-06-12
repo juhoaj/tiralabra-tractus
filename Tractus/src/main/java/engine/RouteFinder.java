@@ -138,15 +138,18 @@ public class RouteFinder {
                     RouteFinderNode childNode = new RouteFinderNode(ChildX, ChildY, g, h, g + h, currentNode);
                     nodeHeap.add(childNode);
                     openList[ChildX][ChildY] = childNode;
-                    if (debugging == true) {
+                    /*
+                    if (this.debugging == true) {
                         this.gameController.drawCharacter('/', ChildX, ChildY);
                     }
+                    */
                 }
             }
-            
-            if (debugging == true) {
+            /*
+            if (this.debugging == true) {
                 this.gameController.drawCharacter('X', currentNode.getX(), currentNode.getY());
             }
+            */
         }
 
         // traverse route and create ArrayList of the route 
@@ -171,18 +174,6 @@ public class RouteFinder {
         }
 
         return route;
-    }
-
-
-    private void setSearchArea(int increment) {
-        int smallerX = Math.min(startPosition[0], endPosition[0]);
-        int largerX = Math.max(startPosition[0], endPosition[0]);
-        int smallerY = Math.min(startPosition[1], endPosition[1]);
-        int largerY = Math.max(startPosition[1], endPosition[1]);
-        int startX = Math.max(smallerX - increment, 0);
-        int endX = Math.min(smallerX + increment, this.world.getWidth());
-        int startY = Math.max(smallerY - increment, 0);
-        int endY = Math.min(smallerX + increment, this.world.getHeight());
     }
 
 }

@@ -47,9 +47,6 @@ public class Interface extends JFrame {
      */
     public Interface(World world, PlayerController playerController, MonsterController monsterController, int viewportWidth, int viewportHeight, boolean debugging) {
         this.debugging = debugging;
-        if (this.debugging==true) {
-            System.out.println("launching terminal");
-        }
         if (viewportWidth <= 3 || viewportHeight <= 3 || viewportWidth > 52 || viewportHeight > 52) {
             System.out.println("viewport size incompatible with ui");
             return;
@@ -89,7 +86,6 @@ public class Interface extends JFrame {
     }
 
     private void drawMap(int startX, int startY) {
-
         for (int x = 0; x < viewportWidth; x++) {
             for (int y = 0; y < viewportHeight; y++) {
                 if (this.distance.getDistance(this.centerX, this.centerY, x, y) < this.viewDistance) {

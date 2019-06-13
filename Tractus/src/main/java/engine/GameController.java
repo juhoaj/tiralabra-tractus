@@ -26,23 +26,28 @@ public class GameController {
     private Interface ui;
     private boolean debugging;
     private int monstersAtStart;
+    private boolean testPerformance;
+    private long timeForWorldCreation;
+    private long timeForMonsterAction;
 
     
     /**
      * Used to recieve dependencies and parameters.
+     * 
      * 
      * @param world contains and controls the map
      * @param ui game's user interface, responsible for output and input
      * @param playerController receives imput from ui and controls player-object
      * @param monsterController controls monsters 
      */
-    public void addDependencies(World world, Interface ui, PlayerController playerController, MonsterController monsterController, int monstersAtStart, boolean debugging) {
+    public void addDependencies(World world, Interface ui, PlayerController playerController, MonsterController monsterController, int monstersAtStart, boolean debugging, boolean testPerformance) {
         this.playerController = playerController;
         this.ui = ui;
         this.world = world;
         this.monsterController = monsterController;
         this.debugging = debugging;
         this.monstersAtStart = monstersAtStart;
+        this.testPerformance = testPerformance;
     }
 
     /**
@@ -58,7 +63,15 @@ public class GameController {
      
         boolean insertionSuccesfull = false;
         while ( true) {
+            long worldCreationStart = System.currentTimeMillis();
             this.world.initializeCaves();
+            this.timeForMonsterAction = System.currentTimeMillis() - worldCreationStart;
+            if (this.testPerformance == true ) {
+                    System.out.println("World creation, ms");
+                    System.out.println(this.timeForMonsterAction);
+                    System.out.println("Monster action, ms");
+                }
+            this.timeForWorldCreation = System.currentTimeMillis() - worldCreationStart;
             insertionSuccesfull = this.playerController.insertPlayer();
             if (insertionSuccesfull == true) {
                 break;
@@ -96,12 +109,18 @@ public class GameController {
      * monsters actions.
      */
     private void monsterTurn() {
+        long monsterActionStart = System.currentTimeMillis();
         this.monsterController.monsterActions();
+        this.timeForMonsterAction = System.currentTimeMillis() - monsterActionStart;
+        if (this.testPerformance == true ) {  
+            System.out.println(this.timeForMonsterAction);
+        }
         if (this.debugging != true) {
             this.ui.refresh();
         }
         this.checkEndgame();
         this.playerController.setPlayerTurn(true);
+        
     }
 
      /**

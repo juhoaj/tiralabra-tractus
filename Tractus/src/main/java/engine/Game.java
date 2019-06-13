@@ -34,9 +34,10 @@ public class Game {
         
         boolean testPerformance = true; // set true to print algorithm performance to console
         boolean debugging = false; // set true to print debugging info to terminal
-        int gameareaHeight = 100;
-        int gameareaWidth = 100;
-        int monstersAtStart = 0;
+        int gameareaHeight = 500;
+        int gameareaWidth = 500;
+        int monstersAtStart = 50;
+        int monsterSearchRadius = 1000;
         int viewportHeight = 51;
         int viewportWidth = 51;
         
@@ -45,9 +46,9 @@ public class Game {
         this.player = new Creature();
         this.playerController = new PlayerController(this.player, this.world, this.gameController);
         this.monsterlist = new ArrayList<>();
-        this.monsterController = new MonsterController(this.monsterlist, this.world, this.gameController,debugging, testPerformance);
+        this.monsterController = new MonsterController(this.monsterlist, this.world, this.gameController, monsterSearchRadius, debugging, testPerformance);
         this.ui = new Interface(this.world, this.playerController, this.monsterController, viewportWidth, viewportHeight, debugging);
-        this.gameController.addDependencies(this.world, this.ui, this.playerController, this.monsterController, monstersAtStart, debugging);
+        this.gameController.addDependencies(this.world, this.ui, this.playerController, this.monsterController, monstersAtStart, debugging, testPerformance);
         this.gameController.startGame();
     }    
 }

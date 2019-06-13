@@ -106,6 +106,9 @@ public class PlayerController {
                     }
                     break;
             }
+            
+            this.playerTurn = false;
+            this.gameController.playerActed();
 
         }
     }
@@ -125,9 +128,8 @@ public class PlayerController {
         }
         this.player.setX(newX);
         this.player.setY(newY);
-        this.playerTurn = false;
-        this.gameController.playerActed();
     }
+    
 
     /**
      * Get player's position

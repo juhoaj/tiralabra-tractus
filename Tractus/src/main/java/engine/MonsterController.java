@@ -25,6 +25,7 @@ public class MonsterController {
     private RouteFinder routeFinder;
     private Random random = new Random();
     private Distance distance;
+    private int monstersAtStart;
     private boolean testPerformance;
 
     /**

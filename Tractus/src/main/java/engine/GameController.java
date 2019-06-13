@@ -25,26 +25,24 @@ public class GameController {
     private MonsterController monsterController;
     private Interface ui;
     private boolean debugging;
-
-
-    
+    private int monstersAtStart;
 
     
-         
     /**
-     * Used to recieve dependencies. 
+     * Used to recieve dependencies and parameters.
      * 
      * @param world contains and controls the map
      * @param ui game's user interface, responsible for output and input
      * @param playerController receives imput from ui and controls player-object
      * @param monsterController controls monsters 
      */
-    public void addDependencies(World world, Interface ui, PlayerController playerController, MonsterController monsterController, boolean debugging) {
+    public void addDependencies(World world, Interface ui, PlayerController playerController, MonsterController monsterController, int monstersAtStart, boolean debugging) {
         this.playerController = playerController;
         this.ui = ui;
         this.world = world;
         this.monsterController = monsterController;
         this.debugging = debugging;
+        this.monstersAtStart = monstersAtStart;
     }
 
     /**

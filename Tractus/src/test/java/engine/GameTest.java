@@ -22,7 +22,7 @@ public class GameTest {
 
     @Test
     public void GameInitialized() {
-        Game game = new Game(false,false);
+        Game game = new Game();
         assertNotNull(game);
     }
 }

@@ -66,7 +66,7 @@ public class GameController {
         }      
 
         this.monsterController.dumpMonsters();
-        this.monsterController.createMonsters(20);
+        this.monsterController.createMonsters(this.monstersAtStart);
         this.ui.refresh();
         this.ui.message("Use W,A,S&D for movement!");
         this.playerController.setPlayerTurn(true);

@@ -32,21 +32,29 @@ public class Game {
      */
     public Game() {
         
-        boolean testPerformance = true; // set true to print algorithm performance to console
+        boolean testPerformance = false; // set true to print algorithm performance to console
         boolean debugging = false; // set true to print debugging info to terminal
-        int gameareaHeight = 500;
-        int gameareaWidth = 500;
-        int monstersAtStart = 50;
-        int monsterSearchRadius = 1000;
+        int gameareaHeight = 200; // 
+        int gameareaWidth = 200; // 
+        int monstersAtStart = 20; // 
         int viewportHeight = 51;
         int viewportWidth = 51;
+        
+        if (testPerformance==true) {
+            System.out.println("-------------------------------");
+            System.out.println("gamearea: " + gameareaHeight + "x" + gameareaWidth);
+            System.out.println("monsters: " + monstersAtStart);
+            System.out.println("-------------------------------");
+            
+
+        }
         
         this.world = new World(gameareaHeight,gameareaWidth, testPerformance);
         this.gameController = new GameController();
         this.player = new Creature();
         this.playerController = new PlayerController(this.player, this.world, this.gameController);
         this.monsterlist = new ArrayList<>();
-        this.monsterController = new MonsterController(this.monsterlist, this.world, this.gameController, monsterSearchRadius, debugging, testPerformance);
+        this.monsterController = new MonsterController(this.monsterlist, this.world, this.gameController, debugging, testPerformance);
         this.ui = new Interface(this.world, this.playerController, this.monsterController, viewportWidth, viewportHeight, debugging);
         this.gameController.addDependencies(this.world, this.ui, this.playerController, this.monsterController, monstersAtStart, debugging, testPerformance);
         this.gameController.startGame();

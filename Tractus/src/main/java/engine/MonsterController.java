@@ -38,10 +38,9 @@ public class MonsterController {
      * @param debugging print debugging information to terminal
      * @param testPerformance print performance of algorithms to console
      */ 
-    public MonsterController(ArrayList<Creature> monsterlist, World world, GameController gameController,int monsterSearchRadius,boolean debugging, boolean testPerformance) {
+    public MonsterController(ArrayList<Creature> monsterlist, World world, GameController gameController, boolean debugging, boolean testPerformance) {
         this.testPerformance = testPerformance;
         this.monsterlist = monsterlist;
-        this.monsterSearchRadius = monsterSearchRadius;
         this.world = world;
         this.gameController = gameController;
         if (debugging == true || this.testPerformance == true ) {
@@ -106,16 +105,14 @@ public class MonsterController {
      */
     public boolean monsterActions() {
         for ( Creature monster : this.monsterlist ) {
-            int playerX = this.gameController.getPlayerPosition()[0];
-            int playerY = this.gameController.getPlayerPosition()[1];
-                if (this.distance.getDistance(playerX, playerY, monster.getX(), monster.getY()) < this.monsterSearchRadius) {
-                int newPosition[] = this.routeFinder.getNextMove(monster.getPosition(), this.gameController.getPlayerPosition());
-                if (this.world.getTerrain(newPosition[0], newPosition[1]) == 1) {
-                    monster.setPosition(newPosition);
-                } else {
-                    this.world.setTerrain(newPosition[0], newPosition[1], 1);
-                }
+
+            int newPosition[] = this.routeFinder.getNextMove(monster.getPosition(), this.gameController.getPlayerPosition());
+            if (this.world.getTerrain(newPosition[0], newPosition[1]) == 1) {
+                monster.setPosition(newPosition);
+            } else {
+                this.world.setTerrain(newPosition[0], newPosition[1], 1);
             }
+            
         }
         return true;
     }

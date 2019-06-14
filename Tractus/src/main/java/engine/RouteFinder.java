@@ -103,8 +103,6 @@ public class RouteFinder {
     /**
      * A* routefinding algorithm which returns the route as ArrayList
      * containing positions in arrays {x-coordinate, y-coordinate}.
-     * 
-     * @return route as ArrayList<{x-coordinate, y-coordinate}>
      */
     
     private void AStar() {
@@ -114,11 +112,10 @@ public class RouteFinder {
         this.nodeHeap = nextNodeHeap;
         
         // create first node 
-        int startNodeHeuristic = this.getHeuristic();
+        int startNodeHeuristic = this.getHeuristic(this.startX, this.startY);
         RouteFinderNode startNode = new RouteFinderNode(this.startX, this.startY, 0, startNodeHeuristic, 0);
         nodeHeap.add(startNode);
         this.openList[this.startX][this.startY] = startNode;
-        
         
         this.traverseNodes();
         
@@ -127,8 +124,11 @@ public class RouteFinder {
         return;
     }
     
-    // potential nodes on route are inserted in nodeHeap and most promising
-        // node is retrieved until heap is empty or end node 
+    
+    /**
+     * potential nodes on route are inserted in nodeHeap and most promising
+     * node is retrieved until heap is empty or end node found
+     */
     
     private void traverseNodes() {
         while (!nodeHeap.isEmpty() ) {
@@ -145,7 +145,7 @@ public class RouteFinder {
             for (int[] childPosition : childrenPositions) {
                 int ChildX = childPosition[0];
                 int ChildY = childPosition[1];
-                int h = this.getHeuristic();
+                int h = this.getHeuristic(ChildX, ChildY);
                 int g = currentNode.getG() + this.world.getTerrain(ChildX, ChildY);
                 if (this.openList[ChildX][ChildY] == null || openList[ChildX][ChildY].getG() > g) {
                     RouteFinderNode childNode = new RouteFinderNode(ChildX, ChildY, g, h, g + h, currentNode);
@@ -166,14 +166,17 @@ public class RouteFinder {
         }
     }
     
+
     
-        // traverse route and create ArrayList of the route 
-        // (nodes along the route)
+    /**
+     * traverse route from starting from end node (node at endX and endY).
+     * Add end node to ArrayList and add every node's parent on ArrayList until
+     * start node is in the ArrayList
+     */
     
     private void getRoute() {
         ArrayList<RouteFinderNode> nextRoute = new ArrayList<>();
         this.route = nextRoute;
-        // get the node on end x&y
         RouteFinderNode nextAddedNode = this.openList[this.endX][this.endY];
         this.route.add(nextAddedNode);
         while (true) {
@@ -190,8 +193,10 @@ public class RouteFinder {
         }
     }
     
-    private int getHeuristic() {
-        return this.distance.getDistance(this.startX, this.startY, this.endX, this.endY);
+    
+    
+    private int getHeuristic(int fromX, int fromY) {
+        return this.distance.getDistance(fromX, fromY, this.endX, this.endY)*2;
     }
 
     private class route {

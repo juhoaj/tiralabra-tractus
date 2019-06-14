@@ -6,7 +6,6 @@
 package domain;
 
 import helpers.CustomArrayList;
-// import java.util.ArrayList;
 import java.util.Random;
 import helpers.Distance;
 

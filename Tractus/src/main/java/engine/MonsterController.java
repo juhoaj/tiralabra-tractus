@@ -8,9 +8,9 @@ package engine;
 import domain.Command;
 import domain.Creature;
 import domain.World;
+import helpers.CustomArrayList;
 import helpers.Distance;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -19,7 +19,7 @@ import java.util.Random;
  */
 public class MonsterController {
     
-    private ArrayList<Creature> monsterlist;
+    private CustomArrayList<Creature> monsterlist;
     private World world;
     private GameController gameController;
     private RouteFinder routeFinder;
@@ -37,7 +37,7 @@ public class MonsterController {
      * @param debugging print debugging information to terminal
      * @param testPerformance print performance of algorithms to console
      */ 
-    public MonsterController(ArrayList<Creature> monsterlist, World world, GameController gameController, boolean debugging, boolean testPerformance) {
+    public MonsterController(CustomArrayList<Creature> monsterlist, World world, GameController gameController, boolean debugging, boolean testPerformance) {
         this.testPerformance = testPerformance;
         this.monsterlist = monsterlist;
         this.world = world;
@@ -115,11 +115,12 @@ public class MonsterController {
      * @return true after ready
      */
     public boolean monsterActions() {
-        for ( Creature monster : this.monsterlist ) {
-
-            int newPosition[] = this.routeFinder.getNextMove(monster.getPosition(), this.gameController.getPlayerPosition());
+        for ( int i = 0 ; i < this.monsterlist.size() ; i++) {
+            int[] monsterPosition = monsterlist.get(i).getPosition();
+            int[] playerPosition = this.gameController.getPlayerPosition();
+            int newPosition[] = this.routeFinder.getNextMove(monsterPosition, playerPosition);
             if (this.world.getTerrain(newPosition[0], newPosition[1]) == 1) {
-                monster.setPosition(newPosition);
+                monsterlist.get(i).setPosition(newPosition);
             } else {
                 this.world.setTerrain(newPosition[0], newPosition[1], 1);
             }
@@ -150,7 +151,7 @@ public class MonsterController {
     /**
      * Constructor which is only used in testing
      */ 
-    public MonsterController(ArrayList<Creature> monsterlist, World world, GameController gameController, RouteFinder routeFinder, Distance distance) {
+    public MonsterController(CustomArrayList<Creature> monsterlist, World world, GameController gameController, RouteFinder routeFinder, Distance distance) {
         this.monsterlist = monsterlist;
         this.world = world;
         this.gameController = gameController;

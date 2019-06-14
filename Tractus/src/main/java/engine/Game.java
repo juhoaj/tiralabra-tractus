@@ -8,7 +8,7 @@ package engine;
 import ui.Interface;
 import domain.World;
 import domain.Creature;
-import java.util.ArrayList;
+import helpers.CustomArrayList;
 
 /**
  * <h1>Game</h1>
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class Game {
     private World world;
     private Creature player;
-    private ArrayList<Creature> monsterlist;
+    private CustomArrayList<Creature> monsterlist;
     private GameController gameController;
     private PlayerController playerController;
     private MonsterController monsterController;
@@ -53,7 +53,7 @@ public class Game {
         this.gameController = new GameController();
         this.player = new Creature();
         this.playerController = new PlayerController(this.player, this.world, this.gameController);
-        this.monsterlist = new ArrayList<>();
+        this.monsterlist = new CustomArrayList<>();
         this.monsterController = new MonsterController(this.monsterlist, this.world, this.gameController, debugging, testPerformance);
         this.ui = new Interface(this.world, this.playerController, this.monsterController, viewportWidth, viewportHeight, debugging);
         this.gameController.addDependencies(this.world, this.ui, this.playerController, this.monsterController, monstersAtStart, debugging, testPerformance);

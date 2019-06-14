@@ -16,10 +16,11 @@ public class CustomArrayList<E> {
     private int listSize;
     private Class objectClass;
     private boolean hasBeenInitialized;
+    private int startSize = 64;
 
     
     public CustomArrayList(){
-        this.array = new Object[64];
+        this.array = new Object[startSize];
         this.listSize = 0;
         
     }
@@ -63,6 +64,17 @@ public class CustomArrayList<E> {
         this.array = newArray;
     }
     
+    public boolean isEmpty() {
+        if ( this.listSize == 0 ) {
+            return true;
+        }
+        return false;
+    }
+    
+    public void clear() {
+        this.array = new Object[startSize];
+        this.listSize = 0;
+    }
 
 
 }

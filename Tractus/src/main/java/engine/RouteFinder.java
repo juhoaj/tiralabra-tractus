@@ -9,7 +9,6 @@ import domain.Creature;
 import domain.World;
 import helpers.CustomArrayList;
 import helpers.Distance;
-import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 /**
@@ -26,12 +25,12 @@ public class RouteFinder {
     private int[] endPosition;
     private World world;
     private GameController gameController;
-    private ArrayList<Creature> monsterList;
+    private CustomArrayList<Creature> monsterList;
     private Distance distance;
     private boolean debugging;
     private boolean testPerformance;
     private RouteFinderNode[][] openList;
-    private ArrayList<RouteFinderNode> route;
+    private CustomArrayList<RouteFinderNode> route;
     private PriorityQueue<RouteFinderNode> nodeHeap; 
 
     /**
@@ -44,7 +43,7 @@ public class RouteFinder {
      * @param debugging set true to draw algorithm's routefinding to terminal
      * @param testPerformance print performance of algorithms to console
      */
-    public RouteFinder(World world, ArrayList<Creature> monsterList, GameController gameController, boolean debugging, boolean testPerformance) {
+    public RouteFinder(World world, CustomArrayList<Creature> monsterList, GameController gameController, boolean debugging, boolean testPerformance) {
         this.world = world;
         this.gameController = gameController;
         this.debugging = debugging;
@@ -59,7 +58,7 @@ public class RouteFinder {
      * @param world contains and controls the map
      * @param monsterList list of all monsters
      */
-    public RouteFinder(World world, ArrayList<Creature> monsterList) {
+    public RouteFinder(World world, CustomArrayList<Creature> monsterList) {
         this.world = world;
         this.monsterList = monsterList;
         this.distance = new Distance();
@@ -176,7 +175,7 @@ public class RouteFinder {
      */
     
     private void getRoute() {
-        ArrayList<RouteFinderNode> nextRoute = new ArrayList<>();
+        CustomArrayList<RouteFinderNode> nextRoute = new CustomArrayList<>();
         this.route = nextRoute;
         RouteFinderNode nextAddedNode = this.openList[this.endX][this.endY];
         this.route.add(nextAddedNode);

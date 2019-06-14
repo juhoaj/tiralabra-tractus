@@ -7,8 +7,8 @@ package engine;
 
 import domain.Creature;
 import domain.World;
+import helpers.CustomArrayList;
 import helpers.Distance;
-import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -31,7 +31,7 @@ public class MonsterControllerTest {
     private MonsterController testMonsterControllerWithWorldOne;
     private MonsterController testMonsterControllerWithWorldTwo;
     private Creature monster;
-    private ArrayList<Creature> monsterList;
+    private CustomArrayList<Creature> monsterList;
     private GameController gameController;
     private RouteFinder routeFinder;
     private Distance distance;
@@ -41,7 +41,7 @@ public class MonsterControllerTest {
         this.monster = mock(Creature.class);
         when(this.monster.getX()).thenReturn(1);
         when(this.monster.getY()).thenReturn(1); 
-        this.monsterList = new ArrayList<>();
+        this.monsterList = new CustomArrayList<>();
         this.monsterList.add(this.monster);
         
         this.gameController = mock(GameController.class);

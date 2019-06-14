@@ -40,3 +40,4 @@ Todo:
 Jos ehtii:
 * FOV
 * Monstereiden liikkeisiin randomin mahdollisuus
+* javadocit kuntoon

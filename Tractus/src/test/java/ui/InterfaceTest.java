@@ -45,4 +45,24 @@ public class InterfaceTest {
         assertNotNull(this.testInterface);
     }
     
+    @Test
+    public void throwsErrorIfTooLargeInterface() {
+        try {
+            Interface i = new Interface(this.world, this.playerController, this.monsterController, 4, 10, false);
+            fail("viewport size incompatible with ui");
+        } catch (IllegalArgumentException e) { }
+        try {
+            Interface i = new Interface(this.world, this.playerController, this.monsterController, 10, 4, false);
+            fail("viewport size incompatible with ui");
+        } catch (IllegalArgumentException e) { }
+        try {
+            Interface i = new Interface(this.world, this.playerController, this.monsterController, 53, 10, false);
+            fail("viewport size incompatible with ui");
+        } catch (IllegalArgumentException e) { }
+        try {
+            Interface i = new Interface(this.world, this.playerController, this.monsterController, 10, 53, false);
+            fail("viewport size incompatible with ui");
+        } catch (IllegalArgumentException e) { }
+    }
+    
 }

@@ -6,7 +6,6 @@
  */
 package engine;
 
-import domain.Creature;
 import domain.World;
 import java.util.Arrays;
 import java.util.Random;
@@ -70,7 +69,7 @@ public class GameController {
             if (this.testPerformance == true ) {
                     System.out.println("World creation, ms");
                     System.out.println(worldCreationTime);
-                    System.out.println("Monster action, ms");
+                    
                 }
             this.timeForWorldCreation = System.currentTimeMillis() - worldCreationStart;
             insertionSuccesfull = this.playerController.insertPlayer();
@@ -122,6 +121,7 @@ public class GameController {
         this.monsterController.monsterActions();
         long timeForMonsterAction = System.currentTimeMillis() - monsterActionStart;
         if (this.testPerformance == true ) {  
+            System.out.println("Monster action, ms");
             System.out.println(timeForMonsterAction);
         }
         if (this.debugging != true) {

@@ -32,7 +32,7 @@ public class Game {
      */
     public Game() {
         
-        boolean testPerformance = false; // set true to print algorithm performance to console
+        boolean testPerformance = true; // set true to print algorithm performance to console
         boolean debugging = true; // set true to print debugging info to terminal
         int gameareaHeight = 51; // 
         int gameareaWidth = 51; // 
@@ -41,10 +41,9 @@ public class Game {
         int viewportWidth = 51;
         
         if (testPerformance==true) {
-            System.out.println("-------------------------------");
             System.out.println("gamearea: " + gameareaHeight + "x" + gameareaWidth);
             System.out.println("monsters: " + monstersAtStart);
-            System.out.println("-------------------------------");
+            System.out.println("---------------------------");
             
 
         }

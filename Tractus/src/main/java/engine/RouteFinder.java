@@ -22,16 +22,16 @@ public class RouteFinder {
     private int startY;
     private int endX;
     private int endY;
-    private int[] endPosition;
     private World world;
     private GameController gameController;
-    private CustomArrayList<Creature> monsterList;
     private Distance distance;
     private boolean debugging;
     private boolean testPerformance;
     private RouteFinderNode[][] openList;
     private CustomArrayList<RouteFinderNode> route;
-    private PriorityQueue<RouteFinderNode> nodeHeap; 
+    private PriorityQueue<RouteFinderNode> nodeHeap;
+    private int visitedNodes;
+    private int routeLength;
 
     /**
      * Constructor which injects also gameController which is required by 
@@ -43,11 +43,10 @@ public class RouteFinder {
      * @param debugging set true to draw algorithm's routefinding to terminal
      * @param testPerformance print performance of algorithms to console
      */
-    public RouteFinder(World world, CustomArrayList<Creature> monsterList, GameController gameController, boolean debugging, boolean testPerformance) {
+    public RouteFinder(World world, GameController gameController, boolean debugging, boolean testPerformance) {
         this.world = world;
         this.gameController = gameController;
         this.debugging = debugging;
-        this.monsterList = monsterList;
         this.distance = new Distance();
         this.testPerformance = testPerformance;
     }
@@ -58,9 +57,8 @@ public class RouteFinder {
      * @param world contains and controls the map
      * @param monsterList list of all monsters
      */
-    public RouteFinder(World world, CustomArrayList<Creature> monsterList) {
+    public RouteFinder(World world) {
         this.world = world;
-        this.monsterList = monsterList;
         this.distance = new Distance();
         this.debugging = false;
     }
@@ -91,6 +89,8 @@ public class RouteFinder {
             this.endX >= this.world.getWidth() || 
             this.endY >= this.world.getHeight()
         ) {
+            // int[] ret = {2,0};
+            // return ret;
             return null;
         }
 
@@ -106,6 +106,8 @@ public class RouteFinder {
      */
     
     private void AStar() {
+        this.visitedNodes = 0;
+        this.routeLength = 0;
         RouteFinderNode[][] nextList = new RouteFinderNode[this.world.getWidth()][this.world.getHeight()];
         this.openList = nextList;
         PriorityQueue<RouteFinderNode> nextNodeHeap = new PriorityQueue<>();
@@ -120,6 +122,12 @@ public class RouteFinder {
         this.traverseNodes();
         
         this.getRoute();
+        if (this.testPerformance == true) {
+            System.out.println("visited nodes: ");
+            System.out.println(this.visitedNodes);
+            System.out.println("route length");
+            System.out.println(this.routeLength);
+        }
 
         return;
     }
@@ -132,12 +140,13 @@ public class RouteFinder {
     
     private void traverseNodes() {
         while (!nodeHeap.isEmpty() ) {
-            
+            this.visitedNodes++;
             // check if target found
             RouteFinderNode currentNode = nodeHeap.poll();
             if (currentNode.getX() == this.endX && currentNode.getY() == this.endY) {
                 break;
             }
+            
             
             // Check adjacent Nodes from World and create new Nodes if nessecary
             CustomArrayList<int[]> childrenPositions = this.world.getNeighborPositions(currentNode.getPosition());
@@ -180,6 +189,7 @@ public class RouteFinder {
         RouteFinderNode nextAddedNode = this.openList[this.endX][this.endY];
         this.route.add(nextAddedNode);
         while (true) {
+            this.routeLength++;
             //end if node if arrived as start node
             if (nextAddedNode.getX() == this.startX && nextAddedNode.getY() == this.startY) {
                 break;
@@ -196,13 +206,8 @@ public class RouteFinder {
     
     
     private int getHeuristic(int fromX, int fromY) {
-        return this.distance.getDistance(fromX, fromY, this.endX, this.endY)*2;
-    }
-
-    private class route {
-
-        public route() {
-        }
+        int distance = this.distance.getDistance(fromX, fromY, this.endX, this.endY);
+        return distance * distance;
     }
 
 }

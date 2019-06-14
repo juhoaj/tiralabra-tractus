@@ -50,15 +50,16 @@ public class World {
      * 
      */
     
-    public void initializeCaves() {
+    public boolean initializeCaves() {
         while (true) {
             this.connected = new boolean[this.width][this.height];
             this.randomize();
             this.smooth(5);
             if (this.validateAndFillUnconnectedCaves() == true) {
-                break;
+                return true;
             }
             this.map = new int[this.width][this.height];
+            return false;
         }
     }
 
@@ -242,11 +243,12 @@ public class World {
      * @param y y-coordinate
      * @param terrain 1=corridor, 2=wall
      */
-    public void setTerrain(int x, int y, int terrain) {
+    public boolean setTerrain(int x, int y, int terrain) {
         if (x < 0 || y < 0 || x >= this.width || y>= this.width || terrain < 1 || terrain > 2) {
-            return;
+            return false;
         }
         this.map[x][y] = terrain;
+        return true;
     }
     
     /**

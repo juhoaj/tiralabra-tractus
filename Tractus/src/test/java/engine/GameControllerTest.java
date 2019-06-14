@@ -165,4 +165,11 @@ public class GameControllerTest {
         this.testGameController.drawCharacter('x',0,0);
         verify(this.ui).drawCharacter('x',0,0);
     }
+    
+    @Test 
+        public void getPlayerPositionWorks() {
+        int[] testPosition = {1,1};
+        when(this.playerController.getPlayerPosition()).thenReturn(testPosition);
+        assertEquals(testPosition[0],this.testGameController.getPlayerPosition()[0]);
+    }
 }

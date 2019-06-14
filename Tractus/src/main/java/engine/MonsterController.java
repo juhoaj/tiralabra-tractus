@@ -5,7 +5,6 @@
  */
 package engine;
 
-import domain.Command;
 import domain.Creature;
 import domain.World;
 import helpers.CustomArrayList;
@@ -43,9 +42,9 @@ public class MonsterController {
         this.world = world;
         this.gameController = gameController;
         if (debugging == true || this.testPerformance == true ) {
-            this.routeFinder = new RouteFinder(this.world, this.monsterlist, this.gameController, debugging, this.testPerformance);
+            this.routeFinder = new RouteFinder(this.world, this.gameController, debugging, this.testPerformance);
         } else {
-            this.routeFinder = new RouteFinder(this.world, this.monsterlist);
+            this.routeFinder = new RouteFinder(this.world);
         }
         this.distance = new Distance();
 
@@ -131,13 +130,13 @@ public class MonsterController {
     
     /**
      * Get all monster positions. Return format is array that contains array
-     * for each monster's position.
+     * for each monster's position. Returns null if no monsters present.
      * 
      * @return {{x-coordinate,y-coordinate},{x-coordinate,y-coordinate}}
      */
     public int[][] getMonsterPositions() {
         if ( this.monsterlist.isEmpty()) {
-            return new int[0][0];
+            return null;
         }
         int[][] positions = new int[this.monsterlist.size()][2];
         for ( int i = 0 ; i < this.monsterlist.size() ; i++ ) {

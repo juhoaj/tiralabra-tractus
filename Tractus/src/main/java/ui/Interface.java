@@ -12,7 +12,6 @@ import helpers.Distance;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 /**
  * <h1>Interface</h1>
@@ -47,7 +46,7 @@ public class Interface extends JFrame {
      */
     public Interface(World world, PlayerController playerController, MonsterController monsterController, int viewportWidth, int viewportHeight, boolean debugging) {
         this.debugging = debugging;
-        if (viewportWidth <= 3 || viewportHeight <= 3 || viewportWidth > 52 || viewportHeight > 52) {
+        if (viewportWidth <= 4 || viewportHeight <= 4 || viewportWidth > 52 || viewportHeight > 52) {
             throw new IllegalArgumentException("viewport size incompatible with ui");
         }
         this.viewportWidth = viewportWidth;

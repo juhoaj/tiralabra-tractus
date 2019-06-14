@@ -16,6 +16,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -46,7 +47,7 @@ public class MonsterControllerTest {
         
         this.gameController = mock(GameController.class);
         
-        this.routeFinder = new RouteFinder(worldThatReturnsOneForTerrain, monsterList);
+        this.routeFinder = new RouteFinder(worldThatReturnsOneForTerrain);
         this.distance = new Distance();
 
         // Creates two instances of World and PlayerController for testing unobstucted and obstucted movement
@@ -82,4 +83,33 @@ public class MonsterControllerTest {
         verify(this.monster).setY(1);
     }
     
+    @Test 
+    public void getMonsterPositionsReturnsNullIfEmpty() {
+        CustomArrayList<Creature> testMonsterList = new CustomArrayList<>();
+        MonsterController testMonsterController = new MonsterController(testMonsterList, mock(World.class), mock(GameController.class), mock(RouteFinder.class), mock(Distance.class));
+        assertNull(testMonsterController.getMonsterPositions());
+    }
+    
+    @Test
+    public void monstersGetCreated() {
+        
+        World testWorld = mock(World.class);
+        when (testWorld.getWidth()).thenReturn(30);
+        when (testWorld.getHeight()).thenReturn(30); 
+        Creature testCreature = new Creature();
+        CustomArrayList<Creature> testMonsterList = new CustomArrayList<>();
+        testMonsterList.add(testCreature);
+        int[] playerPosition = {15,15};
+        GameController testGameController = mock(GameController.class);
+        when (testGameController.getPlayerPosition()).thenReturn(playerPosition);
+        Distance testDistance = mock(Distance.class);
+        when (testDistance.getDistance(anyInt(), anyInt(), anyInt(), anyInt())).thenReturn(15);
+        MonsterController testMonsterController = new MonsterController(testMonsterList, this.worldThatReturnsOneForTerrain, testGameController, mock(RouteFinder.class), testDistance);
+        
+        testMonsterController.createMonsters(1);
+        int positions[][] = this.testMonsterControllerWithWorldOne.getMonsterPositions();
+        assertEquals(1, positions.length);
+    }
+    
+
 }

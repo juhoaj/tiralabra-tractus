@@ -93,5 +93,25 @@ public class WorldTest {
         assertEquals(4, nineWorld.getNeighborPositions(position).size());
     }
     
+    @Test
+    public void tsetTerrainReturnsFalse() {
+
+        assertEquals(false,this.oneWorld.setTerrain(-1,1,1));
+        assertEquals(false,this.oneWorld.setTerrain(1,-1,1));
+        assertEquals(false,this.oneWorld.setTerrain(1,1,-1));
+        assertEquals(false,this.oneWorld.setTerrain(3,1,1));
+        assertEquals(false,this.oneWorld.setTerrain(1,3,1));
+        assertEquals(false,this.oneWorld.setTerrain(1,1,3));
+        
+    }
+    
+    @Test
+    public void getConnectedReturnsFalsOutOfMap() {
+        assertEquals(false,this.oneWorld.getConnected(-1,1));
+        assertEquals(false,this.oneWorld.getConnected(1,-1));
+        assertEquals(false,this.oneWorld.getConnected(3,1));
+        assertEquals(false,this.oneWorld.getConnected(1,3));
+    }
+    
 
 }

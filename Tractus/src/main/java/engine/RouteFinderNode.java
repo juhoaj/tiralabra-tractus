@@ -55,15 +55,7 @@ public class RouteFinderNode implements Comparable<RouteFinderNode>{
         this.f = f;
         this.parent = null;
     }
-    /**
-     * Constructor for fill algorithm node
-     * @param x x-coordinate
-     * @param y y-coordinate
-     */
-    public RouteFinderNode(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+
     
     /**
      * Return node's x-coordinate.

@@ -24,14 +24,19 @@ Viikkoraportit:
 
 * [Viikkoraportti, viikko 5](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_5.md)
 
+* [Viikkoraportti, viikko 6](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_5.md)
+
 Todo:
-* Reitinhakualgoritmin palastelu testauskelpoiseksi
-* Testaus
-* Tietorakenteet
-* Dokumenointi
+* RouteFinder testaus loppuun
+* Interface testaus loppuun
+* MonsterController testaus loppuun
+* Fibonacci Heap ja sen testaus
+* A* algoritmin heuristiikan kehittäminen, lisätään heuristiikan tilan tulostus konsoliin
+* Suorituskykymittaus parannellulla algoritmilla
+* Dokumentaatio kuntoon (huom aikavaativuuksien toteutuminen)
+* Suoritettava ohjelma
+* Koodin siistiminen (turhat importit pois yms.)
 
 Jos ehtii:
 * FOV
-* Monsterit estävät liikkumisen
-* Debuggaustilan nätitys
 * Monstereiden liikkeisiin randomin mahdollisuus

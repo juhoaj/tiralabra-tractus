@@ -97,6 +97,11 @@ public class CustomArrayListTest {
         assertEquals(6, testArrayList.get(testArrayList.size()-1));
     }
     
+    @Test
+    public void returnsEmpty() {
+        assertEquals(true, this.intArrayList.isEmpty());
+    }
+    
 }
 
 

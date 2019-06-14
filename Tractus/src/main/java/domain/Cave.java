@@ -6,7 +6,7 @@
 package domain;
 
 import helpers.CustomArrayList;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 /**
  * 
@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public class Cave implements Comparable<Cave>{
     private int someX;
     private int someY;
-    private ArrayList<Tile> tiles;
+    private CustomArrayList<Tile> tiles;
 
-    public Cave(ArrayList<Tile> tiles, int someX, int someY) {
+    public Cave(CustomArrayList<Tile> tiles, int someX, int someY) {
         if (someX < 0 || someY < 0) {
             throw new IllegalArgumentException("Map has no negative coordinates");
         }
@@ -30,7 +30,7 @@ public class Cave implements Comparable<Cave>{
         return this.tiles.size();
     }
     
-    public ArrayList<Tile> getTiles() {
+    public CustomArrayList<Tile> getTiles() {
         return this.tiles;
     }
     

@@ -37,7 +37,7 @@ public class CustomArrayList<E> {
         return this.listSize;
     }
     
-    public Object get(int i) {
+    public E get(int i) {
         if (i > this.listSize -1 || i < 0) {
             throw new IllegalArgumentException("CustomArrayList out of bounds.");
         }

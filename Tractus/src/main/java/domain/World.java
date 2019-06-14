@@ -5,9 +5,8 @@
  */
 package domain;
 
-
-import engine.RouteFinderNode;
-import java.util.ArrayList;
+import helpers.CustomArrayList;
+// import java.util.ArrayList;
 import java.util.Random;
 import helpers.Distance;
 
@@ -125,7 +124,7 @@ public class World {
         int largestCaveSize = 0;
         int largestCaveIndex = -1;
         this.visited = new boolean[this.width][this.height];
-        ArrayList<Cave> caves = new ArrayList<>();
+        CustomArrayList<Cave> caves = new CustomArrayList<>();
         for (int x = 0 ; x < this.width ; x++) {
             for (int y = 0 ; y < this.height ; y++) {
                 if (this.map[x][y] == 1 && this.visited[x][y] != true ) {
@@ -145,40 +144,30 @@ public class World {
             return false;
         }
         this.connected=new boolean[this.width][this.height];
-         ArrayList<Tile> connectedTiles = caves.get(largestCaveIndex).getTiles();
-         for (Tile tile : connectedTiles ) {
-            this.connected[tile.getX()][tile.getY()] = true;
-         }
-        
-        /*
-        caves.remove(largestCave);
-        
-        for (int i = 0 ; caves.size() > i ; i++) {
-            ArrayList<Node> nodes = caves.get(i).getNodes();
-            for (int j = 0 ; nodes.size > i ; i++) {
-                this.connected
-            }
-            
+        CustomArrayList<Tile> connectedTiles = caves.get(largestCaveIndex).getTiles();
+        for ( int i = 0 ; i < connectedTiles.size() ; i++ ) {
+            int tileX = connectedTiles.get(i).getX();
+            int tileY = connectedTiles.get(i).getY();
+            this.connected[tileX][tileY] = true;
         }
         
-        System.out.println("huoneita oli " + rooms.size());
-        */
+        
         return true;
         
     }
     
     private Cave getCave(int startX, int startY) {
-        ArrayList<Tile> tiles = new ArrayList<>();
+        CustomArrayList<Tile> tiles = new CustomArrayList<>();
         tiles.add(new Tile(startX, startY));
         int i = 0;
         while (tiles.size() > i) {
             Tile node = tiles.get(i);
             i++;
             int[] nodePosition = {node.getX(),node.getY()};
-            ArrayList<int[]> neighbors = this.getNeighborPositions(nodePosition);
-            for (int[] neighborPosition : neighbors) {
-                int x = neighborPosition[0];
-                int y = neighborPosition[1];
+            CustomArrayList<int[]> neighbors = this.getNeighborPositions(nodePosition);
+            for (int j = 0 ; j < neighbors.size() ; j++) {
+                int x = neighbors.get(j)[0];
+                int y = neighbors.get(j)[1];
                 if (this.map[x][y] == 1 && this.visited[x][y] != true) {
                     this.visited[x][y] = true;
                     tiles.add(new Tile(x, y));
@@ -219,8 +208,8 @@ public class World {
      * @param position {x-coordinate,y-coordinate}
      * @return position {x-coordinate,y-coordinate}
      */
-    public ArrayList<int[]> getNeighborPositions(int[] position) {
-        ArrayList<int[]> neighborPositions = new ArrayList<>();
+    public CustomArrayList<int[]> getNeighborPositions(int[] position) {
+        CustomArrayList<int[]> neighborPositions = new CustomArrayList<>();
         int parentX = position[0];
         int parentY = position[1];
         
@@ -324,7 +313,7 @@ public class World {
      * @deprecated 
      */
     private void createEmptyAreasAndCorridors(int areas) {
-        ArrayList<int[]> roomCenters = new ArrayList<>();
+        CustomArrayList<int[]> roomCenters = new CustomArrayList<>();
         for (int i = 0 ; i < areas ; i++) {
             int areaWidth = this.random.nextInt(this.width / 10) + this.width / 10;
             int areaHeight = this.random.nextInt(this.height / 10) + this.width / 10;
@@ -348,7 +337,7 @@ public class World {
     /**
      * @deprecated 
      */
-    private void getCorridors(ArrayList<int[]> roomCenters) {
+    private void getCorridors(CustomArrayList<int[]> roomCenters) {
         Distance distance = new Distance();
 
         for (int i = 0 ; i < roomCenters.size() ; i++) {

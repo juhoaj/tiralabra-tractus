@@ -5,6 +5,7 @@
  */
 package domain;
 
+import helpers.CustomArrayList;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -26,10 +27,10 @@ public class CaveTest {
     
     @Before
     public void setUp() {
-        ArrayList<Tile> twoTiles = new ArrayList<>();
+        CustomArrayList<Tile> twoTiles = new CustomArrayList<>();
         twoTiles.add(mock(Tile.class));
         twoTiles.add(mock(Tile.class));
-        ArrayList<Tile> oneTile = new ArrayList<>();
+        CustomArrayList<Tile> oneTile = new CustomArrayList<>();
         oneTile.add(mock(Tile.class));
         this.testCaveOne = new Cave(oneTile,1,1);
         this.testCaveTwo = new Cave(twoTiles,1,1);
@@ -50,7 +51,7 @@ public class CaveTest {
     
     @Test
     public void cannotInitializeWithNegativeCoordinates() {
-        ArrayList<Tile> oneTile = new ArrayList<>();
+        CustomArrayList<Tile> oneTile = new CustomArrayList<>();
         oneTile.add(mock(Tile.class));
         try {
             Cave testCave = new Cave(oneTile, -1, 1);
@@ -61,7 +62,7 @@ public class CaveTest {
     
     @Test
     public void getTilesWorks() {
-        ArrayList<Tile> testArrayList = testCaveTwo.getTiles();
+        CustomArrayList<Tile> testArrayList = testCaveTwo.getTiles();
         assertEquals(2, testArrayList.size());
     }
     

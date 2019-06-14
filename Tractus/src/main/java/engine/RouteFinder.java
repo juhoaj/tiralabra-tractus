@@ -7,6 +7,7 @@ package engine;
 
 import domain.Creature;
 import domain.World;
+import helpers.CustomArrayList;
 import helpers.Distance;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
@@ -140,11 +141,11 @@ public class RouteFinder {
             }
             
             // Check adjacent Nodes from World and create new Nodes if nessecary
-            ArrayList<int[]> childrenPositions = this.world.getNeighborPositions(currentNode.getPosition());
+            CustomArrayList<int[]> childrenPositions = this.world.getNeighborPositions(currentNode.getPosition());
 
-            for (int[] childPosition : childrenPositions) {
-                int ChildX = childPosition[0];
-                int ChildY = childPosition[1];
+            for (int i = 0; i < childrenPositions.size() ; i++ ) {
+                int ChildX = childrenPositions.get(i)[0];
+                int ChildY = childrenPositions.get(i)[1];
                 int h = this.getHeuristic(ChildX, ChildY);
                 int g = currentNode.getG() + this.world.getTerrain(ChildX, ChildY);
                 if (this.openList[ChildX][ChildY] == null || openList[ChildX][ChildY].getG() > g) {

@@ -11,7 +11,7 @@ package helpers;
  * when inserting the first object.
  * 
  */
-public class CustomArrayList {
+public class CustomArrayList<E> {
     private Object[] array;
     private int listSize;
     private Class objectClass;
@@ -21,12 +21,11 @@ public class CustomArrayList {
     public CustomArrayList(){
         this.array = new Object[64];
         this.listSize = 0;
+        
     }
      
     /**
      * Constructor with option for setting starting length for array
-     * @param <T>
-     * @param arrayLength 
      */
     public CustomArrayList(int arrayLength) {
         this.hasBeenInitialized = false;
@@ -42,21 +41,15 @@ public class CustomArrayList {
         if (i > this.listSize -1 || i < 0) {
             throw new IllegalArgumentException("CustomArrayList out of bounds.");
         }
-        return this.array[i];
+        return (E) this.array[i];
     }
     
-    public void add(Object object) {
-        if (this.hasBeenInitialized == false) {
-            this.objectClass = object.getClass();
-            this.hasBeenInitialized = true;
-        }
-        if (! object.getClass().equals(this.objectClass)) {
-            throw new IllegalArgumentException("Inserted object of wrong class.");
-        }
+    public void add(E e) {
+  
         if (this.listSize == this.array.length) {
             this.lenghten();
         }
-        this.array[this.listSize] = object;
+        this.array[this.listSize] = e;
         this.listSize++;
     }
     
@@ -69,8 +62,6 @@ public class CustomArrayList {
         }
         this.array = newArray;
     }
-    
-    
     
 
 

@@ -5,6 +5,7 @@
  */
 package domain;
 
+import helpers.CustomArrayList;
 import java.util.ArrayList;
 
 /**

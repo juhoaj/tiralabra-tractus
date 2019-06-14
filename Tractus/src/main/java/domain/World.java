@@ -145,10 +145,10 @@ public class World {
             return false;
         }
         this.connected=new boolean[this.width][this.height];
-        ArrayList<Tile> connectedTiles = caves.get(largestCaveIndex).getTiles();
-        for (Tile tile : connectedTiles ) {
+         ArrayList<Tile> connectedTiles = caves.get(largestCaveIndex).getTiles();
+         for (Tile tile : connectedTiles ) {
             this.connected[tile.getX()][tile.getY()] = true;
-        }
+         }
         
         /*
         caves.remove(largestCave);

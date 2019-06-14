@@ -33,7 +33,7 @@ public class Game {
     public Game() {
         
         boolean testPerformance = false; // set true to print algorithm performance to console
-        boolean debugging = false; // set true to print debugging info to terminal
+        boolean debugging = true; // set true to print debugging info to terminal
         int gameareaHeight = 51; // 
         int gameareaWidth = 51; // 
         int monstersAtStart = 1; // 

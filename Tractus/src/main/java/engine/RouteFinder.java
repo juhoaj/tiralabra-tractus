@@ -31,6 +31,7 @@ public class RouteFinder {
     private boolean testPerformance;
     private RouteFinderNode[][] openList;
     private ArrayList<RouteFinderNode> route;
+    private PriorityQueue<RouteFinderNode> nodeHeap; 
 
     /**
      * Constructor which injects also gameController which is required by 
@@ -109,16 +110,27 @@ public class RouteFinder {
     private void AStar() {
         RouteFinderNode[][] nextList = new RouteFinderNode[this.world.getWidth()][this.world.getHeight()];
         this.openList = nextList;
-        PriorityQueue<RouteFinderNode> nodeHeap = new PriorityQueue<>();
-
+        PriorityQueue<RouteFinderNode> nextNodeHeap = new PriorityQueue<>();
+        this.nodeHeap = nextNodeHeap;
+        
         // create first node 
         int startNodeHeuristic = this.getHeuristic();
         RouteFinderNode startNode = new RouteFinderNode(this.startX, this.startY, 0, startNodeHeuristic, 0);
         nodeHeap.add(startNode);
         this.openList[this.startX][this.startY] = startNode;
         
-        // potential nodes on route are inserted in nodeHeap and most promising
+        
+        this.traverseNodes();
+        
+        this.getRoute();
+
+        return;
+    }
+    
+    // potential nodes on route are inserted in nodeHeap and most promising
         // node is retrieved until heap is empty or end node 
+    
+    private void traverseNodes() {
         while (!nodeHeap.isEmpty() ) {
             
             // check if target found
@@ -152,10 +164,13 @@ public class RouteFinder {
             }
             
         }
-
+    }
+    
+    
         // traverse route and create ArrayList of the route 
         // (nodes along the route)
-        
+    
+    private void getRoute() {
         ArrayList<RouteFinderNode> nextRoute = new ArrayList<>();
         this.route = nextRoute;
         // get the node on end x&y
@@ -173,8 +188,6 @@ public class RouteFinder {
             }
             this.route.add(nextAddedNode);
         }
-
-        return;
     }
     
     private int getHeuristic() {

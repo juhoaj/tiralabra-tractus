@@ -127,7 +127,6 @@ public class Interface extends JFrame {
         int drawX = x + originX;
         int drawY = y + originY;
         if (drawX > 0 && drawX < this.viewportWidth && drawY > 0 && drawY < this.viewportHeight) {
-            terminal.clear();
             this.terminal.write(character, drawX, drawY);
         }
 

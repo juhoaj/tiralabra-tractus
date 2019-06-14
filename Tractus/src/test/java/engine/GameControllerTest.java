@@ -36,7 +36,7 @@ public class GameControllerTest {
         this.playerController = mock(PlayerController.class);
         this.monsterController = mock(MonsterController.class);
         this.ui = mock(Interface.class);
-        this.testGameController.addDependencies(world, ui, playerController, monsterController, 1,  false);
+        this.testGameController.addDependencies(world, ui, playerController, monsterController, 1, false, false);
     }
     
     @After

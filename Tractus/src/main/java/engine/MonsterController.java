@@ -25,7 +25,6 @@ public class MonsterController {
     private RouteFinder routeFinder;
     private Random random = new Random();
     private Distance distance;
-    private int monsterSearchRadius;
     private boolean testPerformance;
 
     /**
@@ -87,6 +86,18 @@ public class MonsterController {
                 }
             }
         }        
+    }
+    /**
+     * Adds monster to the world.
+     * 
+     * @param x x-coordinate
+     * @param y y-coordinate
+     */
+    public void instertMonster(int x, int y) {
+        Creature monster = new Creature();
+        monster.setX(x);
+        monster.setY(y);
+        this.monsterlist.add(monster);
     }
     
     /**

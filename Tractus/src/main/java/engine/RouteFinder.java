@@ -18,14 +18,19 @@ import java.util.PriorityQueue;
  */
 public class RouteFinder {
 
-    int[] startPosition;
-    int[] endPosition;
-    World world;
-    GameController gameController;
-    boolean debugging;
-    ArrayList<Creature> monsterList;
-    Distance distance;
-    boolean testPerformance;
+    private int startX;
+    private int startY;
+    private int endX;
+    private int endY;
+    private int[] endPosition;
+    private World world;
+    private GameController gameController;
+    private ArrayList<Creature> monsterList;
+    private Distance distance;
+    private boolean debugging;
+    private boolean testPerformance;
+    private RouteFinderNode[][] openList;
+    private ArrayList<RouteFinderNode> route;
 
     /**
      * Constructor which injects also gameController which is required by 
@@ -47,7 +52,7 @@ public class RouteFinder {
     }
     
     /**
-     * Constructor which does not allow for debugging or testing performance.
+     * Constructor which does not allow for debugging.
      * 
      * @param world contains and controls the map
      * @param monsterList list of all monsters
@@ -57,7 +62,6 @@ public class RouteFinder {
         this.monsterList = monsterList;
         this.distance = new Distance();
         this.debugging = false;
-        this.testPerformance = false;
     }
 
     /**
@@ -72,25 +76,25 @@ public class RouteFinder {
      * @return {x-coordinate,y-coordinate} or null if out of bounds
      */
     public int[] getNextMove(int[] startPosition, int[] endPosition) {
-        int startX = startPosition[0];
-        int startY = startPosition[1];
-        int endX = endPosition[0];
-        int endY = endPosition[1];
+        this.startX = startPosition[0];
+        this.startY = startPosition[1];
+        this.endX = endPosition[0];
+        this.endY = endPosition[1];
 
-        if (startX < 0 || 
-            startY < 0 || 
-            endX < 0 || 
-            endY < 0 || 
-            startX >= this.world.getWidth() || 
-            startY >= this.world.getHeight() || 
-            endX >= this.world.getWidth() || 
-            endY >= this.world.getHeight()
+        if (this.startX < 0 || 
+            this.startY < 0 || 
+            this.endX < 0 || 
+            this.endY < 0 || 
+            this.startX >= this.world.getWidth() || 
+            this.startY >= this.world.getHeight() || 
+            this.endX >= this.world.getWidth() || 
+            this.endY >= this.world.getHeight()
         ) {
             return null;
         }
 
-        ArrayList<RouteFinderNode> route = this.AStar(endX, endY, startX, startY);
-        RouteFinderNode secondLastNode = route.get(1);
+        this.AStar();
+        RouteFinderNode secondLastNode = this.route.get(this.route.size()-2);
         return secondLastNode.getPosition();
 
     }
@@ -99,22 +103,19 @@ public class RouteFinder {
      * A* routefinding algorithm which returns the route as ArrayList
      * containing positions in arrays {x-coordinate, y-coordinate}.
      * 
-     * @param startX starting x-coordinate
-     * @param startY starting y-coordinate
-     * @param endX end x-coordinate
-     * @param endY end y-coordinate
      * @return route as ArrayList<{x-coordinate, y-coordinate}>
      */
     
-    public ArrayList<RouteFinderNode> AStar(int startX, int startY, int endX, int endY) {
-        RouteFinderNode[][] openList = new RouteFinderNode[this.world.getWidth()][this.world.getHeight()];
+    private void AStar() {
+        RouteFinderNode[][] nextList = new RouteFinderNode[this.world.getWidth()][this.world.getHeight()];
+        this.openList = nextList;
         PriorityQueue<RouteFinderNode> nodeHeap = new PriorityQueue<>();
 
         // create first node 
-        int startNodeHeuristic = this.distance.getDistance(startX, startY, endX, endY);
-        RouteFinderNode startNode = new RouteFinderNode(startX, startY, 0, startNodeHeuristic, 0);
+        int startNodeHeuristic = this.getHeuristic();
+        RouteFinderNode startNode = new RouteFinderNode(this.startX, this.startY, 0, startNodeHeuristic, 0);
         nodeHeap.add(startNode);
-        openList[startX][startY] = startNode;
+        this.openList[this.startX][this.startY] = startNode;
         
         // potential nodes on route are inserted in nodeHeap and most promising
         // node is retrieved until heap is empty or end node 
@@ -122,7 +123,7 @@ public class RouteFinder {
             
             // check if target found
             RouteFinderNode currentNode = nodeHeap.poll();
-            if (currentNode.getX() == endX && currentNode.getY() == endY) {
+            if (currentNode.getX() == this.endX && currentNode.getY() == this.endY) {
                 break;
             }
             
@@ -132,37 +133,37 @@ public class RouteFinder {
             for (int[] childPosition : childrenPositions) {
                 int ChildX = childPosition[0];
                 int ChildY = childPosition[1];
-                int h =this.distance.getDistance(ChildX, ChildY, endX, endY);
+                int h = this.getHeuristic();
                 int g = currentNode.getG() + this.world.getTerrain(ChildX, ChildY);
-                if (openList[ChildX][ChildY] == null || openList[ChildX][ChildY].getG() > g) {
+                if (this.openList[ChildX][ChildY] == null || openList[ChildX][ChildY].getG() > g) {
                     RouteFinderNode childNode = new RouteFinderNode(ChildX, ChildY, g, h, g + h, currentNode);
                     nodeHeap.add(childNode);
-                    openList[ChildX][ChildY] = childNode;
-                    /*
+                    this.openList[ChildX][ChildY] = childNode;
+                    
                     if (this.debugging == true) {
                         this.gameController.drawCharacter('/', ChildX, ChildY);
                     }
-                    */
+                    
                 }
             }
-            /*
+            
             if (this.debugging == true) {
                 this.gameController.drawCharacter('X', currentNode.getX(), currentNode.getY());
             }
-            */
+            
         }
 
         // traverse route and create ArrayList of the route 
         // (nodes along the route)
         
-        ArrayList<RouteFinderNode> route = new ArrayList<>();
- 
+        ArrayList<RouteFinderNode> nextRoute = new ArrayList<>();
+        this.route = nextRoute;
         // get the node on end x&y
-        RouteFinderNode nextAddedNode = openList[endX][endY];
-        route.add(nextAddedNode);
+        RouteFinderNode nextAddedNode = this.openList[this.endX][this.endY];
+        this.route.add(nextAddedNode);
         while (true) {
-            //end if node if start node
-            if (nextAddedNode.getX() == startX && nextAddedNode.getY() == startY) {
+            //end if node if arrived as start node
+            if (nextAddedNode.getX() == this.startX && nextAddedNode.getY() == this.startY) {
                 break;
             }
             // add parent Node
@@ -170,10 +171,20 @@ public class RouteFinder {
             if (debugging == true) {
                 this.gameController.drawCharacter('R', nextAddedNode.getX(), nextAddedNode.getY());
             }
-            route.add(nextAddedNode);
+            this.route.add(nextAddedNode);
         }
 
-        return route;
+        return;
+    }
+    
+    private int getHeuristic() {
+        return this.distance.getDistance(this.startX, this.startY, this.endX, this.endY);
+    }
+
+    private class route {
+
+        public route() {
+        }
     }
 
 }

@@ -9,6 +9,7 @@ package engine;
 import domain.Creature;
 import domain.World;
 import java.util.Arrays;
+import java.util.Random;
 import ui.Interface;
 
 /**
@@ -65,10 +66,10 @@ public class GameController {
         while ( true) {
             long worldCreationStart = System.currentTimeMillis();
             this.world.initializeCaves();
-            this.timeForMonsterAction = System.currentTimeMillis() - worldCreationStart;
+            long worldCreationTime = System.currentTimeMillis() - worldCreationStart;
             if (this.testPerformance == true ) {
                     System.out.println("World creation, ms");
-                    System.out.println(this.timeForMonsterAction);
+                    System.out.println(worldCreationTime);
                     System.out.println("Monster action, ms");
                 }
             this.timeForWorldCreation = System.currentTimeMillis() - worldCreationStart;
@@ -79,7 +80,15 @@ public class GameController {
         }      
 
         this.monsterController.dumpMonsters();
-        this.monsterController.createMonsters(this.monstersAtStart);
+
+        if (this.debugging == false) {
+            this.monsterController.createMonsters(this.monstersAtStart);
+        } else {
+            Random random = new Random(127);
+            int x = random.nextInt(this.world.getWidth());
+            int y = random.nextInt(this.world.getHeight());
+            this.monsterController.instertMonster(x, y);
+        }
         this.ui.refresh();
         this.ui.message("Use W,A,S&D for movement!");
         this.playerController.setPlayerTurn(true);
@@ -111,9 +120,9 @@ public class GameController {
     private void monsterTurn() {
         long monsterActionStart = System.currentTimeMillis();
         this.monsterController.monsterActions();
-        this.timeForMonsterAction = System.currentTimeMillis() - monsterActionStart;
+        long timeForMonsterAction = System.currentTimeMillis() - monsterActionStart;
         if (this.testPerformance == true ) {  
-            System.out.println(this.timeForMonsterAction);
+            System.out.println(timeForMonsterAction);
         }
         if (this.debugging != true) {
             this.ui.refresh();
@@ -162,6 +171,7 @@ public class GameController {
             throw new IllegalArgumentException("Coordinate outside map.");
         }
         this.ui.drawCharacter(character,x,y);
+        
     }
 
 }

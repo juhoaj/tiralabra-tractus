@@ -34,9 +34,9 @@ public class Game {
         
         boolean testPerformance = false; // set true to print algorithm performance to console
         boolean debugging = false; // set true to print debugging info to terminal
-        int gameareaHeight = 200; // 
-        int gameareaWidth = 200; // 
-        int monstersAtStart = 20; // 
+        int gameareaHeight = 51; // 
+        int gameareaWidth = 51; // 
+        int monstersAtStart = 1; // 
         int viewportHeight = 51;
         int viewportWidth = 51;
         
@@ -49,7 +49,7 @@ public class Game {
 
         }
         
-        this.world = new World(gameareaHeight,gameareaWidth, testPerformance);
+        this.world = new World(gameareaHeight,gameareaWidth, debugging);
         this.gameController = new GameController();
         this.player = new Creature();
         this.playerController = new PlayerController(this.player, this.world, this.gameController);

@@ -22,9 +22,9 @@ public class World {
     int height;
     int[][] map;
     boolean[][] visited;
-    Random random = new Random();
     private boolean[][] connected;
-    private boolean testPerformance;
+    private boolean debugging;
+    Random random;
     
 
     /**
@@ -35,15 +35,15 @@ public class World {
      * not create the map.
      * @param testPerformance print performance of algorithms to console
      */
-    public World(int width, int height, boolean testPerformance) {
-        this.testPerformance = testPerformance;
+    public World(int width, int height, boolean debugging) {
         if (width < 0 || height < 0) {
             throw new IllegalArgumentException("Map size has to be positive.");
         }
         this.width = width;
         this.height = height;
         this.map = new int[this.width][this.height];
-        this.random = random;
+        this.debugging = debugging;
+        this.random = new Random();
         
     }
     
@@ -78,11 +78,17 @@ public class World {
     
 
     private void randomize() {
+        if (this.debugging == true) {
+            Random notRandom = new Random(14);
+            this.random = notRandom;
+        } 
+        
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
-                map[x][y] = Math.random() < 0.5 ? 1 : 2;
+                map[x][y] = this.random.nextInt()< 0.5 ? 1 : 2;
             }
         }
+        System.out.println("j");
     }
  
 
@@ -91,14 +97,14 @@ public class World {
         int[][] map2 = new int[this.width][this.height];
         for (int i = 0; i < times; i++) {
 
-            for (int x = 1; x < this.width -1; x++) {
-                for (int y = 1; y < this.height -1; y++) {
+            for (int x = 0; x < this.width ; x++) {
+                for (int y = 0; y < this.height ; y++) {
                     int floors = 0;
                     int walls = 0;
 
                     for (int relativeX = -1; relativeX < 2; relativeX++) {
                         for (int relativeY = -1; relativeY < 2; relativeY++) {
-                            if (map[x + relativeX][y + relativeY] == 1) {
+                            if (this.getTerrain(x + relativeX, y + relativeY) == 1) {
                                 floors++;
                             } else {
                                 walls++;
@@ -111,7 +117,7 @@ public class World {
                     }
                 }
             }
-            map = map2;
+            this.map = map2;
         }
     }
     
@@ -123,7 +129,7 @@ public class World {
         for (int x = 0 ; x < this.width ; x++) {
             for (int y = 0 ; y < this.height ; y++) {
                 if (this.map[x][y] == 1 && this.visited[x][y] != true ) {
-                    Cave nextCave = this.getRoom(x,y);
+                    Cave nextCave = this.getCave(x,y);
                     caves.add(nextCave);
                     if ( nextCave.getSize() > largestCaveSize ) {
                         largestCaveSize = nextCave.getSize();
@@ -161,7 +167,7 @@ public class World {
         
     }
     
-    private Cave getRoom(int startX, int startY) {
+    private Cave getCave(int startX, int startY) {
         ArrayList<Tile> tiles = new ArrayList<>();
         tiles.add(new Tile(startX, startY));
         int i = 0;
@@ -183,9 +189,6 @@ public class World {
         Cave newCave = new Cave(tiles, startX, startY );
         return newCave;
     }
-    
-
-
     
 
     /**

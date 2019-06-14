@@ -48,8 +48,7 @@ public class Interface extends JFrame {
     public Interface(World world, PlayerController playerController, MonsterController monsterController, int viewportWidth, int viewportHeight, boolean debugging) {
         this.debugging = debugging;
         if (viewportWidth <= 3 || viewportHeight <= 3 || viewportWidth > 52 || viewportHeight > 52) {
-            System.out.println("viewport size incompatible with ui");
-            return;
+            throw new IllegalArgumentException("viewport size incompatible with ui");
         }
         this.viewportWidth = viewportWidth;
         this.viewportHeight = viewportHeight;
@@ -128,6 +127,7 @@ public class Interface extends JFrame {
         int drawX = x + originX;
         int drawY = y + originY;
         if (drawX > 0 && drawX < this.viewportWidth && drawY > 0 && drawY < this.viewportHeight) {
+            terminal.clear();
             this.terminal.write(character, drawX, drawY);
         }
 

@@ -24,7 +24,7 @@ Viikkoraportit:
 
 * [Viikkoraportti, viikko 5](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_5.md)
 
-* [Viikkoraportti, viikko 6](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_5.md)
+* [Viikkoraportti, viikko 6](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_6.md)
 
 Todo:
 * RouteFinder testaus loppuun

@@ -26,7 +26,10 @@ public class RouteFinder {
     private GameController gameController;
     private Distance distance;
     private boolean debugging;
+    
     private boolean testPerformance;
+    private boolean testPerformanceShowIndiwidualMonsters;
+    private boolean testPerformanceShowHeapPerformance;
     private RouteFinderNode[][] openList;
     private CustomArrayList<RouteFinderNode> route;
     private PriorityQueue<RouteFinderNode> nodeHeap;
@@ -49,6 +52,8 @@ public class RouteFinder {
         this.debugging = debugging;
         this.distance = new Distance();
         this.testPerformance = testPerformance;
+        this.testPerformanceShowIndiwidualMonsters = true; // set true to print each monster's routefindeing performance to the console
+        this.testPerformanceShowHeapPerformance = true; // set true to print information on Heap to console
     }
     
     /**
@@ -106,6 +111,7 @@ public class RouteFinder {
      */
     
     private void AStar() {
+        
         this.visitedNodes = 0;
         this.routeLength = 0;
         RouteFinderNode[][] nextList = new RouteFinderNode[this.world.getWidth()][this.world.getHeight()];
@@ -122,7 +128,7 @@ public class RouteFinder {
         this.traverseNodes();
         
         this.getRoute();
-        if (this.testPerformance == true) {
+        if (this.testPerformance == true && this.testPerformanceShowIndiwidualMonsters == true) {
             System.out.println("visited nodes: ");
             System.out.println(this.visitedNodes);
             System.out.println("route length");
@@ -139,7 +145,13 @@ public class RouteFinder {
      */
     
     private void traverseNodes() {
+        int maxHeapSize = 1;
+        int nodesAdded = 1;
         while (!nodeHeap.isEmpty() ) {
+            
+            if (this.testPerformanceShowHeapPerformance && nodeHeap.size() > maxHeapSize) {
+                maxHeapSize = nodeHeap.size();
+            }
             this.visitedNodes++;
             // check if target found
             RouteFinderNode currentNode = nodeHeap.poll();
@@ -159,6 +171,7 @@ public class RouteFinder {
                 if (this.openList[ChildX][ChildY] == null || openList[ChildX][ChildY].getG() > g) {
                     RouteFinderNode childNode = new RouteFinderNode(ChildX, ChildY, g, h, g + h, currentNode);
                     nodeHeap.add(childNode);
+                    nodesAdded++;
                     this.openList[ChildX][ChildY] = childNode;
                     
                     if (this.debugging == true) {
@@ -172,7 +185,18 @@ public class RouteFinder {
                 this.gameController.drawCharacter('X', currentNode.getX(), currentNode.getY());
             }
             
+            
         }
+        
+        if (this.testPerformance == true && testPerformanceShowHeapPerformance == true) {
+            System.out.println("nodes added:");
+            System.out.println(nodesAdded);
+            System.out.println("max heap size:");
+            System.out.println(maxHeapSize);
+            System.out.println("nodes in heap at the end:");
+            System.out.println(this.nodeHeap.size());
+        }
+        
     }
     
 
@@ -207,7 +231,7 @@ public class RouteFinder {
     
     private int getHeuristic(int fromX, int fromY) {
         int distance = this.distance.getDistance(fromX, fromY, this.endX, this.endY);
-        return distance * distance;
+        return distance * distance ;
     }
 
 }

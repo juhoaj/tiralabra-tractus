@@ -69,6 +69,8 @@ public class MonsterController {
     public void createMonsters(int amount) {
         int playerX = this.gameController.getPlayerPosition()[0];
         int playerY = this.gameController.getPlayerPosition()[1];
+        int smallerWorldDimension = Math.min(this.world.getWidth(), this.world.getHeight());
+        int minimumDistance = Math.min(smallerWorldDimension * 10 / 3, 100);
 
         for (int i = 0 ; i < amount ; i++) {
             Creature creature = new Creature();
@@ -76,9 +78,8 @@ public class MonsterController {
                 int startPositionX = this.random.nextInt(this.world.getWidth() );
                 int startPositionY = this.random.nextInt(this.world.getHeight() );
                 if ( this.world.getTerrain(startPositionX, startPositionY) == 1 &&
-                     distance.getDistance(playerX, playerY, startPositionX, startPositionY) > this.world.getWidth() * 0.3 &&
-                     distance.getDistance(playerX, playerY, startPositionX, startPositionY) > this.world.getHeight()* 0.3
-                        ) {
+                     distance.getDistance(playerX, playerY, startPositionX, startPositionY) > minimumDistance
+                    ) {
                     this.moveTo(startPositionX, startPositionY, creature);
                     this.monsterlist.add(creature);
                     break;

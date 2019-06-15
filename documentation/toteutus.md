@@ -25,3 +25,5 @@
 * Jakob Jenkov](http://tutorials.jenkov.com/java-generics/implementing-iterable.html)
 
 https://codesjava.com/generics-constructor-in-java-example-tutorial
+
+* Heap valinta [From Amit’s Thoughts on Pathfinding: Implementation notes](http://theory.stanford.edu/~amitp/GameProgramming/ImplementationNotes.html)

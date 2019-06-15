@@ -33,19 +33,17 @@ public class Game {
     public Game() {
         
         boolean testPerformance = true; // set true to print algorithm performance to console
-        boolean debugging = true; // set true to print debugging info to terminal
-        int gameareaHeight = 51; // 
-        int gameareaWidth = 51; // 
-        int monstersAtStart = 1; // 
-        int viewportHeight = 51;
-        int viewportWidth = 51;
+        boolean debugging = false;      // set true to print debugging info to terminal and standardize world & monster positions
+        int gameareaHeight = 6400;       // recommended: 500
+        int gameareaWidth = 6400;        // recommended: 500
+        int monstersAtStart = 1;      // recommended: 500
+        int viewportHeight = 51;        // recommended: 51
+        int viewportWidth = 51;         // recommended: 51
         
         if (testPerformance==true) {
             System.out.println("gamearea: " + gameareaHeight + "x" + gameareaWidth);
             System.out.println("monsters: " + monstersAtStart);
             System.out.println("---------------------------");
-            
-
         }
         
         this.world = new World(gameareaHeight,gameareaWidth, debugging);

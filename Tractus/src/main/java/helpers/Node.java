@@ -21,12 +21,18 @@ public class Node implements Comparable<Node> {
        this.leftSibling = null;
        this.rightSibling = null;
     }
-
-    
     
     public int getValue() {
         return this.value;
     }
+    
+    public Node getLeftmostChild() {
+        return this.leftmostChild;
+    }
+    
+    
+    
+    
     
     @Override
     public int compareTo(Node node) {

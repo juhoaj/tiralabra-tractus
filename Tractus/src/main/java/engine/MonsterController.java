@@ -13,8 +13,7 @@ import helpers.Distance;
 import java.util.Random;
 
 /**
- * Responsible for determing monsters actions. Called by GameController.
- * 
+ * Responsible for making monsters' actions.
  */
 public class MonsterController {
     

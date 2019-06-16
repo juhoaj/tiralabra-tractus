@@ -42,9 +42,10 @@ Todo:
 * MonsterController testaus loppuun
 * Suoritettavan ohjelman buildaus ja testaus
 * Projektiin käytetty aika
+* javadocit kuntoon (engine ok)
 
 
 Jos ehtii:
 * FOV
 * Monstereiden liikkeisiin randomin mahdollisuus
-* javadocit kuntoon
+

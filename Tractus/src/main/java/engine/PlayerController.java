@@ -68,8 +68,6 @@ public class PlayerController {
      */
     public void setAction(Command command) {
 
-        
-
         // resolved when the game is not running
         if (this.gameRunning == false && command == command.WEST) {
             this.gameController.startGame();

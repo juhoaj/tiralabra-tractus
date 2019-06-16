@@ -1,15 +1,14 @@
 package domain;
 
 /**
- *
- * @author juhojuutilainen
+ * Tile is used to represent a single x&y -coordinate in cave or map
  */
 public class Tile {
     private int tileX;
     private int tileY;
 
     /**
-     *
+     * Constructor for tile.
      * @param tileX
      * @param tileY
      */
@@ -22,16 +21,16 @@ public class Tile {
     }
 
     /**
-     *
-     * @return
+     * Get tile's x-coordinate
+     * @return x-coordinate
      */
     public int getX() {
         return tileX;
     }
 
     /**
-     *
-     * @return
+     * Get tile's y-coordinate 
+     * @return y-coordinate
      */
     public int getY() {
         return tileY;

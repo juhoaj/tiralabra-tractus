@@ -6,7 +6,8 @@
 package helpers;
 
 /**
- * Implementation of minimum pairing heap for objects that implement Node object.
+ * Implementation of minimum pairing heap for stack of Node objects.
+ * Returns null if empty.
  * @author juhojuutilainen
  */
 public class PairingHeap {
@@ -22,7 +23,8 @@ public class PairingHeap {
     }
     
     
-    public Node peek() {
+    // find-min
+    public Node top() {
         if (this.topNode == null) {
             return null;
         }
@@ -30,20 +32,52 @@ public class PairingHeap {
     }
         
     private void merge(Node node1, Node node2) {
-        
-        if (heap1 == null=
-          return heap2
-        elsif heap2 is Empty
-          return heap1
-        elsif heap1.elem < heap2.elem
-          return Heap(heap1.elem, heap2 :: heap1.subheaps)
-        else
-          return Heap(heap2.elem, heap1 :: heap2.subheaps)
+        if (node1 == null) {
+            return node2;
+        } else if (node2 == null) {
+            return node1;
+        } else if (node1.getValue() < node2.getValue()) {
+            // lisätään node 2 node 1 vasemmaksi
+            // korjataan lapsien relaatiot
+            // palautetaan node 1
+            
+        } else {
+            // ylläoleva päinvastoin
+        }
     }
     
-    function insert(elem: Elem, heap: PairingHeap[Elem]) -> PairingHeap[Elem]
-  return merge(Heap(elem, []), heap)
+    // find-min && delete-min
+    public Node pop() {
+        if (this.topNode == null) {
+            return null;
+        }
+        Node returnNode = this.topNode;
+        
+        if (this.topNode.getLeftmostChild() == null) {
+            this.topNode = null;
+        } else {
+            // this.topNode = mergePairs(jotenkin taiotaan mergePairs:lle topNoden lapset);
+        }
+        
+        return returnNode;
+        
     }
+    
+    private Node mergePairs(Node[] nodes) {
+        if (nodes.length == 0) {
+            return null;
+        } else if (nodes.length == 1) {
+            return nodes[0];
+        } else {
+          return merge(merge(nodes[0], nodes[1]), merge-pairs(nodes[2.. ]))
+        }
+    }
+    
+    // insert
+    public void push(Node node) {
+        this.topNode = this.merge(this.topNode, node);
+    }
+    
     
     
     

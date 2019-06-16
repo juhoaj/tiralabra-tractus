@@ -32,8 +32,8 @@ public class CaveTest {
         twoTiles.add(mock(Tile.class));
         CustomArrayList<Tile> oneTile = new CustomArrayList<>();
         oneTile.add(mock(Tile.class));
-        this.testCaveOne = new Cave(oneTile,1,1);
-        this.testCaveTwo = new Cave(twoTiles,1,1);
+        this.testCaveOne = new Cave(oneTile);
+        this.testCaveTwo = new Cave(twoTiles);
     }
 
     @Test
@@ -48,16 +48,6 @@ public class CaveTest {
         assertEquals(1, this.testCaveOne.getSize());
     }
     
-    
-    @Test
-    public void cannotInitializeWithNegativeCoordinates() {
-        CustomArrayList<Tile> oneTile = new CustomArrayList<>();
-        oneTile.add(mock(Tile.class));
-        try {
-            Cave testCave = new Cave(oneTile, -1, 1);
-            fail("Map has no negative coordinates");
-        } catch (IllegalArgumentException e) { }
-    }
 
     
     @Test

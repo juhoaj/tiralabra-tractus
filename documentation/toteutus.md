@@ -1,4 +1,4 @@
-## Ohjelman yleisrakenne
+# Ohjelman yleisrakenne
 
 
 
@@ -80,14 +80,22 @@ Näin ollen maailman luomisessa voitaisiin käyttää myös proseduraalista maai
 
 Field of view -algoritmia olisi myös ollut kiva harjoitella työssä mutta tämä rajattiin pois ajankäytön järkevyyden nimissä.
 
-Jos harjoitustyötä tarkastellaan pelinä niin suurin osa pelillisistä elementeistä toki loistaa puuttumisellaan. 
+Jos harjoitustyötä tarkastellaan pelinä niin suuri osa tyypillisistä roguelike -elementeistä toki loistaa puuttumisellaan. 
 
 
-## Lähteet
+# Lähteet
 * A* algoritmi [Easy A* (star) Pathfinding, Nicholas Swift](https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2)
 
 * A* algoritmi [Java Generics - Implementing the Iterable Interface, Jakob Jenkov](http://tutorials.jenkov.com/java-generics/implementing-iterable.html)
 
-https://codesjava.com/generics-constructor-in-java-example-tutorial
+* ArrayList [Generics in Java, Wikipedia](https://en.wikipedia.org/wiki/Generics_in_Java)
 
 * Heap valinta [From Amit’s Thoughts on Pathfinding: Implementation notes](http://theory.stanford.edu/~amitp/GameProgramming/ImplementationNotes.html)
+
+* Pairing heap [Pairing Heap, Karleigh Moore](https://brilliant.org/wiki/pairing-heap)
+
+* Pairing heap [From Amit’s Thoughts on Pathfinding: Implementation notes](http://theory.stanford.edu/~amitp/GameProgramming/ImplementationNotes.html)
+
+* Pairing heapin aikavaativuuden analysointi [The Pairing Heap: A New Form of Self-Adjusting Heap, Fredman, M., Sedgewick, R., Sleator, D., & Tarjan, R.](https://www.cs.cmu.edu/~sleator/papers/pairing-heaps.pdf)
+
+

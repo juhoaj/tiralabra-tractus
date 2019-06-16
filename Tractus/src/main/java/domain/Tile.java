@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domain;
 
 /**
@@ -13,6 +8,11 @@ public class Tile {
     private int tileX;
     private int tileY;
 
+    /**
+     *
+     * @param tileX
+     * @param tileY
+     */
     public Tile(int tileX, int tileY) {
         if (tileX < 0 || tileY < 0) {
             throw new IllegalArgumentException("Map has no negative coordinates");
@@ -21,14 +21,21 @@ public class Tile {
         this.tileY = tileY;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getX() {
         return tileX;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getY() {
         return tileY;
     }
-    
     
     
 }

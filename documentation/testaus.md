@@ -13,7 +13,8 @@ Algoritmien toimintaa on testattu kahdella tavasalla. Vakioidusti, antamalla sat
 
 Empiirinen testaus kohdistui ensiksi maailman luomiseen. Lähtökohdaksi otettiin soluautomaatio [roguelike tutorial, Trystan](http://trystans.blogspot.com) pohjasta jotta walking skeleton saatiin nopeammin valmiiksi ja päästin testaamaan hirviöiden reitinhakua ja kaivautumista. 
 
-Luolaston luomiseen kokeiltiin myös random walk algoritmia joka lisäsi huoneita mutta tämä huomattiin tylsäksi pelata. Myös soluautomaation, huoneiden luomisen ja random walk -algoritmien yhdistelmiä kokeiltiin mutta parhaimman lopputuloksen antoi soluautomaatio joten päädyttiin jatkokehittämään aiemmin valittua pohjaa. 
+Luolaston luomiseen kokeiltiin myös random walk algoritmia joka lisäsi huoneita mutta tämä huomattiin tylsäksi pelata. Myös soluautomaation, huoneiden luomisen ja random walk -algoritmien yhdistelmiä kokeiltiin mutta parhaimman lopputuloksen antoi soluautomaatio joten päädyttiin jatkokehittämään aiemmin valittua pohjaa. Nämä on poistettu koodista mutta niihin pääsee tutustumaan esim. [tästä vanhasta commitista](https://github.com/juhoaj/tiralabra-tractus/tree/f096ce4f0dfb0fa937996bdffa01ea6a542780a4).
+
 
 # Reitinhaun algoritmin toiminnan testaus
 
@@ -123,7 +124,7 @@ Jos maailman koko on 500x500 ja karttaa ei ole vakioitu havaitaan myös sama suh
 | 386	            | 1055	                   | 619	              |618	                           |0,37                 |0,59                 |
 | 293	            | 810	                   | 473	              |472                             |0,36                 |0,58                 |
 
-Lähdeaineistosta määrittelyvaiheessa luettu Fibonacci-kekojen sopivuudesta tälläiseen tilanteeseen on validi sillä sen insert -metodin aikavaativuus on vain O(1) siinä missä binäärikeolla se on O(log n). Lisäksi A* algoritmissa kekoon lisätään pääsääntöisesti keossa olevia nodeja pienempiä nodeja. Tällöin binäärikeon on jatkuvasti tasapainotettava kekoa ja oltaisiin todennäköisesti lähellä hitainta mahdollista insert-metodin suorituskykyä.
+Lähdeaineistosta määrittelyvaiheessa luettu Fibonacci-kekojen sopivuudesta tälläiseen tilanteeseen on validi sillä sen insert -metodin aikavaativuus on vain O(1) siinä missä AVL binääripuulla se on O(log n). Lisäksi A* algoritmissa kekoon lisätään pääsääntöisesti keossa olevia nodeja pienempiä nodeja. Tällöin AVL binääripuulla on jatkuvasti tasapainotettava kekoa ja oltaisiin todennäköisesti lähellä hitainta mahdollista insert-metodin suorituskykyä.
 
 Fibonacci-keko on kuitenkin verrattain vaikea toteuttaa. Myöhemmin kerätystä lähdeaineistosta tutuksi tuli pairing heap  vaikuttaa yhtä validille. Molempien kekojen insert -metodin aikavaativuus on O(1) ja niiden molempien delete -metodin aikavaativuus on O(log n) eikä isEmpty ole myöskään hitaampi.
 

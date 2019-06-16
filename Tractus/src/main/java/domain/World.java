@@ -31,7 +31,7 @@ public class World {
      * @param width width of the world.
      * @param height height of the world. Please note that the constructor does
      * not create the map.
-     * @param testPerformance print performance of algorithms to console
+     * @param debugging
      */
     public World(int width, int height, boolean debugging) {
         if (width < 0 || height < 0) {
@@ -46,8 +46,8 @@ public class World {
     }
     
     /**
-     * Creates a map with caves
-     * 
+     * Creates a new map with caves
+     * @return 
      */
     
     public boolean initializeCaves() {
@@ -151,7 +151,6 @@ public class World {
             this.connected[tileX][tileY] = true;
         }
         
-        
         return true;
         
     }
@@ -172,10 +171,9 @@ public class World {
                     this.visited[x][y] = true;
                     tiles.add(new Tile(x, y));
                 }
-                
             }
         }
-        Cave newCave = new Cave(tiles, startX, startY );
+        Cave newCave = new Cave(tiles);
         return newCave;
     }
     
@@ -194,6 +192,12 @@ public class World {
         return this.map[x][y];
     }
     
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean getConnected(int x, int y) {
         if (x < 0 || y < 0 || x >= this.width || y >= this.width) {
             return false;
@@ -242,6 +246,7 @@ public class World {
      * @param x X-coordinate
      * @param y y-coordinate
      * @param terrain 1=corridor, 2=wall
+     * @return 
      */
     public boolean setTerrain(int x, int y, int terrain) {
         if (x < 0 || y < 0 || x >= this.width || y>= this.width || terrain < 1 || terrain > 2) {
@@ -268,187 +273,4 @@ public class World {
     public int getHeight() {
         return this.height;
     }
-    
-    // ----- Abandoned and unfinished methods for cave creation -------
-    
-    /**
-     * @deprecated 
-     */
-    private void createEmptyArea(int centerX, int centerY) {
-        int areaWidth = this.random.nextInt(this.width / 10) + this.width / 10;
-        int areaHeight = this.random.nextInt(this.height / 10) + this.width / 10;
-        if (areaWidth > 15 || areaHeight > 15) {
-            areaWidth = 15;
-            areaHeight = 15;
-        }
-        int startX = centerX - areaWidth / 2;
-        int startY = centerY - areaHeight / 2;
-        for (int x = startX; x < startX + areaWidth ; x++) {
-            for (int y = startY; y < startY + areaHeight ; y++) {
-                // map[x][y] = 1;
-                this.setTerrain(x, y, 1);
-            }
-        }
-          
-    }
-    
-    /**
-     * @deprecated 
-     */
-    private void createEmptyAreas(int areas) {
-        for (int i = 0 ; i < areas ; i++) {
-            int areaWidth = this.random.nextInt(this.width / 10) + this.width / 10;
-            int areaHeight = this.random.nextInt(this.height / 10) + this.width / 10;
-            int startX = this.random.nextInt(this.width - areaWidth);
-            int startY = this.random.nextInt(this.height - areaHeight);
-            for (int x = startX; x < startX + areaWidth ; x++) {
-                for (int y = startY; y < startY + areaHeight ; y++) {
-                    // map[x][y] = 1;
-                    this.setTerrain(x, y, 1);
-                }
-            }
-        }     
-    }
-    
-    /**
-     * @deprecated 
-     */
-    private void createEmptyAreasAndCorridors(int areas) {
-        CustomArrayList<int[]> roomCenters = new CustomArrayList<>();
-        for (int i = 0 ; i < areas ; i++) {
-            int areaWidth = this.random.nextInt(this.width / 10) + this.width / 10;
-            int areaHeight = this.random.nextInt(this.height / 10) + this.width / 10;
-            int startX = this.random.nextInt(this.width - areaWidth);
-            int startY = this.random.nextInt(this.height - areaHeight);
-            int[] newRoomCenter = {startX + areaWidth / 2, startY + areaHeight / 2};
-            roomCenters.add(newRoomCenter);
-            for (int x = startX; x < startX + areaWidth ; x++) {
-                for (int y = startY; y < startY + areaHeight ; y++) {
-                    // map[x][y] = 1;
-                    this.setTerrain(x, y, 1);
-                }
-            }
-            
-        }
-        
-        this.getCorridors(roomCenters);
- 
-    }
-    
-    /**
-     * @deprecated 
-     */
-    private void getCorridors(CustomArrayList<int[]> roomCenters) {
-        Distance distance = new Distance();
-
-        for (int i = 0 ; i < roomCenters.size() ; i++) {
-            int shortestDistance = this.width + this.height;
-            int shortestDistanceRoom = roomCenters.size()+1;
-            for (int j = 0 ; j < roomCenters.size() ; j++) {
-                
-                int currentDistance = distance.getDistance(roomCenters.get(i)[0], roomCenters.get(i)[1], roomCenters.get(j)[0], roomCenters.get(j)[1]);
-                if (currentDistance > 0 && currentDistance < shortestDistance) {
-                    currentDistance = shortestDistance;
-                    shortestDistanceRoom = j;
-                }
-            }
-            this.drawCorridor(roomCenters.get(i)[0], roomCenters.get(i)[1], roomCenters.get(shortestDistanceRoom)[0], roomCenters.get(shortestDistanceRoom)[1]);
-        }
-    }
-    
-    /**
-     * @deprecated 
-     */
-    private void drawCorridor(int startX, int startY, int endX, int endY) {
-        // if (endX - startX < endX -  startY) {
-            for (int i = startX ; i < endX ; i++) {
-                this.map[i][startY] = 1;
-            }
-            for (int i = startY ; i < endY ; i++) {
-                this.map[endX][i] = 1;
-            
-        }
-    }
-
-    /**
-     * @deprecated 
-     */
-    
-    private void randomWalker(int iterations, int roomInterval) {
-        int startX = random.nextInt(this.width);
-        int startY = random.nextInt(this.height);
-        int destinationX = 0;
-        int destinationY = 0;
-        int iteration = 0;
-        for (int i = 0; i < iterations ; i++) {
-            iteration ++;
-            int direction = random.nextInt(4);
-            switch (direction) {
-                case 0:
-                    destinationX = startX - random.nextInt( startX );
-                    destinationY = startY;
-                    
-                    break;
-                case 1:
-                    destinationX = startX; 
-                    destinationY = startY + random.nextInt( this.width - startY );
-                    
-                    break;
-                case 2:
-                    destinationX = startX + random.nextInt( this.height - startX);
-                    destinationY = startY;
-                    break;
-                case 3:
-                    destinationX = startX; 
-                    destinationY = startY - random.nextInt( startY );
-                    break;
-            }
-            this.drawCorridor(startX, startY, destinationX, destinationY);
-            if (iteration % roomInterval == 0) {
-                this.createEmptyArea(destinationX, destinationY);
-            }
-            
-            startX = destinationX;
-            startY = destinationY;
-            
-        }
-    }
-    
-    
-    /**
-     * Creates a map with rooms. INCOMPLETE AND DEPRECATED.
-     * 
-     * @deprecated 
-     */
-    public void initializeRooms() {
-        this.initializeFull();
-        this.createEmptyAreasAndCorridors(10);
-
-    }
-    
-    /**
-     * Creates a map with caves utilizing random walk algorithm and
-     * cellular automation. DEPRECATED.
-     * 
-     * @deprecated 
-     * 
-     */
-    
-    public void initializeCavesWithRandomwalker() {
-        this.randomize();
-        this.randomWalker(this.height + this.width / 4, this.height + this.width / 40 );
-        this.smooth(4);
-    }
-    
-    /**
-     * @deprecated 
-     */
-    private void initializeFull() {
-        for (int x = 0; x < this.width; x++) {
-            for (int y = 0; y < this.height; y++) {
-                this.map[x][y] = 2;
-            }
-        }
-    }
-
 }

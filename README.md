@@ -2,7 +2,9 @@
 
 *Tietorakenteet ja algoritmit harjoitustyö, alkukesä 2019. Harjoitustyössä harjoitellaan Javalla luolaston algoritmipohjaista rakentamista ja siinä liikkumista.*
 
-Sovellus luo oletusarvoisesti 500x500 tiilen kokoisen maailman jossa on 500 hirviötä jotka kukin kulkevat lyhyintä reittiänsä pitkin kohti pelaajaa.
+Peli on vuoropohjainen. Ensin liikkuu pelaaja yhden tiilen verran johonkin suuntaan ja tämän jälkeen hirviöt. Hirviöt osaavat kaivautua seinien läpi, yhden seinätiilen läpi kaivautuminen vie oletusarvoisesti yhden vuoron. 
+
+Peli luo oletusarvoisesti 500x500 tiilen kokoisen maailman jossa on 500 hirviötä jotka kukin kulkevat lyhyintä reittiänsä pitkin kohti pelaajaa. 
 
 
 * [Käyttöohje](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/käyttöohje.md) – miten sovellusta käytetään
@@ -28,16 +30,19 @@ Viikkoraportit:
 
 * [Viikkoraportti, viikko 6](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_6.md)
 
+* [Viikkoraportti, viikko 7](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_7.md)
+
+
 Todo:
+* Pairing Heap ja sen testaus
+* Dokumentaatio kuntoon (keon testaus, kartan suorituskyvyn graafi, suorituskyky keolle ja A*:lle, sovellusrakenne muista lisätä pdf:t, lähteet )
+* Koodin siistiminen (turhat importit pois yms.)
 * RouteFinder testaus loppuun
 * Interface testaus loppuun
 * MonsterController testaus loppuun
-* Fibonacci Heap ja sen testaus
-* A* algoritmin heuristiikan kehittäminen, lisätään heuristiikan tilan tulostus konsoliin
-* Suorituskykymittaus parannellulla algoritmilla
-* Dokumentaatio kuntoon (huom aikavaativuuksien toteutuminen)
-* Suoritettava ohjelma
-* Koodin siistiminen (turhat importit pois yms.)
+* Suoritettavan ohjelman buildaus ja testaus
+* Projektiin käytetty aika
+
 
 Jos ehtii:
 * FOV

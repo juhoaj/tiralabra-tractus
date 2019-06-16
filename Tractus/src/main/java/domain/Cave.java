@@ -1,34 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domain;
 
 import helpers.CustomArrayList;
 
 /**
- * 
+ * Cave object is used by World to list caves and tiles in each cave
  */
 public class Cave implements Comparable<Cave>{
-    private int someX;
-    private int someY;
     private CustomArrayList<Tile> tiles;
 
-    public Cave(CustomArrayList<Tile> tiles, int someX, int someY) {
-        if (someX < 0 || someY < 0) {
-            throw new IllegalArgumentException("Map has no negative coordinates");
-        }
-
+    /**
+     * Constructor requires CustomArrayList of tiles in the cave
+     * @param tiles
+     */
+    public Cave(CustomArrayList<Tile> tiles) {
         this.tiles = tiles;
-        this.someX = someX;
-        this.someY = someY;
     }
     
+    /**
+     * Return the size of the cave (amount of tiles).
+     * @return amount of tiles
+     */
     public int getSize(){
         return this.tiles.size();
     }
     
+    /**
+     * Returns the tiles in the cave.
+     * @return CustomArrayList of tiles in the cave
+     */
     public CustomArrayList<Tile> getTiles() {
         return this.tiles;
     }
@@ -43,5 +42,4 @@ public class Cave implements Comparable<Cave>{
             return 0;
         }
     }
-    
 }

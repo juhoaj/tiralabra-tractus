@@ -1,43 +1,21 @@
-## Mitä sovelluksessa on testattu
+# Mitä sovelluksessa on testattu ja miten testit ovat toistettavissa
 
-Erilaisia generointitapoja empiirisesti.
+Sovelluksessa on luotu walking skeleton jonka jälkeen on testattu erilaisia luolaston luomistapoja. Tästä enemmän kappaleessa 'Ohjelman toiminnan empiirisen testauksen tulokset'.
 
-Yksikkötestaus mockeilla.
+Testiautomaatiossa on käytetty JUnitia ja Mockitoa jotta jokaisen luokan toiminta voidaan mahdolisimman pitkälle testata käyttämättä muista luokista luotuja olioita. Tästä on muutamassa kohdassa tosin joustettu sillä harjoitustyötä ei ole nähty ensisijaisesti sovellusrakenteen harjoitustyönä.
 
-Algoritmien testaus kehitysvaiheessa tulostamalla käyttöliittymään.
+Reitinhakualgoritmia on testattu ensin tulostamalla käyttöliittymään tietoa reitinhaun etenemisestä reitinhakualgoritmin debuggauksen yhteydessä. Myöhemmässä vaiheessa reintinhaun heuristiikan ja keon kehittämisen tueksi on tulostettu reitinhaun käyttäytymistä konsoliin. Tämän tuloksista enemmän kappaleessa 'Reitinhaun algoritmin toiminnan testaus'.
 
-Algoritmien tehokkuuden kehitys tulostamalla käyttöliittymään ja konsoliin.
-
-
-
-## Miten testit voidaan toistaa
-
-Suorituskykytestit kolmen ajon keskiarvosta.
-
-Reitinhakualgoritmin testaus antamalla satunnaisluvulle seed jotta kartta ja hirviöiden sijainnit vakioitu.
+Algoritmien toimintaa on testattu kahdella tavasalla. Vakioidusti, antamalla satunnaislukugeneraattoreille vakioitu seed sekä sattumanvaraisesti useammalla otoksella. Näin on haluttu varmistaa että vakioitu tilanne ei vahingossa ole poikkeistapaus.
 
 
-## Ohjelman toiminnan empiirisen testauksen tulokset
+# Ohjelman toiminnan empiirisen testauksen tulokset
 
 Empiirinen testaus kohdistui ensiksi maailman luomiseen. Lähtökohdaksi otettiin soluautomaatio [roguelike tutorial, Trystan](http://trystans.blogspot.com) pohjasta jotta walking skeleton saatiin nopeammin valmiiksi ja päästin testaamaan hirviöiden reitinhakua ja kaivautumista. 
 
 Luolaston luomiseen kokeiltiin myös random walk algoritmia joka lisäsi huoneita mutta tämä huomattiin tylsäksi pelata. Myös soluautomaation, huoneiden luomisen ja random walk -algoritmien yhdistelmiä kokeiltiin mutta parhaimman lopputuloksen antoi soluautomaatio joten päädyttiin jatkokehittämään aiemmin valittua pohjaa. 
 
-
-
-### Maailman luominen
-
-Maailman luomisen kesto on suoraan suhteessa kartain tiilien määrään 18 mittauksen keskiarvoilla. Näin ollen voidaan päätellä että kartan luomisen algoritmin tehokkuus on O(m*n) jossa m on smooth -soluautomaatiometodin toistokerrat ja n kartan tiilien määrä. Satunnaisen hälyn vaativuus on vain n joten se lienee järkevintä jättää algoritmin tehokkuudessa mainitsematta.
-
-![Kartan luomisen kesto eri kokoisilla maailmoilla](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/mittaukset/graafi4.png)
-
-Maailman luomisen vaatiman ajan hajonta on kuitenkin verrattain suuri.
-
-![Kartan luomisen keston hajonta eri kokoisilla maailmoilla](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/mittaukset/graafi2.png)
-
-
-
-### Reitinhaun algoritmin toiminta
+# Reitinhaun algoritmin toiminnan testaus
 
 A* algoritmi tehtiin ensiksi siten että sen heuristiikka oli alku- ja loppupisteen välinen välimatka. Toimintanopeuden testaamisen alettua havaittiin se hyvin tehottomaksi. Alla testitulokset (pinona PriorityQue).
 
@@ -110,7 +88,7 @@ Kun pelialueen koko on 4001x4001 ja kartta on vakioitu saatiin seuraava (toistet
 | välimatka ^3       | ∞                    | ?                 |
 | välimatka ^4       | ∞                    | ?                 |
 
-
+Näin ollen A* algoritmin heuristiikaksi valittiin välimatka ^2.
 
 
 
@@ -124,12 +102,12 @@ Reitinhaku pelaajan liikuttua vasemmalle, heuristiikka: välimatka ^ 2
 ![Heuristiikka: välimatka ^ 2](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/mittaukset/reitinhaku/51x51-potenssi.png)
 
 
-### Reitinhaun käyttämän pinon toiminta
+# Reitinhaun käyttäytymisen testaus keon valinnan tueksi
 
-Kun A* heuristiikkana on matka^2 ja kartta vakioitu tehdään kymmentä add -kutsua kohden pinoon tehdään neljä poll -kutsua
+Kun A* heuristiikkana on matka^2 ja kartta vakioitu tehdään kekoon kymmentä add -kutsua kohden ~neljä poll -kutsua:
 
 | Maailman koko       | Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    | Pinon koko reitinhaun lopussa  | pituus / lisätty    | lisätty / maksimi   |
-|---------------------|------------------:|-------------------------:|---------------------:|--------------------------------|--------------------:|--------------------:|
+|---------------------|------------------:|-------------------------:|---------------------:|-------------------------------:|--------------------:|--------------------:|
 | 51x51               | 57                | 150                      | 89                   | 88                             | 0,38	               | 0,59                |
 | 500x500             | 241               | 660                      | 418                  | 417                            | 0,37	               | 0,63                | 
 | 1000x1000           | 669               | 1848                     | 1093                 | 1092                           | 0,36	               | 0,59                |
@@ -139,12 +117,24 @@ Kun A* heuristiikkana on matka^2 ja kartta vakioitu tehdään kymmentä add -kut
 Jos maailman koko on 500x500 ja karttaa ei ole vakioitu havaitaan myös sama suhde.
 
 | Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    | Pinon koko reitinhaun lopussa  | pituus / lisätty    | lisätty / maksimi   |
-|------------------:|-------------------------:|---------------------:|--------------------------------|--------------------:|--------------------:|
+|------------------:|-------------------------:|---------------------:|-------------------------------:|--------------------:|--------------------:|
 | 233	            | 636	                   | 378	              |377	                           |0,37                 |0,59                 |
 | 209	            | 548	                   | 319	              |318	                           |0,38                 |0,58                 |
 | 386	            | 1055	                   | 619	              |618	                           |0,37                 |0,59                 |
 | 293	            | 810	                   | 473	              |472                             |0,36                 |0,58                 |
 
-Fibonacci-keot sopisivat tälläiseen tilanteeseen hyvin sillä sen insert -metodin aikavaativuus on vain O(1). Se on kuitenkin verrattain vaikea toteuttaa saadaan pairing heap keolla myös käytännössä yhtä hyvä tehokkuus sillä sen insert -metodin aikavaativuus on myyös O(1) ja niiden molempien delete -metodin aikavaativuus on O(log n).
+Lähdeaineistosta määrittelyvaiheessa luettu Fibonacci-kekojen sopivuudesta tälläiseen tilanteeseen on validi sillä sen insert -metodin aikavaativuus on vain O(1) siinä missä binäärikeolla se on O(log n). Lisäksi A* algoritmissa kekoon lisätään pääsääntöisesti keossa olevia nodeja pienempiä nodeja. Tällöin binäärikeon on jatkuvasti tasapainotettava kekoa ja oltaisiin todennäköisesti lähellä hitainta mahdollista insert-metodin suorituskykyä.
+
+Fibonacci-keko on kuitenkin verrattain vaikea toteuttaa. Myöhemmin kerätystä lähdeaineistosta tutuksi tuli pairing heap  vaikuttaa yhtä validille. Molempien kekojen insert -metodin aikavaativuus on O(1) ja niiden molempien delete -metodin aikavaativuus on O(log n) eikä isEmpty ole myöskään hitaampi.
 
 
+# Keon testaus
+
+
+
+
+
+
+
+
+xxx

@@ -1,6 +1,8 @@
 ## Tractus
 
-*Tietorakenteet ja algoritmit harjoitustyö alkukesä 2019.* Harjoitustyössä harjoitellaan Javalla luolaston algoritmipohjaista rakentamista ja siinä liikkumista. 
+*Tietorakenteet ja algoritmit harjoitustyö, alkukesä 2019. Harjoitustyössä harjoitellaan Javalla luolaston algoritmipohjaista rakentamista ja siinä liikkumista.*
+
+Sovellus luo oletusarvoisesti 500x500 tiilen kokoisen maailman jossa on 500 hirviötä jotka kukin kulkevat lyhyintä reittiänsä pitkin kohti pelaajaa.
 
 
 * [Käyttöohje](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/käyttöohje.md) – miten sovellusta käytetään

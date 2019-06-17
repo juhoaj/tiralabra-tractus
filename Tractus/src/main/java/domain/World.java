@@ -40,6 +40,7 @@ public class World {
         this.width = width;
         this.height = height;
         this.map = new int[this.width][this.height];
+        this.connected = new boolean[this.width][this.height];
         this.debugging = debugging;
         this.random = new Random();
         
@@ -52,13 +53,13 @@ public class World {
     
     public boolean initializeCaves() {
         while (true) {
-            this.connected = new boolean[this.width][this.height];
             this.randomize();
             this.smooth(5);
-            if (this.validateAndFillUnconnectedCaves() == true) {
+            if (this.validateAndMarkConnected() == true) {
                 return true;
-            }
+            }           
             this.map = new int[this.width][this.height];
+            this.connected = new boolean[this.width][this.height];
             return false;
         }
     }
@@ -70,12 +71,13 @@ public class World {
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
                 this.map[x][y] = 1;
+                this.connected[x][y] = true;
             }
         }
     }
     
     
-    
+    // Creates random noise on map
     private void randomize() {
         if (this.debugging == true) {
             Random notRandom = new Random(14);
@@ -91,7 +93,7 @@ public class World {
     }
  
 
-    
+    // cell automation algorithm for smoothing random noise to caves
     private void smooth(int times) {
         int[][] map2 = new int[this.width][this.height];
         for (int i = 0; i < times; i++) {
@@ -120,7 +122,8 @@ public class World {
         }
     }
     
-    private boolean validateAndFillUnconnectedCaves() {
+    // validates that the biggest cave in the map is big enough and if it is marks the cave's tiles to this.connected[][]
+    private boolean validateAndMarkConnected() {
         int largestCaveSize = 0;
         int largestCaveIndex = -1;
         this.visited = new boolean[this.width][this.height];
@@ -155,6 +158,7 @@ public class World {
         
     }
     
+    // algorithm for collecting all tiles (x&y positions) in a cave. Returns the cave.
     private Cave getCave(int startX, int startY) {
         CustomArrayList<Tile> tiles = new CustomArrayList<>();
         tiles.add(new Tile(startX, startY));
@@ -207,7 +211,7 @@ public class World {
     
     /**
      * Return's positions of given coordinates neighbors. Does not return
-     * out of bounds positions.
+     * out of bounds neighbors.
      * 
      * @param position {x-coordinate,y-coordinate}
      * @return position {x-coordinate,y-coordinate}

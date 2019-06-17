@@ -1,6 +1,7 @@
 ## Mitä olen tehnyt tällä viikolla?
 
 * Testausta ja dokumentaatiota
+* Pairing heapin
 
 
 ## Miten ohjelma on edistynyt?

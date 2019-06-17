@@ -128,7 +128,7 @@ Näin ollen valitun tietorakenteessa on tärkeätä isEmpty kutsun tehokkuuden l
 
 Lähdeaineistosta määrittelyvaiheessa luettu Fibonacci-kekojen sopivuudesta tälläiseen tilanteeseen on validi sillä sen insert -metodin aikavaativuus on vain O(1) siinä missä AVL binääripuulla se on O(log n). Lisäksi A* algoritmissa kekoon lisätään pääsääntöisesti keossa olevia nodeja pienempiä nodeja. Tällöin AVL binääripuulla on jatkuvasti tasapainotettava kekoa ja oltaisiin todennäköisesti lähellä hitainta mahdollista insert-metodin suorituskykyä.
 
-Fibonacci-keko on kuitenkin verrattain vaikea toteuttaa. Myöhemmin kerätystä lähdeaineistosta tutuksi tullut pairing heap on käytännössä yhtä validi. Molempien kekojen insert -metodin aikavaativuus on O(1). Lisäksi pairing Heap -keon delete-metodin käytännön suorituskyky on lähteiden mukaan käytännössä samaa luokkaa kuin Fibonacci-keon O(1). Myös isEmpty -kyseluy on molemmissa O(1).
+Fibonacci-keko on kuitenkin verrattain vaikea toteuttaa. Myöhemmin kerätystä lähdeaineistosta tutuksi tullut pairing heap on käytännössä yhtä validi. Molempien kekojen insert -metodin aikavaativuus on O(1). Lisäksi pairing Heap -keon delete-metodin käytännön suorituskyky on lähteiden mukaan käytännössä samaa luokkaa kuin Fibonacci-keon O(1). Myös isEmpty -kysely on molemmissa O(1).
 
 
 # Keon testaus

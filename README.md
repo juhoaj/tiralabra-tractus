@@ -1,8 +1,8 @@
 ## Tractus
 
-*Tietorakenteet ja algoritmit harjoitustyö, alkukesä 2019. Harjoitustyössä harjoitellaan Javalla luolaston algoritmipohjaista rakentamista ja siinä liikkumista.*
+*Tietorakenteet ja algoritmit harjoitustyö, alkukesä 2019. Harjoitustyössä luodussa pelissä sovelletaan luolaston soluautomaatio-pohjaista luomista,  liikkumista ja reitinhakua.*
 
-Peli on vuoropohjainen. Ensin liikkuu pelaaja yhden tiilen verran johonkin suuntaan ja tämän jälkeen hirviöt. Hirviöt osaavat kaivautua seinien läpi, yhden seinätiilen läpi kaivautuminen vie oletusarvoisesti yhden vuoron. 
+Peli on vuoropohjainen. Pelaaja liikkuu ensin yhden tiilen verran johonkin suuntaan ja tämän jälkeen hirviöt liikkuvat kohti pelaajaa. Hirviöt osaavat kaivautua seinien läpi, yhden seinätiilen läpi kaivautuminen vie oletusarvoisesti yhden vuoron. 
 
 Peli luo oletusarvoisesti 500x500 tiilen kokoisen maailman jossa on 500 hirviötä jotka kukin kulkevat lyhyintä reittiänsä pitkin kohti pelaajaa. 
 
@@ -34,15 +34,15 @@ Viikkoraportit:
 
 
 Todo:
-* Pairing Heap ja sen testaus
-* Dokumentaatio kuntoon (keon testaus, kartan suorituskyvyn graafi, suorituskyky keolle ja A*:lle, sovellusrakenne muista lisätä pdf:t, lähteet )
-* Koodin siistiminen (turhat importit pois yms.)
+* Pairing Heap ja sen testit
+* Dokumentaatio kuntoon (keon testaus ja toteutus -dokumentointi)
 * RouteFinder testaus loppuun
 * Interface testaus loppuun
 * MonsterController testaus loppuun
 * Suoritettavan ohjelman buildaus ja testaus
 * Projektiin käytetty aika
-* javadocit kuntoon (engine ok)
+* javadocit kuntoon (engine, domain ok)
+* Koodin siistiminen (turhat importit pois yms.)
 
 
 Jos ehtii:

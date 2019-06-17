@@ -1,28 +1,12 @@
 # Ohjelman yleisrakenne
 
+Sovellusta on toteutettu MVC mallilla jossa pakkauksella `domain` on pitkälti model-rooli, `engine`-pakkauksella Controller-rooli ja `ui`-pakkauksella view-rooli. Sovellusarkkitehtuurissa on pidetty tiukasti kiinni riippuvuuksien injektoinnista testauksen helpottamiseksi. Single responsibility -periaatteesta on joustettu eikä rakenteessa ole esim. käytetty oliotehtaita vaikka se esim. World -luokan kohdalla olisi perusteltua. Metodien koheesiosta on kuitenkin pyritty pitämään huolta.
 
+Keskeisimmät luokat esittelee [luokkakaavio](suunnittelu/luokkakaavio.pdf). Siinä kuvattujen pakkauksien lisäksi käytössä on `helpers`-pakkaus jossa on mm. projektiin toteutetut tietorakenteet. Luokkien ja niiden metodien tarkemmat kuvaukset löytyvät Javadoc -kuvauksista. Sovellusrakenteessa on haluttu pitää kiinni Eri luokkien orkestraatio sekä sen toteutus on kenties aavistuksen naivi sillä Java Swing ja sen stateless -malli on tekijälle varsin vieras. Luokkien yhteistoiminta on tarkemmin kuvattu sekvenssikaaviossa](suunnittelu/sekvenssikaavio.pdf).
 
+Testaus noudattaa käytäntöä jossa testit on jaettu sovelluksen pakkauksia vastaaviin pakkauksiin ja luokkien testit luokkia vastaaviin testiluokkia. Esim. `domain/World`-luokan testit löytyvät siis `domain/WorldTest`-luokasta.
 
-
-
-
-
-
-
-
-
-
- Näistä merkittävin on [AsciiPanel](https://github.com/trystan/AsciiPanel) jota käytetään pelin piirtämiseen.
-
-
-
-
-
-
-
-
-
-
+Riippuvuuksista merkittävin on [AsciiPanel](https://github.com/trystan/AsciiPanel) jota käytetään pelin piirtämiseen.
 
 
 # Saavutetut aika- ja tilavaativuudet 
@@ -32,6 +16,7 @@
 Maailman luomisen algoritmi on yksinkertaistetusti:
 
 ````
+funktio maailman luonti()
 satunnainen häly
 soluautomaatio(m)
 
@@ -64,15 +49,66 @@ Lisäksi maailman luomisen keston hajonta pysyttelee +-50% prosentin luokassa.
 
 ## Reitinhaku
 
-Kun A* heuristiikkana on matka^2 ja kartta vakioitu saadaan seuraavat mittaustulokset. Vakioidun ja sattumanvaraisesti luodun maailman mittaustulosten vastaavuus kuvattu [Testaus](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/testaus.md)-dokumentissa kappaleessa 'Reitinhaun käyttäytymisen testaus keon valinnan tueksi'.
+````
+// Initialize both open and closed list
+let the openList equal empty list of nodes
+let the closedList equal empty list of nodes
 
-| Maailman koko       | Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    | Nodeja käsitelty | pituus / lisätty    | lisätty / maksimi   |
+// Add the start node
+put the startNode on the openList (leave it's f at zero)
+
+// Loop until you find the end
+while the openList is not empty
+
+    // Get the current node
+    let the currentNode equal the node with the least f value
+    remove the currentNode from the openList
+    add the currentNode to the closedList
+    
+    // Found the goal
+    if currentNode is the goal
+        Congratz! You've found the end! Backtrack to get path
+
+    // Generate children
+    let the children of the currentNode equal the adjacent nodes
+    
+    for each child in the children
+        // Child is on the closedList
+        if child is in the closedList
+            continue to beginning of for loop
+
+        // Create the f, g, and h values
+        child.g = currentNode.g + distance between child and current
+        child.h = distance from child to end
+        child.f = child.g + child.h
+
+        // Child is already in openList
+        if child.position is in the openList's nodes positions
+            if the child.g is higher than the openList node's g
+                continue to beginning of for loop
+
+        // Add the child to the openList
+        add the child to the openList
+````
+
+A* algoritmin aikavaativuuksi on lähteissä mainittu O(b^d) `b`:n kuvatessa puun solmujen lapsien määrää (branching factor). Tarkastellessa mittaustuloksia kun A* heuristiikkana on matka^2 ja kartta vakioitu nähdään että reitin ja pinoon lisättyjen nodejen suhde pysyy hyvin vakaana joten voidaan päätellä että heuristiikka on optimaalinen reitinhaun verrattain yksinkertaiseen ongelmaan.
+
+![Reitin pituuden (x) ja pinoon lisättujen nodejen (y) suhde
+](mittaukset/graafi5.png)
+
+
+| Maailman koko       | Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    | Nodeja käsitelty | pituus / lisätty    |
 |---------------------|------------------:|-------------------------:|---------------------:|-----------------:|--------------------:|--------------------:|
-| 51x51               | 57                | 150                      | 89                   | 62                             | 0,38	               | 0,59                |
-| 500x500             | 241               | 660                      | 418                  | 243                            | 0,37	               | 0,63                | 
-| 1000x1000           | 669               | 1848                     | 1093                 | 756                           | 0,36	               | 0,59                |
-| 2001x2001           | 1122              | 3149                     | 1918                 | 1232                           | 0,36	               | 0,61                |
-| 4001x4001           | 2082              | 5814                     | 3490                 | 2325                           | 0,36	               | 0,60                |
+| 51x51               | 57                | 150                      | 89                   | 62                             | 0,38	               |
+| 500x500             | 241               | 660                      | 418                  | 243                            | 0,37	               |
+| 1000x1000           | 669               | 1848                     | 1093                 | 756                           | 0,36	               |
+| 2001x2001           | 1122              | 3149                     | 1918                 | 1232                           | 0,36	               |
+| 4001x4001           | 2082              | 5814                     | 3490                 | 2325                           | 0,36	               |
+
+
+(Vakioidun ja sattumanvaraisesti luodun maailman mittaustulosten vastaavuus kuvattu [Testaus](testaus.md)-dokumentissa kappaleessa 'Reitinhaun käyttäytymisen testaus keon valinnan tueksi'.)
+
+Näin ollen voidaan perustellusti väittää että reitinhakualgoritmin käytännön aikavaativuus käytössä olevalla kartan luomisen algoritmilla on O(n), jossa `n` on reitin pituus jos reitinhaun käyttämä keko suoriutuu add, poll ja isEmpty -metodeista ajassa O(1).
 
 
 ## Reitinhaun käyttämä keko

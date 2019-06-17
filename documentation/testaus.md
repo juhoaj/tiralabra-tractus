@@ -94,18 +94,18 @@ Näin ollen A* algoritmin heuristiikaksi valittiin välimatka ^2.
 
 
 Alkutilanne:
-![Heuristiikka: välimatka * 1](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/mittaukset/reitinhaku/51x51-alku.png)
+![Heuristiikka: välimatka * 1](mittaukset/reitinhaku/51x51-alku.png)
 
 Reitinhaku pelaajan liikuttua vasemmalle, heuristiikka: välimatka * 1
-![Heuristiikka: välimatka * 1](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/mittaukset/reitinhaku/51x51-1.png)
+![Heuristiikka: välimatka * 1](mittaukset/reitinhaku/51x51-1.png)
 
 Reitinhaku pelaajan liikuttua vasemmalle, heuristiikka: välimatka ^ 2
-![Heuristiikka: välimatka ^ 2](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/mittaukset/reitinhaku/51x51-potenssi.png)
+![Heuristiikka: välimatka ^ 2](mittaukset/reitinhaku/51x51-potenssi.png)
 
 
 # Reitinhaun käyttäytymisen testaus keon valinnan tueksi
 
-Kun A* heuristiikkana on matka^2 ja kartta vakioitu tehdään kekoon kymmentä add -kutsua kohden ~neljä poll -kutsua:
+Kun A* heuristiikkana on matka^2 ja kartta vakioitu tehdään kekoon kymmentä add -kutsua kohden ~neljä poll ja isEmpty -kutsua:
 
 | Maailman koko       | Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    | Pinon koko reitinhaun lopussa  | pituus / lisätty    | lisätty / maksimi   |
 |---------------------|------------------:|-------------------------:|---------------------:|-------------------------------:|--------------------:|--------------------:|
@@ -124,14 +124,16 @@ Jos maailman koko on 500x500 ja karttaa ei ole vakioitu havaitaan myös sama suh
 | 386	            | 1055	                   | 619	              |618	                           |0,37                 |0,59                 |
 | 293	            | 810	                   | 473	              |472                             |0,36                 |0,58                 |
 
+Näin ollen valitun tietorakenteessa on tärkeätä isEmpty kutsun tehokkuuden lisäksi ensisijaisesti insert ja tämän jälkeen poll -kyselyn tehokkuus.
+
 Lähdeaineistosta määrittelyvaiheessa luettu Fibonacci-kekojen sopivuudesta tälläiseen tilanteeseen on validi sillä sen insert -metodin aikavaativuus on vain O(1) siinä missä AVL binääripuulla se on O(log n). Lisäksi A* algoritmissa kekoon lisätään pääsääntöisesti keossa olevia nodeja pienempiä nodeja. Tällöin AVL binääripuulla on jatkuvasti tasapainotettava kekoa ja oltaisiin todennäköisesti lähellä hitainta mahdollista insert-metodin suorituskykyä.
 
-Fibonacci-keko on kuitenkin verrattain vaikea toteuttaa. Myöhemmin kerätystä lähdeaineistosta tutuksi tuli pairing heap  vaikuttaa yhtä validille. Molempien kekojen insert -metodin aikavaativuus on O(1) ja niiden molempien delete -metodin aikavaativuus on O(log n) eikä isEmpty ole myöskään hitaampi.
+Fibonacci-keko on kuitenkin verrattain vaikea toteuttaa. Myöhemmin kerätystä lähdeaineistosta tutuksi tullut pairing heap on käytännössä yhtä validi. Molempien kekojen insert -metodin aikavaativuus on O(1). Lisäksi pairing Heap -keon delete-metodin käytännön suorituskyky on lähteiden mukaan käytännössä samaa luokkaa kuin Fibonacci-keon O(1). Myös isEmpty -kyseluy on molemmissa O(1).
 
 
 # Keon testaus
 
-
+Kekoa toteutettiin erityisesti delete-min metodin kohdalla naivimmin kuin löydetyissä java-implementoinneissa, joita ei haluttu orjallisesti kopioida. Reitinhaun käyttäytymisen tastauksen pojalta on pääteltävissä että puu on leveyssuunnassa varsin kapea ja pystysuunnassa korkea. Näin ollen delete-min -metodilla oletetaan olevan verrattain vähän työtä. 
 
 
 

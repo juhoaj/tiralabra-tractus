@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package helpers;
 
 /**
- * Implementation of minimum pairing heap for stack of Node objects.
+ * Naive implementation of minimum pairing heap. Offers stack of Node objects.
  * Returns null if empty.
  * @author juhojuutilainen
  */
@@ -56,10 +51,29 @@ public class PairingHeap {
         if (this.topNode.getLeftmostChild() == null) {
             this.topNode = null;
         } else {
-            // this.topNode = mergePairs(jotenkin taiotaan mergePairs:lle topNoden lapset);
+            this.topNode = twopass();
         }
         
         return returnNode;
+        
+    }
+
+    private Node twoPass() {
+        CustomArrayList<Node> siblings = new CustomArrayList<>();
+        this.collectSiblings(this.topNode.getLeftmostChild(), siblings);
+        // CustomArrayList<Node> oncePaired = metodi joka parittaa ekan kerran
+        // return metodi joka parittaa tokan kerran
+
+
+    }
+
+    private CustomArrayList<Node> collectSiblings(Node node, CustomArrayList<Node> collectedNodes) {
+        node.setSibling = null;
+        collectedNodes.add(node);
+        if (node.getSibling == null) {
+            return collectedNodes;
+        } 
+        return this.collectSiblings(node.getSibling, collectedNodes);
         
     }
     
@@ -73,7 +87,10 @@ public class PairingHeap {
         }
     }
     
-    // insert
+    /**
+     * Insert Node into stack,
+     * @param node inserted Node
+     */
     public void push(Node node) {
         this.topNode = this.merge(this.topNode, node);
     }

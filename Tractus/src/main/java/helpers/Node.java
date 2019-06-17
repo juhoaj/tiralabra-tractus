@@ -12,14 +12,12 @@ package helpers;
 public class Node implements Comparable<Node> {
     private int value;
     private Node leftmostChild;
-    private Node leftSibling;
-    private Node rightSibling;
+    private Node sibling;
     
     public Node(int value) {
        this.value = value;
        this.leftmostChild = null;
-       this.leftSibling = null;
-       this.rightSibling = null;
+       this.sibling = null;
     }
     
     public int getValue() {
@@ -30,6 +28,17 @@ public class Node implements Comparable<Node> {
         return this.leftmostChild;
     }
     
+    public Node getSibling() {
+        return this.sibling;
+    }
+
+    public void setSibling(Node node) {
+        this.sibling = node;
+    }
+
+    public void setLeftmostChild(Node node) {
+        this.leftmostChild = node;
+    }
     
     
     

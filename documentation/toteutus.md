@@ -25,17 +25,41 @@
 
 
 
-# Saavutetut aika- ja tilavaativuudet (m.m. O-analyysit pseudokoodista)
+# Saavutetut aika- ja tilavaativuudet 
 
 ## Maailman luominen
 
-Maailman luomisen kesto on suoraan suhteessa kartain tiilien määrään 18 mittauksen keskiarvoilla. Näin ollen voidaan päätellä että kartan luomisen algoritmin tehokkuus on O(m*n) jossa m on smooth -soluautomaatiometodin toistokerrat ja n kartan tiilien määrä. Satunnaisen hälyn vaativuus on vain n joten se lienee järkevintä jättää algoritmin tehokkuudessa mainitsematta.
+Maailman luomisen algoritmi on yksinkertaistetusti:
 
-![Kartan luomisen kesto eri kokoisilla maailmoilla](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/mittaukset/graafi4.png)
+````
+satunnainen häly
+soluautomaatio(m)
 
-Maailman luomisen vaatiman ajan hajonta on kuitenkin verrattain suuri.
+funktio satunnainen häly()
+    for (x<kartan leveys;x+1)
+        for (y<kartan leveysys;y+1)
+            kartta[x][y]=random(lattia,seinä)
 
-![Kartan luomisen keston hajonta eri kokoisilla maailmoilla](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/mittaukset/graafi2.png)
+funktio soluautomaatio(m)
+    for (i<m;i+1)
+        for (x<kartan leveys;x+1)
+            for (y<kartan leveysys;y+1)
+                käy läpi 8 ympäröivää ruutua ja laske lattiat sekä seinät
+                if seinät > lattiat   
+                    kartta[x][y]=seinä
+                else
+                    kartta[x][y]=lattia    
+````
+
+Pseudokoodista voidaan päätellä että kartan luomisen algoritmin tehokkuus on `m` * `n` jossa m on smooth -soluautomaatiometodin toistokerrat ja `n` kartan tiilien määrä. Satunnaisen hälyn vaativuus on vain `n` joten se lienee järkevintä jättää algoritmin tehokkuudessa mainitsematta. Koska `m` ei käytännössä nouse yli kymmenen lienee järkevintä sievistää kartan luomisen algoritmin tehokkuus muotoon O(n) jossa `n` on kartan tiilien määrä.
+
+Päätelmää tukee että maailman luomisen mitattu esto on suoraan suhteessa kartain tiilien määrään 18 mittauksen keskiarvoilla laskettuna. 
+
+![Kartan luomisen kesto eri kokoisilla maailmoilla](mittaukset/graafi4.png)
+
+Lisäksi maailman luomisen keston hajonta pysyttelee +-50% prosentin luokassa.
+
+![Kartan luomisen keston hajonta eri kokoisilla maailmoilla](mittaukset/graafi2.png)
 
 
 ## Reitinhaku
@@ -51,17 +75,7 @@ Kun A* heuristiikkana on matka^2 ja kartta vakioitu saadaan seuraavat mittaustul
 | 4001x4001           | 2082              | 5814                     | 3490                 | 2325                           | 0,36	               | 0,60                |
 
 
-
-
-
-
-
-
-
-
-
-
-## Keko
+## Reitinhaun käyttämä keko
 
 
 
@@ -84,18 +98,15 @@ Jos harjoitustyötä tarkastellaan pelinä niin suuri osa tyypillisistä rogueli
 
 
 # Lähteet
-* A* algoritmi [Easy A* (star) Pathfinding, Nicholas Swift](https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2)
+* [Nicholas Swift, Easy A* (star) Pathfinding](https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2)
 
-* A* algoritmi [Java Generics - Implementing the Iterable Interface, Jakob Jenkov](http://tutorials.jenkov.com/java-generics/implementing-iterable.html)
+* [Jakob Jenkov, Java Generics - Implementing the Iterable Interface](http://tutorials.jenkov.com/java-generics/implementing-iterable.html)
 
-* ArrayList [Generics in Java, Wikipedia](https://en.wikipedia.org/wiki/Generics_in_Java)
+* [Wikipedia, Generics in Java](https://en.wikipedia.org/wiki/Generics_in_Java)
 
-* Heap valinta [From Amit’s Thoughts on Pathfinding: Implementation notes](http://theory.stanford.edu/~amitp/GameProgramming/ImplementationNotes.html)
+* [From Amit’s Thoughts on Pathfinding: Implementation notes](http://theory.stanford.edu/~amitp/GameProgramming/ImplementationNotes.html)
 
-* Pairing heap [Pairing Heap, Karleigh Moore](https://brilliant.org/wiki/pairing-heap)
+* [Karleigh Moore, Pairing Heap](https://brilliant.org/wiki/pairing-heap)
 
-* Pairing heap [From Amit’s Thoughts on Pathfinding: Implementation notes](http://theory.stanford.edu/~amitp/GameProgramming/ImplementationNotes.html)
-
-* Pairing heapin aikavaativuuden analysointi [The Pairing Heap: A New Form of Self-Adjusting Heap, Fredman, M., Sedgewick, R., Sleator, D., & Tarjan, R.](https://www.cs.cmu.edu/~sleator/papers/pairing-heaps.pdf)
-
+* [Wikipedia, Pairing Heap](https://en.wikipedia.org/wiki/Pairing_heap)
 

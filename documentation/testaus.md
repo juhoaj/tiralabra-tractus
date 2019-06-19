@@ -60,7 +60,7 @@ Kun pelialueen koko on 1000x1000 ja kartta on vakioitu saatiin seuraava (toistet
 | välimatka *3       | 796                  | 669               |
 | välimatka *4       | 774                  | 669               |
 | välimatka ^2       | 756                  | 669               |
-| välimatka ^3       | 756                  | 669m              |
+| välimatka ^3       | 756                  | 669               |
 | välimatka ^4       | ∞                    | ?                 |
 
 
@@ -135,9 +135,16 @@ Fibonacci-keko on kuitenkin verrattain vaikea toteuttaa. Myöhemmin kerätystä 
 
 Kekoa toteutettiin erityisesti delete-min metodin kohdalla naivimmin kuin löydetyissä java-implementoinneissa, joita ei haluttu orjallisesti kopioida. Reitinhaun käyttäytymisen tastauksen pojalta on pääteltävissä että puu on leveyssuunnassa varsin kapea ja pystysuunnassa korkea. Näin ollen delete-min -metodilla oletetaan olevan verrattain vähän työtä. 
 
+Ensiksi kokeiltiin reitinhakua ja varmistettiin että reittien pituudet vakioidulla kartanluomisella pysyvät samana.
+
+| Maailman koko      | PriorityQue     |  PairingHeap    |
+|--------------------|---------------------:|------------------:|
+| 51x51              | 57                 | 57              |
+| 500x500            | 241             | 241
+| 1000x1000          | 669            | 669              |
+| 2001x2001          | 1122           | 1122                 |
+| 4001x4001          | 2082             | 2082                 |
+
+Voidaan todeta että PairingHeap ei vaikuta reitinhakualgoritmin toimintaan negatiivisesti.
 
 
-
-
-
-xxx

@@ -54,8 +54,8 @@ public class RouteFinder<E> {
         this.debugging = debugging;
         this.distance = new Distance();
         this.testPerformance = testPerformance;
-        this.testPerformanceShowIndiwidualMonsters = true; // set true to print each monster's routefindeing performance to the console
-        this.testPerformanceShowHeapPerformance = true; // set true to print information on Heap to console
+        this.testPerformanceShowIndiwidualMonsters = false; // set true to print each monster's routefindeing performance to the console
+        this.testPerformanceShowHeapPerformance = false; // set true to print information on Heap to console
     }
     
     /**
@@ -102,6 +102,10 @@ public class RouteFinder<E> {
         }
 
         this.AStar();
+        if (this.route.size() == 1) {
+            RouteFinderNode lastNode = this.route.get(this.route.size()-2);
+            return lastNode.getPosition();
+        }
         RouteFinderNode secondLastNode = this.route.get(this.route.size()-2);
         return secondLastNode.getPosition();
 

@@ -5,10 +5,7 @@
  */
 package domain;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -24,10 +21,6 @@ public class TileTest {
     @Before
     public void setUp() {
         this.testTile = new Tile(1,1);
-    }
-    
-    @After
-    public void tearDown() {
     }
 
     @Test

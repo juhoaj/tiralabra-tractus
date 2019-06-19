@@ -34,7 +34,6 @@ Viikkoraportit:
 
 
 Todo:
-* Pairing Heap ja sen testit
 * Dokumentaatio kuntoon (keon testaus ja toteutus -dokumentointi)
 * RouteFinder testaus loppuun
 * Interface testaus loppuun
@@ -43,9 +42,3 @@ Todo:
 * Projektiin käytetty aika
 * javadocit kuntoon (engine, domain ok)
 * Koodin siistiminen (turhat importit pois yms.)
-
-
-Jos ehtii:
-* FOV
-* Monstereiden liikkeisiin randomin mahdollisuus
-

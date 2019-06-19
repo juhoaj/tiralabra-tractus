@@ -9,16 +9,11 @@ import domain.Creature;
 import domain.World;
 import helpers.CustomArrayList;
 import helpers.Distance;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -65,10 +60,6 @@ public class MonsterControllerTest {
         this.testMonsterControllerWithWorldOne = new MonsterController(this.monsterList, this.worldThatReturnsOneForTerrain, this.gameController, this.routeFinder, this.distance);
         this.testMonsterControllerWithWorldOne = new MonsterController(this.monsterList, this.worldThatReturnsTwoForTerrain, this.gameController, this.routeFinder, this.distance);
 
-    }
-    
-    @After
-    public void tearDown() {
     }
 
     @Test

@@ -5,10 +5,7 @@
  */
 package helpers;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,7 +16,6 @@ import static org.junit.Assert.*;
 public class NodeTest {
     private Node node0;
     private Node node1;
-    private Node node2;
     
 
     
@@ -27,7 +23,6 @@ public class NodeTest {
     public void setUp() {
         this.node0 = new Node(0);
         this.node1 = new Node(1);
-        this.node2 = new Node(2);
     }
     
 

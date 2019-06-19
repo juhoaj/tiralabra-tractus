@@ -89,7 +89,6 @@ public class World {
                 map[x][y] = this.random.nextInt()< 0.5 ? 1 : 2;
             }
         }
-        System.out.println("j");
     }
  
 

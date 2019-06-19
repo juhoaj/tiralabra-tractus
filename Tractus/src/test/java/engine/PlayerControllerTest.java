@@ -9,9 +9,7 @@ import domain.Command;
 import domain.Creature;
 import domain.World;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -55,10 +53,6 @@ public class PlayerControllerTest {
         this.testPlayerControllerWithWorldOne.setPlayerTurn(true);
 
 
-    }
-    
-    @After
-    public void tearDown() {
     }
     
     @Test

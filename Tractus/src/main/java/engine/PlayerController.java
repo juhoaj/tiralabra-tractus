@@ -141,6 +141,8 @@ public class PlayerController {
     /**
      * Inserts player on the center of the map. Used in the beginning of the
      * game.
+     * 
+     * @return true if succesfull 
      */
     public boolean insertPlayer() {
         int startPositionX = this.world.getWidth() / 2;
@@ -162,6 +164,7 @@ public class PlayerController {
     /**
      * Returns true if game is running. Used for testing.
      *
+     * @return  game running
      */
     public boolean getGameRunning() {
         return this.gameRunning;
@@ -170,6 +173,7 @@ public class PlayerController {
     /**
      * Returns true if it is player's turn. Used for testing.
      *
+     * @return  player turn
      */
     public boolean getPlayerTurn() {
         return this.playerTurn;

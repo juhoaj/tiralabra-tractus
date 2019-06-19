@@ -59,7 +59,7 @@ public class NodeTest {
     }
     
     @Test
-    public void vantSetItselfLeftChild() {
+    public void cantSetItselfLeftChild() {
         try {
             this.node0.setLeftmostChild(node0);
             fail("Cannot set itself as leftmost child.");
@@ -69,7 +69,7 @@ public class NodeTest {
     @Test
     public void vantSetItselfSibling() {
         try {
-            this.node0.setLeftmostChild(node0);
+            this.node0.setSibling(node0);
             fail("Cannot set itself as sibling.");
         } catch (IllegalArgumentException e) { }
     }

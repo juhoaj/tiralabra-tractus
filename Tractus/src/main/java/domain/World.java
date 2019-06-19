@@ -60,7 +60,6 @@ public class World {
             }           
             this.map = new int[this.width][this.height];
             this.connected = new boolean[this.width][this.height];
-            return false;
         }
     }
 
@@ -196,10 +195,11 @@ public class World {
     }
     
     /**
-     *
-     * @param x
-     * @param y
-     * @return
+     * Tells if given x & y-coordinate is connected to the largest cave in map.
+     * 
+     * @param x x-coordinate
+     * @param y y-coordinate
+     * @return true if connected
      */
     public boolean getConnected(int x, int y) {
         if (x < 0 || y < 0 || x >= this.width || y >= this.width) {

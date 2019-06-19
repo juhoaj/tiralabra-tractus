@@ -39,6 +39,9 @@ public class GameController {
      * @param ui game's user interface, responsible for output and input
      * @param playerController receives imput from ui and controls player-object
      * @param monsterController controls monsters 
+     * @param monstersAtStart 
+     * @param debugging 
+     * @param testPerformance 
      */
     public void addDependencies(World world, Interface ui, PlayerController playerController, MonsterController monsterController, int monstersAtStart, boolean debugging, boolean testPerformance) {
         this.playerController = playerController;

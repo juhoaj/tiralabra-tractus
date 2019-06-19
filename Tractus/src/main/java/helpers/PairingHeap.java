@@ -102,7 +102,7 @@ public class PairingHeap<E> {
         return node2;
     }
     
-    
+    // implements twoPass
     private PairingHeapNode twoPass() {
         CustomArrayList<PairingHeapNode> siblings = new CustomArrayList<>();
         this.collectSiblings(this.topNode.getLeftmostChild(), siblings);
@@ -126,6 +126,7 @@ public class PairingHeap<E> {
         return returnedNode;
     }
 
+    // used by twoPass
     private CustomArrayList<PairingHeapNode> collectSiblings(PairingHeapNode node, CustomArrayList<PairingHeapNode> collectedNodes) {
         collectedNodes.add(node);
         if (node.getSibling() == null) {

@@ -43,6 +43,7 @@ public class Interface extends JFrame {
      * @param monsterController controls monsters
      * @param viewportWidth width of viewport (characters)
      * @param viewportHeight height of viewport (characters)
+     * @param debugging
      */
     public Interface(World world, PlayerController playerController, MonsterController monsterController, int viewportWidth, int viewportHeight, boolean debugging) {
         this.debugging = debugging;
@@ -83,6 +84,7 @@ public class Interface extends JFrame {
         terminal.repaint();
     }
 
+    // renders visible map to the terminal. Starts from x,y and continues to x+viewportWidth, y+viewportHeight. Uses Distance's distance method to make the render circular.
     private void drawMap(int startX, int startY) {
         for (int x = 0; x < viewportWidth; x++) {
             for (int y = 0; y < viewportHeight; y++) {
@@ -98,7 +100,7 @@ public class Interface extends JFrame {
     }
 
     
-
+    // renders visible creatures to the terminal. Starts from x,y and continues to x+viewportWidth, y+viewportHeight. Uses Distance's distance method to make the render circular.
     private void drawCreatures(int startX, int startY) {
         this.terminal.write("@", this.playerController.getPlayerPosition()[0] - startX, this.playerController.getPlayerPosition()[1] - startY);
 

@@ -5,20 +5,17 @@
  */
 package engine;
 
-import domain.Creature;
 import domain.World;
 import helpers.CustomArrayList;
 import helpers.Distance;
-// import java.util.PriorityQueue;
 import helpers.PairingHeap;
-import helpers.PairingHeapNode;
 
 /**
  * Routefinder that utilizes A* algorithm for fast route resolving.
  * A* algorithm processes the route as Node's which are generated based on
  * information received from World.
  */
-public class RouteFinder<E> {
+public class RouteFinder {
 
     private int startX;
     private int startY;
@@ -43,7 +40,6 @@ public class RouteFinder<E> {
      * debugging (drawing algorithm's routefinding). Initializes Distance.
      * 
      * @param world contains and controls the map
-     * @param monsterList list of all monsters
      * @param gameController controls the game
      * @param debugging set true to draw algorithm's routefinding to terminal
      * @param testPerformance print performance of algorithms to console
@@ -146,7 +142,7 @@ public class RouteFinder<E> {
     
     
     /**
-     * potential nodes on route are inserted in nodeHeap and most promising
+     * Potential nodes on route are inserted in nodeHeap and most promising
      * node is retrieved until heap is empty or end node found
      */
     
@@ -159,6 +155,7 @@ public class RouteFinder<E> {
                 maxHeapSize = nodeHeap.size();
             }
             this.visitedNodes++;
+
             // check if target found
             RouteFinderNode currentNode = nodeHeap.pop();
             if (currentNode.getX() == this.endX && currentNode.getY() == this.endY) {
@@ -202,11 +199,8 @@ public class RouteFinder<E> {
             System.out.println("nodes in heap at the end:");
             System.out.println(this.nodeHeap.size());
         }
-        
     }
-    
 
-    
     /**
      * traverse route from starting from end node (node at endX and endY).
      * Add end node to ArrayList and add every node's parent on ArrayList until
@@ -233,8 +227,9 @@ public class RouteFinder<E> {
         }
     }
     
-    
-    
+    /**
+     * Returns heuristic required by A*.
+     */
     private int getHeuristic(int fromX, int fromY) {
         int distance = this.distance.getDistance(fromX, fromY, this.endX, this.endY);
         return distance * distance ;

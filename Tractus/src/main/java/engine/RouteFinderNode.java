@@ -8,8 +8,8 @@ package engine;
 import helpers.PairingHeapNode;
 
 /**
- * <h1>Node</h1>
- * Nodes can be used by route finding algorithms.
+ * Node used by RouteFinder. Implements PairingHeapNode as it is required by 
+ * PairingHeap that is used in RouteFinder.
  * 
  * @author juhojuutilainen
  */
@@ -65,7 +65,7 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
 
     
     /**
-     * Return node's x-coordinate.
+     * Return node's x-coordinate. Used by RouteFinder.
      *
      * @return node's x-coordinate
      */
@@ -74,7 +74,7 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     }
     
     /**
-     * Return node's y-coordinate.
+     * Return node's y-coordinate. Used by RouteFinder.
      * 
      * @return node's y-coordinate
      */
@@ -83,7 +83,7 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     }
     
     /**
-     * Return node's position.
+     * Return node's position. Used by RouteFinder.
      * 
      * @return {x-coordinate,y-coordinate}
      */
@@ -96,7 +96,7 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     }
     
     /**
-     * Get distance from start node. 
+     * Get distance from start node. Used by RouteFinder.
      * 
      * @return distance between the current node and the start node
      */
@@ -105,7 +105,7 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     }
     
     /**
-     * Get total cost (distance from start node and heuristic to end node)
+     * Get total cost (distance from start node and heuristic to end node). Used by RouteFinder.
      * 
      * @return total cost of the node
      */
@@ -114,7 +114,7 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     }
     
     /**
-     * Get parent node.
+     * Get parent node. Used by RouteFinder.
      * 
      * @return parent node.
      */
@@ -123,7 +123,8 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     }
 
     /**
-     * Value of node.
+     * Value of node. Used by PairingHeap.
+     * 
      * @return value
      */
     @Override
@@ -132,7 +133,8 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     }
     
     /**
-     * Returns child Node.
+     * Returns child Node. Used by PairingHeap.
+     * 
      * @return leftmost child
      */
     @Override
@@ -141,7 +143,8 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     }
     
     /**
-     * Returns next sibling Node.
+     * Returns next sibling Node. Used by PairingHeap.
+     * 
      * @return sibling
      */
     @Override
@@ -150,7 +153,8 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     }
 
     /**
-     * Sets next sibling Node.
+     * Sets next sibling Node. Used by PairingHeap.
+     * 
      * @param node sibling
      */
     @Override
@@ -162,7 +166,8 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     }
     
     /**
-     * Sets child Node.
+     * Sets child Node. Used by PairingHeap.
+     * 
      * @param node leftmost child
      */   
     @Override
@@ -174,7 +179,8 @@ public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     } 
 
     /**
-     * Sets child Node.
+     * Sets child Node. Used by PairingHeap.
+     * 
      * @param node leftmost child
      */   
     @Override

@@ -81,14 +81,21 @@ public class WorldTest {
     }
     
     @Test
-    public void tsetTerrainReturnsFalse() {
-
+    public void setTerrainReturnsFalse() {
         assertEquals(false,this.oneWorld.setTerrain(-1,1,1));
         assertEquals(false,this.oneWorld.setTerrain(1,-1,1));
-        assertEquals(false,this.oneWorld.setTerrain(1,1,-1));
-        assertEquals(false,this.oneWorld.setTerrain(3,1,1));
-        assertEquals(false,this.oneWorld.setTerrain(1,3,1));
+        assertEquals(false,this.oneWorld.setTerrain(1,1,0));
+        assertEquals(false,this.oneWorld.setTerrain(1,1,1));
+        assertEquals(false,this.oneWorld.setTerrain(1,1,1));
         assertEquals(false,this.oneWorld.setTerrain(1,1,3));
+        
+    }
+    
+    @Test
+    public void setTerrainReturnsTrue() {
+        assertEquals(true,this.oneWorld.setTerrain(0,0,1));
+        assertEquals(true,this.oneWorld.setTerrain(0,0,2));
+
         
     }
     

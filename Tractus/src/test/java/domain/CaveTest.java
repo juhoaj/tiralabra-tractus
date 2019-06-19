@@ -19,7 +19,6 @@ public class CaveTest {
     Tile tile;
     Cave testCaveOne;
     Cave testCaveTwo;
-    private Cave testCaveNull;
     
     @Before
     public void setUp() {
@@ -54,6 +53,9 @@ public class CaveTest {
     
     @Test
     public void comparatorWorks() {
-    
+        assertEquals(0, this.testCaveOne.compareTo(testCaveOne));
+        assertEquals(-1, this.testCaveOne.compareTo(testCaveTwo));
+        assertEquals(1, this.testCaveTwo.compareTo(testCaveOne));
+        
     }
 }

@@ -6,7 +6,7 @@
 package helpers;
 
 /**
- * Example object that implements PairingHeapNode
+ * Example object that implements PairingHeapNode. Also useful for testing PairingHeap.
  */
 public class Node implements PairingHeapNode<Node> {
     private int value;

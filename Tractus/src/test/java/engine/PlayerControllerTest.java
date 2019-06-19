@@ -8,7 +8,6 @@ package engine;
 import domain.Command;
 import domain.Creature;
 import domain.World;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

@@ -36,6 +36,29 @@ public class PairingHeapTest {
         this.node7 = new Node(7);
         
     }
+    
+    @Test
+    public void popReturnNull() {
+        assertNull(this.pairingHeap.pop());
+    }
+    
+    @Test
+    public void topReturnNull() {
+        assertNull(this.pairingHeap.top());
+    }
+    
+    @Test
+    public void topWorks() {
+        this.pairingHeap.push(this.node1);
+        assertEquals(this.node1, this.pairingHeap.top());
+    }
+    
+    @Test
+    public void sizeWorks() {
+        assertEquals(0, this.pairingHeap.size());
+        this.pairingHeap.push(this.node1);
+        assertEquals(1, this.pairingHeap.size());
+    }
 
     @Test
     public void returnsIsEmptyTrue() {

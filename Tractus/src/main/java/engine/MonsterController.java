@@ -149,6 +149,11 @@ public class MonsterController {
 
     /**
      * Constructor which is only used in testing
+     * @param monsterlist
+     * @param world
+     * @param gameController
+     * @param routeFinder
+     * @param distance
      */ 
     public MonsterController(CustomArrayList<Creature> monsterlist, World world, GameController gameController, RouteFinder routeFinder, Distance distance) {
         this.monsterlist = monsterlist;

@@ -105,7 +105,7 @@ public class PairingHeap {
         // second pass
         Node returnedNode = pairedSiblings.get(pairedSiblings.size() -1);
         for (int i = pairedSiblings.size() -2 ; i >= 0 ; i--) {
-            this.merge(returnedNode, pairedSiblings.get(i));
+            returnedNode = this.merge(returnedNode, pairedSiblings.get(i));
         }
         return returnedNode;
     }

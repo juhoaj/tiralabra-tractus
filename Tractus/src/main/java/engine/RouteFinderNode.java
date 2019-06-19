@@ -5,13 +5,15 @@
  */
 package engine;
 
+import helpers.Node;
+
 /**
  * <h1>Node</h1>
  * Nodes can be used by route finding algorithms.
  * 
  * @author juhojuutilainen
  */
-public class RouteFinderNode implements Comparable<RouteFinderNode>{
+public class RouteFinderNode implements Comparable<RouteFinderNode> {
     private int x;
     private int y;
     private int g;

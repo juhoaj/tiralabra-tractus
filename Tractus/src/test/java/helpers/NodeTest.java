@@ -79,6 +79,12 @@ public class NodeTest {
         } catch (IllegalArgumentException e) { }
     }
     
-    
+    @Test
+    public void compareToWorks() {
+        assertEquals(0, this.node0.compareTo(this.node0));
+        assertEquals(-1, this.node0.compareTo(this.node1));
+        assertEquals(1, this.node1.compareTo(this.node0));
+        
+    }
     
 }

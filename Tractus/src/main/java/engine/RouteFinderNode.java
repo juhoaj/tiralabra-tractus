@@ -5,7 +5,7 @@
  */
 package engine;
 
-import helpers.Node;
+import helpers.PairingHeapNode;
 
 /**
  * <h1>Node</h1>
@@ -13,13 +13,15 @@ import helpers.Node;
  * 
  * @author juhojuutilainen
  */
-public class RouteFinderNode implements Comparable<RouteFinderNode> {
+public class RouteFinderNode implements PairingHeapNode<RouteFinderNode>  {
     private int x;
     private int y;
     private int g;
     private int h;
     private int f;
     private RouteFinderNode parent;
+    private RouteFinderNode leftmostChild;
+    private RouteFinderNode sibling;
 
     /**
      * Constructor for A* algorithm normal node.
@@ -38,6 +40,9 @@ public class RouteFinderNode implements Comparable<RouteFinderNode> {
         this.h = h;
         this.f = f;
         this.parent = parent;
+        
+        this.leftmostChild = null;
+        this.sibling = null;
     }
 
     /**
@@ -117,16 +122,76 @@ public class RouteFinderNode implements Comparable<RouteFinderNode> {
         return this.parent;
     }
 
+    /**
+     * Value of node.
+     * @return value
+     */
     @Override
-    public int compareTo(RouteFinderNode node) {
-        if(this.f > node.getF()) {
+    public int getValue() {
+        return this.f;
+    }
+    
+    /**
+     * Returns child Node.
+     * @return leftmost child
+     */
+    @Override
+    public RouteFinderNode getLeftmostChild() {
+        return this.leftmostChild;
+    }
+    
+    /**
+     * Returns next sibling Node.
+     * @return sibling
+     */
+    @Override
+    public RouteFinderNode getSibling() {
+        return this.sibling;
+    }
+
+    /**
+     * Sets next sibling Node.
+     * @param node sibling
+     */
+    @Override
+    public void setSibling(RouteFinderNode node) {
+        if (node == this) {
+            throw new IllegalArgumentException("Cannot set itself as sibling.");
+        }
+        this.sibling = node;
+    }
+    
+    /**
+     * Sets child Node.
+     * @param node leftmost child
+     */   
+    @Override
+    public void setLeftmostChild(RouteFinderNode node) {
+        if (node == this) {
+            throw new IllegalArgumentException("Cannot set itself as leftmost child.");
+        }
+        this.leftmostChild = node;
+    } 
+
+    /**
+     * Sets child Node.
+     * @param node leftmost child
+     */   
+    @Override
+    public int compareTo(PairingHeapNode node) {
+        if(this.f > node.getValue()) {
             return 1;
-        } else if (this.f < node.getF()) {
+        } else if (this.f < node.getValue()) {
             return -1;
         } else {
             return 0;
         }
     }
     
-
+    
+    
+    
+    
+    
+    
 }

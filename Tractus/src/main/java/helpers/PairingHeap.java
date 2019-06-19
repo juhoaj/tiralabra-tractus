@@ -8,10 +8,15 @@ import helpers.CustomArrayList;
  * Returns null if empty.
  * @author juhojuutilainen
  */
-public class PairingHeap {
+public class PairingHeap<E> {
     
-    private Node topNode;
-    
+    private PairingHeapNode topNode;
+    private int size;
+
+    public PairingHeap() {
+        this.size = 0;
+    }
+
     /**
      * Tells if the stack is empty.
      * 
@@ -26,52 +31,63 @@ public class PairingHeap {
     
     
     /**
-     * Adds Node into stack, implements insert.
+     * Adds PairingHeapNode into stack, implements insert.
      * @param node added Node
      */
-    public void push(Node node) {
+    public void push(PairingHeapNode node) {
         this.topNode = this.merge(this.topNode, node);
+        this.size++;
     }
     
  
     /**
-     * Returns the smallest Node in the stack. Does not remove it from the stack.
+     * Returns the smallest PairingHeapNode in the stack. 
+     * Does not remove it from the stack.
      * Implements find-min.
      * 
      * @return smallest Node
      */
-    public Node top() {
+    public E top() {
         if (this.topNode == null) {
             return null;
         }
-        return this.topNode;
+        return (E) this.topNode;
     }
 
     
     /**
-     * Retuns the smallest Node and removes it from the stack.
+     * Retuns the smallest PairingHeapNode and removes it from the stack.
      * Implements find-min && delete-min
      * 
      * @return 
      */
-    public Node pop() {
+    public E pop() {
         if (this.topNode == null) {
             return null;
         }
-        Node returnNode = this.topNode;
+        PairingHeapNode returnNode = this.topNode;
         
         if (this.topNode.getLeftmostChild() == null) {
             this.topNode = null;
         } else {
             this.topNode = this.twoPass();
         }
-        return returnNode;
+        this.size--;
+        return (E) returnNode;
         
+    }
+    
+    /**
+     * Size of the Pairing Heap.
+     * @return size
+     */
+    public int size() {
+        return this.size;
     }
     
     
     // implements merge    
-    private Node merge(Node node1, Node node2) {
+    private PairingHeapNode merge(PairingHeapNode node1, PairingHeapNode node2) {
         if (node1 == null) {
             return node2;
         } else if (node2 == null) {
@@ -87,14 +103,14 @@ public class PairingHeap {
     }
     
     
-    private Node twoPass() {
-        CustomArrayList<Node> siblings = new CustomArrayList<>();
+    private PairingHeapNode twoPass() {
+        CustomArrayList<PairingHeapNode> siblings = new CustomArrayList<>();
         this.collectSiblings(this.topNode.getLeftmostChild(), siblings);
         int pairs = siblings.size() -   siblings.size() % 2;
         
         // first pass
         
-        CustomArrayList<Node> pairedSiblings = new CustomArrayList<>();
+        CustomArrayList<PairingHeapNode> pairedSiblings = new CustomArrayList<>();
         for (int i = 0 ; i < pairs ; i+=2) {
             pairedSiblings.add( this.merge( siblings.get(i), siblings.get(i+1) ) );
         }
@@ -103,14 +119,14 @@ public class PairingHeap {
         }
         
         // second pass
-        Node returnedNode = pairedSiblings.get(pairedSiblings.size() -1);
+        PairingHeapNode returnedNode = pairedSiblings.get(pairedSiblings.size() -1);
         for (int i = pairedSiblings.size() -2 ; i >= 0 ; i--) {
             returnedNode = this.merge(returnedNode, pairedSiblings.get(i));
         }
         return returnedNode;
     }
 
-    private CustomArrayList<Node> collectSiblings(Node node, CustomArrayList<Node> collectedNodes) {
+    private CustomArrayList<PairingHeapNode> collectSiblings(PairingHeapNode node, CustomArrayList<PairingHeapNode> collectedNodes) {
         collectedNodes.add(node);
         if (node.getSibling() == null) {
             return collectedNodes;
@@ -120,17 +136,6 @@ public class PairingHeap {
         return collectedNodes;
         
     }
-    /*
-    private Node mergePairs(Node[] nodes) {
-        if (nodes.length == 0) {
-            return null;
-        } else if (nodes.length == 1) {
-            return nodes[0];
-        } else {
-          return merge(merge(nodes[0], nodes[1]), merge-pairs(nodes[2.. ]))
-        }
-    }
-    */
 
     
     

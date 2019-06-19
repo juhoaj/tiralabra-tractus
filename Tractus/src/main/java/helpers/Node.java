@@ -6,12 +6,12 @@
 package helpers;
 
 /**
- * Node for use with Pairing Heap
+ * Example object that implements PairingHeapNode
  */
-public class Node implements Comparable<Node> {
+public class Node implements PairingHeapNode<Node> {
     private int value;
-    private Node leftmostChild;
-    private Node sibling;
+    private PairingHeapNode leftmostChild;
+    private PairingHeapNode sibling;
     
     
     /**
@@ -31,6 +31,7 @@ public class Node implements Comparable<Node> {
      * Value of node.
      * @return value
      */
+    @Override
     public int getValue() {
         return this.value;
     }
@@ -39,8 +40,8 @@ public class Node implements Comparable<Node> {
      * Returns child Node.
      * @return leftmost child
      */
-    
-    public Node getLeftmostChild() {
+    @Override
+    public PairingHeapNode getLeftmostChild() {
         return this.leftmostChild;
     }
     
@@ -48,8 +49,8 @@ public class Node implements Comparable<Node> {
      * Returns next sibling Node.
      * @return sibling
      */
-    
-    public Node getSibling() {
+    @Override
+    public PairingHeapNode getSibling() {
         return this.sibling;
     }
 
@@ -57,6 +58,7 @@ public class Node implements Comparable<Node> {
      * Sets next sibling Node.
      * @param node sibling
      */
+    @Override
     public void setSibling(Node node) {
         if (node == this) {
             throw new IllegalArgumentException("Cannot set itself as sibling.");
@@ -67,16 +69,17 @@ public class Node implements Comparable<Node> {
     /**
      * Sets child Node.
      * @param node leftmost child
-     */
+     */   
+    @Override
     public void setLeftmostChild(Node node) {
         if (node == this) {
             throw new IllegalArgumentException("Cannot set itself as leftmost child.");
         }
         this.leftmostChild = node;
     } 
-    
+
     @Override
-    public int compareTo(Node node) {
+    public int compareTo(PairingHeapNode node) {
         if(this.value > node.getValue()) {
             return 1;
         } else if (this.value < node.getValue()) {
@@ -84,7 +87,11 @@ public class Node implements Comparable<Node> {
         } else {
             return 0;
         }
-    } 
+    }
+
+
+
+
 }
     
     

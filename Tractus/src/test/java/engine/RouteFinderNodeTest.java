@@ -5,13 +5,9 @@
  */
 package engine;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 /**
  *
@@ -61,6 +57,12 @@ public class RouteFinderNodeTest {
     }
     
     @Test
+    public void getValueWorks() {
+        assertEquals(this.f, this.RouteFinderTestNode.getValue());
+    }
+    
+    
+    @Test
     public void getPositionWorks() {
         assertEquals(this.x, this.RouteFinderTestNode.getPosition()[0]);
         assertEquals(this.y, this.RouteFinderRootTestNode.getPosition()[1]);
@@ -75,7 +77,7 @@ public class RouteFinderNodeTest {
     @Test
     public void compareToWorks() {
         assertEquals(0, this.RouteFinderTestNode.compareTo(this.RouteFinderTestNode));
-        RouteFinderNode hugeFNode = new RouteFinderNode(x, y, g, h, 10);
+        RouteFinderNode hugeFNode = new RouteFinderNode(this.x, this.y, this.g, this.h, 10);
         assertEquals(-1, this.RouteFinderTestNode.compareTo(hugeFNode));
         assertEquals(1, hugeFNode.compareTo(this.RouteFinderTestNode));
     }

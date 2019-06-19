@@ -9,14 +9,16 @@ import domain.Creature;
 import domain.World;
 import helpers.CustomArrayList;
 import helpers.Distance;
-import java.util.PriorityQueue;
+// import java.util.PriorityQueue;
+import helpers.PairingHeap;
+import helpers.PairingHeapNode;
 
 /**
  * Routefinder that utilizes A* algorithm for fast route resolving.
  * A* algorithm processes the route as Node's which are generated based on
  * information received from World.
  */
-public class RouteFinder {
+public class RouteFinder<E> {
 
     private int startX;
     private int startY;
@@ -32,7 +34,7 @@ public class RouteFinder {
     private boolean testPerformanceShowHeapPerformance;
     private RouteFinderNode[][] openList;
     private CustomArrayList<RouteFinderNode> route;
-    private PriorityQueue<RouteFinderNode> nodeHeap;
+    private PairingHeap<RouteFinderNode> nodeHeap;
     private int visitedNodes;
     private int routeLength;
 
@@ -116,13 +118,13 @@ public class RouteFinder {
         this.routeLength = 0;
         RouteFinderNode[][] nextList = new RouteFinderNode[this.world.getWidth()][this.world.getHeight()];
         this.openList = nextList;
-        PriorityQueue<RouteFinderNode> nextNodeHeap = new PriorityQueue<>();
+        PairingHeap nextNodeHeap = new PairingHeap<>();
         this.nodeHeap = nextNodeHeap;
         
         // create first node 
         int startNodeHeuristic = this.getHeuristic(this.startX, this.startY);
         RouteFinderNode startNode = new RouteFinderNode(this.startX, this.startY, 0, startNodeHeuristic, 0);
-        nodeHeap.add(startNode);
+        nodeHeap.push(startNode);
         this.openList[this.startX][this.startY] = startNode;
         
         this.traverseNodes();
@@ -154,7 +156,7 @@ public class RouteFinder {
             }
             this.visitedNodes++;
             // check if target found
-            RouteFinderNode currentNode = nodeHeap.poll();
+            RouteFinderNode currentNode = nodeHeap.pop();
             if (currentNode.getX() == this.endX && currentNode.getY() == this.endY) {
                 break;
             }
@@ -170,7 +172,7 @@ public class RouteFinder {
                 int g = currentNode.getG() + this.world.getTerrain(ChildX, ChildY);
                 if (this.openList[ChildX][ChildY] == null || openList[ChildX][ChildY].getG() > g) {
                     RouteFinderNode childNode = new RouteFinderNode(ChildX, ChildY, g, h, g + h, currentNode);
-                    nodeHeap.add(childNode);
+                    nodeHeap.push(childNode);
                     nodesAdded++;
                     this.openList[ChildX][ChildY] = childNode;
                     

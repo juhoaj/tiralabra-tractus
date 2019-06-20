@@ -1,5 +1,9 @@
 package engine;
 
+
+
+
+
 /**
  * <h1>Main</h1>
  * Only creates a new Game.
@@ -14,9 +18,12 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        Game game = new Game();
-
+        // Game game = new Game();
+        PerformanceTests test = new PerformanceTests();
+        test.runTests();
         
     }
+    
+
     
 }

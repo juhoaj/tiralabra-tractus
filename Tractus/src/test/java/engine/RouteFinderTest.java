@@ -110,4 +110,15 @@ public class RouteFinderTest {
         assertEquals(1, returnedValue[0]);
         assertEquals(0, returnedValue[1]);
     }
+    
+    @Test
+    public void lastMoveGetsReturned() {
+        int[] start = {0,0};
+        int[] end = {0,0};
+        int[] returnedValue = this.routeFinder.getNextMove(start, end);
+        assertEquals(0, returnedValue[0]);
+        assertEquals(0, returnedValue[1]);
+    }
+    
+    
 }

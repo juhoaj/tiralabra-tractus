@@ -99,7 +99,7 @@ public class RouteFinder {
 
         this.AStar();
         if (this.route.size() == 1) {
-            RouteFinderNode lastNode = this.route.get(this.route.size()-2);
+            RouteFinderNode lastNode = this.route.get(0);
             return lastNode.getPosition();
         }
         RouteFinderNode secondLastNode = this.route.get(this.route.size()-2);

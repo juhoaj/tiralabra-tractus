@@ -75,6 +75,18 @@ public class World {
         }
     }
     
+    /**
+     * Creates empty map that is full.
+     */
+    public void initializeFull() {
+        for (int x = 0; x < this.width; x++) {
+            for (int y = 0; y < this.height; y++) {
+                this.map[x][y] = 2;
+                this.connected[x][y] = false;
+            }
+        }
+    }
+    
     
     // Creates random noise on map
     private void randomize() {

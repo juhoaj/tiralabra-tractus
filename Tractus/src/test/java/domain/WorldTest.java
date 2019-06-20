@@ -17,6 +17,7 @@ public class WorldTest {
 
     World oneWorld;
     World nineWorld;
+    World fullOneWorld;
 
 
     @Before
@@ -25,6 +26,8 @@ public class WorldTest {
         this.oneWorld.initializeEmpty();
         this.nineWorld = new World(3, 3, false);
         this.nineWorld.initializeEmpty();
+        this.fullOneWorld = new World(1, 1, false);
+        this.fullOneWorld.initializeFull();
         
     }
     
@@ -52,6 +55,7 @@ public class WorldTest {
     @Test
     public void getTerrainWorks() {
         assertEquals(1, oneWorld.getTerrain(0, 0));
+        assertEquals(2, fullOneWorld.getTerrain(0, 0));
     }
 
     @Test

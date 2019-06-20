@@ -32,7 +32,7 @@ public class Game {
      */
     public Game() {
         
-        boolean testPerformance = true; // set true to print algorithm performance to console
+        boolean testPerformance = false; // set true to print algorithm performance to console
         boolean debugging = false;      // set true to print debugging info to terminal and standardize world & monster positions
         int gameareaHeight = 500;       // recommended: 500
         int gameareaWidth = 500;        // recommended: 500

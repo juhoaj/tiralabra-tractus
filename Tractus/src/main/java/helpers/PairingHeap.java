@@ -135,7 +135,6 @@ public class PairingHeap<E> {
         collectSiblings(node.getSibling(), collectedNodes);
         node.setSibling(null);
         return collectedNodes;
-        
     }
 
     

@@ -5,6 +5,7 @@
  */
 package engine;
 
+import domain.Command;
 import domain.Creature;
 import domain.World;
 import helpers.CustomArrayList;
@@ -12,10 +13,8 @@ import helpers.Distance;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -63,10 +62,11 @@ public class MonsterControllerTest {
     }
 
     @Test
-    public void classInitialized() {
+    public void classInitializedConstructor1() {
         assertNotNull(this.testMonsterControllerWithWorldOne);
     }
     
+
     @Test
     public void moveToCallsMonster() {
         this.testMonsterControllerWithWorldOne.moveTo(1,1,this.monster);
@@ -102,5 +102,50 @@ public class MonsterControllerTest {
         assertEquals(1, positions.length);
     }
     
+    @Test
+    public void monsterGetsInserted() {
+        this.testMonsterControllerWithWorldOne.instertMonster(1, 1);
+        Creature monster = this.monsterList.get(0);
+        assertEquals(1, monster.getX());
+    }
 
+    @Test
+    public void monsterActionsSetsMonsterposition() {
+        World realWorld = new World(3, 3, false);
+        realWorld.initializeEmpty();
+        Creature testCreature = new Creature();
+        int[] monsterPosition = {2,2};
+        testCreature.setPosition(monsterPosition);
+        CustomArrayList<Creature> testMonsterList = new CustomArrayList<>();
+        testMonsterList.add(testCreature);
+        int[] playerPosition = {15,15};
+        GameController testGameController = mock(GameController.class);
+        when (testGameController.getPlayerPosition()).thenReturn(playerPosition);
+        Distance testDistance = mock(Distance.class);
+        RouteFinder testRoutefinder = mock(RouteFinder.class);
+        when (testRoutefinder.getNextMove(monsterPosition, playerPosition)).thenReturn(playerPosition);
+        when (testDistance.getDistance(anyInt(), anyInt(), anyInt(), anyInt())).thenReturn(15);
+        MonsterController testMonsterController = new MonsterController(testMonsterList, this.worldThatReturnsOneForTerrain, testGameController, testRoutefinder, testDistance);
+        assertEquals(2, testCreature.getPosition()[0]);
+        testMonsterController.monsterActions();
+        assertEquals(15, testCreature.getPosition()[0]);
+    }
+    
+    @Test
+    public void monsterActionsCallsWorld() {
+        RouteFinder finder = mock(RouteFinder.class);
+        MonsterController monsterController= new MonsterController(this.monsterList, this.worldThatReturnsTwoForTerrain, this.gameController, finder, this.distance);
+        int[] returnPosition = {1,1};
+        when(this.monster.getPosition()).thenReturn(returnPosition); 
+        when(this.gameController.getPlayerPosition()).thenReturn(returnPosition);
+        when(finder.getNextMove(returnPosition, returnPosition)).thenReturn(returnPosition);
+
+        monsterController.monsterActions();
+        verify(this.worldThatReturnsTwoForTerrain).setTerrain(1, 1, 1);
+    }
+    
+
+
+    
+    
 }

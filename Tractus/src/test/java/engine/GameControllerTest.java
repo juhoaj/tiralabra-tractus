@@ -34,7 +34,7 @@ public class GameControllerTest {
     }
     
 
-
+    
     @Test
     public void startGameWorks() {
         when(this.playerController.insertPlayer()).thenReturn(true);
@@ -50,6 +50,7 @@ public class GameControllerTest {
         assertNotNull(this.testGameController);
     }
     
+    
     @Test
     public void insertPlayerGetsCalledOnlyOnceIfTrue() {
         when(this.playerController.insertPlayer()).thenReturn(true);
@@ -57,6 +58,7 @@ public class GameControllerTest {
         verify(this.playerController).setPlayerTurn(true);
         
     }
+    
     
     @Test
     public void checkMonsterTurnAndMosterActionsWork() {
@@ -134,9 +136,12 @@ public class GameControllerTest {
     }
     
     @Test 
-        public void getPlayerPositionWorks() {
+    public void getPlayerPositionWorks() {
         int[] testPosition = {1,1};
         when(this.playerController.getPlayerPosition()).thenReturn(testPosition);
         assertEquals(testPosition[0],this.testGameController.getPlayerPosition()[0]);
     }
+    
+    
+    
 }

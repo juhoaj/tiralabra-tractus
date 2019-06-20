@@ -1,17 +1,12 @@
 package ui;
-
 import asciiPanel.AsciiPanel;
 import asciiPanel.AsciiFont;
 import engine.PlayerController;
-import domain.Creature;
-import domain.Command;
 import domain.World;
 import engine.MonsterController;
 import helpers.Distance;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
 /**
  * <h1>Interface</h1>
@@ -148,4 +143,46 @@ public class Interface extends JFrame {
     public void message(String message) {
         this.terminal.write(message, 0, 0);
     }
+    
+    
+     /**
+     * Constructor that is more suited for testing.
+     *
+     * @param world contains and controls the map
+     * @param playerController receives imput from ui and controls player-object
+     * @param monsterController controls monsters
+     * @param viewportWidth width of viewport (characters)
+     * @param viewportHeight height of viewport (characters)
+     * @param debugging set true for debugging
+     * @param terminal AsciiPanel
+     * @param distance Distance helper
+     */
+    public Interface(World world, PlayerController playerController, MonsterController monsterController, int viewportWidth, int viewportHeight, boolean debugging, AsciiPanel terminal, Distance distance) {
+        this.debugging = debugging;
+        if (viewportWidth <= 4 || viewportHeight <= 4 || viewportWidth > 52 || viewportHeight > 52) {
+            throw new IllegalArgumentException("viewport size incompatible with ui");
+        }
+        this.viewportWidth = viewportWidth;
+        this.viewportHeight = viewportHeight;
+        this.keylistener = new KeyListener(playerController);
+        this.world = world;
+        this.monsterController = monsterController;
+        this.playerController = playerController;
+
+        this.terminal = terminal;
+        this.distance = distance;
+        super.add(terminal);
+        super.addKeyListener(keylistener);
+        super.setSize(this.viewportWidth * 10, this.viewportHeight * 10);
+        super.setVisible(true);
+        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        this.centerX = this.viewportWidth / 2;
+        this.centerY = this.viewportWidth / 2;
+        this.viewDistance = Math.min(this.viewportWidth, this.viewportWidth) / 2 - 2;
+        
+        
+    }
+    
+    
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package engine;
+package helpers;
 
 import helpers.CustomArrayList;
 import helpers.Node;
@@ -102,6 +102,7 @@ public class PerformanceTests {
         }
         for (Integer i = 0 ; i < HeapTestSize / 2 ; i++) {
             Node testNode = testPairingHeap.pop();
+            
         }
         long time = System.currentTimeMillis() - before;
         System.out.println("PairingHeapAscending: " + time);

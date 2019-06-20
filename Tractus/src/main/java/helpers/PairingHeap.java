@@ -1,6 +1,6 @@
 package helpers;
 
-import helpers.CustomArrayList;
+// import helpers.CustomArrayList;
 
 /**
  * Offers stack of Node objects. Naive implementation of minimum pairing heap that 
@@ -74,7 +74,6 @@ public class PairingHeap<E> {
         }
         this.size--;
         return (E) returnNode;
-        
     }
     
     /**
@@ -104,37 +103,62 @@ public class PairingHeap<E> {
     
     // implements twoPass
     private PairingHeapNode twoPass() {
-        CustomArrayList<PairingHeapNode> siblings = new CustomArrayList<>();
-        this.collectSiblings(this.topNode.getLeftmostChild(), siblings);
-        int pairs = siblings.size() -   siblings.size() % 2;
+        
+        // collect nodes
+        PairingHeapNode[] siblings = this.collectSiblings();
         
         // first pass
+        int i = 0;
+        while (true) {
+            if (siblings[i] == null) {
+                break;
+            }
+            siblings[i] = merge(siblings[i], siblings[i+1]);
+            i+=2;
+        }
         
-        CustomArrayList<PairingHeapNode> pairedSiblings = new CustomArrayList<>();
-        for (int i = 0 ; i < pairs ; i+=2) {
-            pairedSiblings.add( this.merge( siblings.get(i), siblings.get(i+1) ) );
-        }
-        if (siblings.size() % 2 == 1) {
-            pairedSiblings.add(siblings.get(siblings.size()-1));
-        }
+        PairingHeapNode returnedNode = null;
         
         // second pass
-        PairingHeapNode returnedNode = pairedSiblings.get(pairedSiblings.size() -1);
-        for (int i = pairedSiblings.size() -2 ; i >= 0 ; i--) {
-            returnedNode = this.merge(returnedNode, pairedSiblings.get(i));
+        while (true) {
+            returnedNode = merge(returnedNode, siblings[i]);
+            if (i==0) {
+                break;
+            }
+            i-=2;
         }
+
+
         return returnedNode;
     }
 
     // used by twoPass
-    private CustomArrayList<PairingHeapNode> collectSiblings(PairingHeapNode node, CustomArrayList<PairingHeapNode> collectedNodes) {
-        collectedNodes.add(node);
-        if (node.getSibling() == null) {
-            return collectedNodes;
+    private PairingHeapNode[] collectSiblings() {
+        PairingHeapNode[] siblings = new PairingHeapNode[24];
+        siblings[0] = this.topNode.getLeftmostChild();
+        int i = 1;
+        while (true) {
+            if (i == siblings.length) {
+                siblings = this.enlarge(siblings);
+            }
+            PairingHeapNode nextNode = siblings[i - 1].getSibling();
+            if (nextNode == null) {
+                break;
+            }
+            siblings[i] = nextNode;
+            i++;
         }
-        collectSiblings(node.getSibling(), collectedNodes);
-        node.setSibling(null);
-        return collectedNodes;
+        return siblings;
+    }
+    
+    // enlarges array if it is full, used by twoPass
+    private PairingHeapNode[] enlarge(PairingHeapNode[] array) {
+        int oldSize = array.length;
+        PairingHeapNode[] newArray = new PairingHeapNode[oldSize*2];
+        for (int i=0 ; i < oldSize ; i++) {
+            newArray[i] = array[i];
+        }
+        return newArray;
     }
 
     

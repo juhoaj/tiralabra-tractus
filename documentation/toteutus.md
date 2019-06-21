@@ -1,8 +1,8 @@
 # Ohjelman yleisrakenne
 
-Sovellusta on toteutettu MVC mallilla jossa pakkauksella `domain` on pitkälti model-rooli, `engine`-pakkauksella Controller-rooli ja `ui`-pakkauksella view-rooli. Sovellusarkkitehtuurissa on pidetty tiukasti kiinni riippuvuuksien injektoinnista testauksen helpottamiseksi. Single responsibility -periaatteesta on joustettu eikä rakenteessa ole esim. käytetty oliotehtaita vaikka se esim. World -luokan kohdalla olisi perusteltua. Metodien koheesiosta on kuitenkin pyritty pitämään huolta.
+Sovellusta on toteutettu MVC mallilla jossa pakkauksella `domain` on pitkälti model-rooli, `engine`-pakkauksella Controller-rooli ja `ui`-pakkauksella view-rooli. Sovellusarkkitehtuurissa on pidetty tiukasti kiinni riippuvuuksien injektoinnista testauksen helpottamiseksi. Single responsibility -periaatteesta on hieman joustettu eikä rakenteessa ole esim. käytetty oliotehtaita vaikka se esim. World -luokan kohdalla olisi perusteltua. Metodien koheesiosta on kuitenkin pyritty pitämään huolta.
 
-Keskeisimmät luokat esittelee [luokkakaavio](suunnittelu/luokkakaavio.pdf). Siinä kuvattujen pakkauksien lisäksi käytössä on `helpers`-pakkaus jossa on mm. projektiin toteutetut tietorakenteet. Luokkien ja niiden metodien tarkemmat kuvaukset löytyvät Javadoc -kuvauksista. Sovellusrakenteessa on haluttu pitää kiinni Eri luokkien orkestraatio sekä sen toteutus on kenties aavistuksen naivi sillä Java Swing ja sen stateless -malli on tekijälle varsin vieras. Luokkien yhteistoiminta on tarkemmin kuvattu sekvenssikaaviossa](suunnittelu/sekvenssikaavio.pdf).
+Keskeisimmät luokat esittelee [luokkakaavio](suunnittelu/luokkakaavio.pdf). Siinä kuvattujen pakkauksien lisäksi käytössä on `helpers`-pakkaus jossa on mm. projektiin toteutetut tietorakenteet. Luokkien ja niiden metodien tarkemmat kuvaukset löytyvät Javadoc -kuvauksista. Eri luokkien orkestraatio sekä sen toteutus on kenties aavistuksen naivi sillä Java Swing ja sen stateless -malli on tekijälle varsin vieras. Luokkien yhteistoiminta on tarkemmin kuvattu [sekvenssikaaviossa](suunnittelu/sekvenssikaavio.pdf).
 
 Testaus noudattaa käytäntöä jossa testit on jaettu sovelluksen pakkauksia vastaaviin pakkauksiin ja luokkien testit luokkia vastaaviin testiluokkia. Esim. `domain/World`-luokan testit löytyvät siis `domain/WorldTest`-luokasta.
 
@@ -42,7 +42,7 @@ Päätelmää tukee että maailman luomisen mitattu esto on suoraan suhteessa ka
 
 ![Kartan luomisen kesto eri kokoisilla maailmoilla](mittaukset/graafi4.png)
 
-Lisäksi maailman luomisen keston hajonta pysyttelee +-50% prosentin luokassa.
+Maailman luomisen keston hajonta pysyttelee +-50% prosentin luokassa.
 
 ![Kartan luomisen keston hajonta eri kokoisilla maailmoilla](mittaukset/graafi2.png)
 
@@ -188,7 +188,7 @@ Mittaustulokset tukevat päätelmää.
 
 # Työn mahdolliset puutteet ja parannusehdotukset
 
-Työn lähtökohtana on ollut "kuinka iso luolasto voidaan ja kuinka monta hirviötä siinä voi olla ennenkuin algoritmit kyykkäävät". 
+Työn lähtökohtana on ollut "kuinka iso luolasto voidaan luoda ja kuinka monta hirviötä siinä voi olla ennenkuin algoritmit kyykkäävät". 
 
 Näin ollen maailman luomisessa voitaisiin käyttää myös proseduraalista maailman luomista jossa karttaa generoidaan pelaajan liikkeiden mukaan. Lisäksi hirviöt voisivat kauempana pelaajasta ollessaan käyttää vielä nopeampaa algoritmia, esim. vain kulkeutua pelaajan suuntaan. Vaihtoehtoisesti kauempana olevilla hirviöillä voisi olla pino reitinhausta saatavia liikkeitä joita lasketaan taustalla.
 
@@ -196,10 +196,11 @@ AsciiPanelin yksikkötestaus on puuttellinen sillä tämä olisi vaatinut jotain
 
 Field of view -algoritmia olisi myös ollut kiva harjoitella työssä mutta tämä rajattiin pois ajankäytön järkevyyden nimissä.
 
-Jos harjoitustyötä tarkastellaan pelinä niin suuri osa tyypillisistä roguelike -elementeistä toki loistaa puuttumisellaan. 
+Jos harjoitustyötä tarkastellaan pelinä niin suuri osa tyypillisistä roguelike -elementeistä toki loistaa puuttumisellaan. Mielenkiintoista olisi toteuttaa Aliens II -tyylinen liikesensori pelaajan tueksi.
 
 
 # Lähteet
+
 * [Trystan, Roguelike tutorial](http://trystans.blogspot.com)
 
 * [Nicholas Swift, Easy A* (star) Pathfinding](https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2)

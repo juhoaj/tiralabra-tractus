@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  */
 public class PairingHeapTest {
     
-    PairingHeap pairingHeap;
+    PairingHeap<Node> pairingHeap;
     Node node1;
     Node node2;
     Node node3;
@@ -120,7 +120,31 @@ public class PairingHeapTest {
         assertEquals(this.node4, this.pairingHeap.pop());
         assertEquals(this.node5, this.pairingHeap.pop());
         assertEquals(this.node6, this.pairingHeap.pop());
-        assertEquals(this.node7, this.pairingHeap.pop());
+        
+    }
+    
+    @Test
+    public void bigPop1() {
+        for (int i = 1 ; i <= 1000 ; i++) {
+            this.pairingHeap.push(new Node(i));
+        }
+        
+        for (int i = 1 ; i <= 1000 ; i++) {
+            assertEquals(i, this.pairingHeap.pop().getValue());
+        }
+        
+    }
+    
+    @Test
+    public void bigPop2() {
+        for (int i = 1000 ; i > 0 ; i-- ){
+            this.pairingHeap.push(new Node(i));
+        }
+        
+        for (int i = 1 ; i <= 1000 ; i++) {
+            assertEquals(i, this.pairingHeap.pop().getValue());
+        }
+        
     }
 
     

@@ -35,10 +35,4 @@ Viikkoraportit:
 
 Todo:
 * Dokumentaatio kuntoon (keon testaus ja toteutus -dokumentointi)
-* RouteFinder testaus loppuun
 * Interface testaus loppuun
-* MonsterController testaus loppuun
-* Suoritettavan ohjelman buildaus ja testaus
-* Projektiin käytetty aika
-* javadocit kuntoon (engine, domain ok)
-* Koodin siistiminen (turhat importit pois yms.)

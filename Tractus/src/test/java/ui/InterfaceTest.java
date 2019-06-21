@@ -32,8 +32,7 @@ public class InterfaceTest {
     
     
     @Before
-    public void setUp() throws IOException {        
-        
+    public void setUp() throws IOException {          
         this.world = mock(World.class);
         this.playerController = mock(PlayerController.class);
         this.playerPosition = new int[2];
@@ -41,9 +40,7 @@ public class InterfaceTest {
         this.monsterController = mock(MonsterController.class);
         this.terminal = mock(AsciiPanel.class);
         this.distance = mock(Distance.class);
-        this.testInterface = new Interface(this.world, this.playerController, this.monsterController, 10, 10, false);
-    
-    
+        this.testInterface = new Interface(this.world, this.playerController, this.monsterController, 10, 10, false);    
     }
     
     

@@ -138,13 +138,40 @@ Kekoa toteutettiin erityisesti delete-min metodin kohdalla naivimmin kuin löyde
 Ensiksi kokeiltiin reitinhakua ja varmistettiin että reittien pituudet vakioidulla kartanluomisella pysyvät samana.
 
 | Maailman koko      | PriorityQue     |  PairingHeap    |
-|--------------------|---------------------:|------------------:|
-| 51x51              | 57                 | 57              |
-| 500x500            | 241             | 241
-| 1000x1000          | 669            | 669              |
-| 2001x2001          | 1122           | 1122                 |
-| 4001x4001          | 2082             | 2082                 |
+|--------------------|----------------:|----------------:|
+| 51x51              | 57              | 57              |
+| 500x500            | 241             | 241             |
+| 1000x1000          | 669             | 669             |
+| 2001x2001          | 1122            | 1122            |
+| 4001x4001          | 2082            | 2082            |
 
 Voidaan todeta että PairingHeap ei vaikuta reitinhakualgoritmin toimintaan negatiivisesti.
+
+Toisaalta verrattaessa PairingHeap ja PriorityQue nopeautta huomattiin että nopeusero on marginaalinen.
+
+![Hirviöiden vuoron kesto viidens siirron keskiarvosta, ms 500 hirviötä, 500x500 maailma](mittaukset/graafi5.png)
+
+Näinollen päädyttiin refaktoroimaan PairingHeap ja saatiin seuraavat mittaustulokset.
+
+| Nodea        | Priority Queue      | Pairing Heap      | 
+|--------------|---------------------|------------------:|
+| 1000         | 2                   | 0                 |
+| 10000        | 7                   | 3                 |
+| 100000       | 31                  | 17                |
+| 1000000      | 122                 | 49                |
+
+
+# CustomArrayListin vertaus
+
+Mitattaessa CustomArrayListin ja ArrayListin toimintaa huomataan että ArrayList on marginaalisesti nopeampi.
+
+| Lisätty ja poistettu Integer:tä     | ArrayList     |  CustomArrayList |
+|-------------------------------------|--------------:|-----------------:|
+| 1000                                | 1             | 0                |
+| 10000                               | 3             | 3                |
+| 100000                              | 9             | 11               |
+| 1000000                             | 52            | 56               |
+
+
 
 

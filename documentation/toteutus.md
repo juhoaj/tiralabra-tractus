@@ -98,7 +98,7 @@ A* algoritmin aikavaativuuksi on lähteissä mainittu O(b^d) `b`:n kuvatessa puu
 
 
 | Maailman koko       | Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    | Nodeja käsitelty | pituus / lisätty    |
-|---------------------|------------------:|-------------------------:|---------------------:|-----------------:|--------------------:|--------------------:|
+|---------------------|------------------:| -------------------------:|---------------------:|-----------------:|--------------------:|--------------------:|
 | 51x51               | 57                | 150                      | 89                   | 62                             | 0,38	               |
 | 500x500             | 241               | 660                      | 418                  | 243                            | 0,37	               |
 | 1000x1000           | 669               | 1848                     | 1093                 | 756                           | 0,36	               |
@@ -111,13 +111,76 @@ A* algoritmin aikavaativuuksi on lähteissä mainittu O(b^d) `b`:n kuvatessa puu
 Näin ollen voidaan perustellusti väittää että reitinhakualgoritmin käytännön aikavaativuus käytössä olevalla kartan luomisen algoritmilla on O(n), jossa `n` on reitin pituus jos reitinhaun käyttämä keko suoriutuu add, poll ja isEmpty -metodeista ajassa O(1).
 
 
-## Reitinhaun käyttämä keko
+## Reitinhaun käyttämä PairingHeap
+
+````
+
+def decreaseKey(x,k,H):
+    if x != H:
+        remove(x)
+        #the node x is removed from the child list where it was
+        key(x) = k
+        H = link(H,x)
+
+    else:
+        key(H) = k
+
+def twoPassPairing(x):
+    #x is assumed to be a pointer to the first node of a list of tree roots
+    #two pass pairing executes and combines trees into a single tree
+    #returns a pointer to the root of result tree
+
+def delete(x,H):
+    y = twoPassPairing(leftmost-child(x))
+    if x == H:
+        H = y
+    else:
+        remove(x)
+        #the subtree rooted at x is removed
+        H = link(H,y)
+
+````
+
+Pseudokoodia tarkastelemalla voidaan päätellä että PairingHeap on  verrattain ripeä, lähelle O(1) kun siihen lisätään toinen toistaan pienempiä lukuja ja puu pysyy 'kapeana ja korkeana' ja verrattain hidas, lähelle O(log n) päinvastaisessa tilanteessa.
+
+Reitinhaku toteutettiin kahteen kertaan, [ensimmäisen kerran naivisti](https://github.com/juhoaj/tiralabra-tractus/blob/7ad2b26149c4d214acd819b7a24d15e43653e77a/Tractus/src/main/java/helpers/PairingHeap.java) ja tämän jälkeen tehokkaammin. Ks. [Testaus](testaus.md).  
+
+Kun tietorakenteisiin asetetaan n kpl. toistaan pienempiä tai suurempia Nodeja ja poistetaan n/2 kpl Nodea saadaan seuraavat mittaustulokset:
+
+![PairingHeap, lisätäään n Nodea ja poistetaan n/2 Nodea (x-akseli), ms (y-akseli) ](mittaukset/graafi7.png)
 
 
 
 
+## CustomArrayList nopeus 
 
+````
 
+Olio[] array
+int olioita
+
+funktio lisää(olio)
+    olioita++
+    jos olioita > array.koko
+        suurenna(array)
+    array[olioita]=olio
+
+funktio hae(i)
+    palauta array[i]
+
+funktio suurenna(array)
+    Olio[array.koko*2] uusiArray;
+    for i < array.koko
+        uusiArray[i] = array[i]
+    palauta uusiArray
+
+````
+
+Tästä voidaan päätellä että CustomArrayListin tehokkuus on pienimmillään O(1) jos arrayn kokoa ei tarvitse suurentaa mutta sen tehokkuus voi helposti tipahtaa O(n):ään.
+
+Mittaustulokset tukevat päätelmää.
+
+![CustomArrayList nopeus kun siihen lisätään n Integeriä (x-akseli), ms (y-akseli)](mittaukset/graafi8.png)
 
 
 

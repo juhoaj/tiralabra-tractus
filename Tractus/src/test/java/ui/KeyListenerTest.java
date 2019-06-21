@@ -27,7 +27,7 @@ public class KeyListenerTest {
         instance.addKeyListener(keyListener);
         instance.requestFocus(); 
     }
-
+    
     @Test
     public void keyWWorksAndCallsSetActionWithNORTH() {
         KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'w');
@@ -60,12 +60,7 @@ public class KeyListenerTest {
         verify(playerController, times(1)).setAction(Command.WEST);
     }
     
-    @Test
-    public void keyAWorksAndDoesntCall() {
-        KeyEvent event = new KeyEvent(instance, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,  'r');
-        keyListener.keyPressed(event);
-        verify(playerController, times(0));
-    }
+
     
     
 }

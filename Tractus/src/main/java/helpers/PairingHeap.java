@@ -3,9 +3,8 @@ package helpers;
 // import helpers.CustomArrayList;
 
 /**
- * Offers stack of Node objects. Naive implementation of minimum pairing heap that 
- * cuts corners by not utilizing previous siblings and using CustomArrayList. 
- * Returns null if empty.
+ * Offers stack of Node objects. Limited implementation of minimum pairing heap that 
+ * cuts corners by not utilizing previous siblings method. Returns null if empty.
  * @author juhojuutilainen
  */
 public class PairingHeap<E> {

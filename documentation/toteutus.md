@@ -114,7 +114,6 @@ Näin ollen voidaan perustellusti väittää että reitinhakualgoritmin käytän
 ## Reitinhaun käyttämä PairingHeap
 
 ````
-
 function insert(elem, heap)
   return merge(Heap(elem, []), heap)
 
@@ -144,7 +143,6 @@ def twoPassPairing(x):
     #x is assumed to be a pointer to the first node of a list of tree roots
     #two pass pairing executes and combines trees into a single tree
     #returns a pointer to the root of result tree
-
 ````
 
 Pseudokoodia tarkastelemalla voidaan päätellä että PairingHeap on  verrattain ripeä, O(log n) lähestyen O(1) kun siihen lisätään toinen toistaan pienempiä lukuja ja puu pysyy 'kapeana ja korkeana' ja verrattain hidas, lähelle O(log n) päinvastaisessa tilanteessa.
@@ -160,7 +158,6 @@ Tästä voidaan nähdä että toteutettu PairingHeapin paraskin mahdollinen suor
 ## CustomArrayList nopeus 
 
 ````
-
 Olio[] array
 int olioita
 
@@ -178,7 +175,6 @@ funktio suurenna(array)
     for i < array.koko
         uusiArray[i] = array[i]
     palauta uusiArray
-
 ````
 
 Tästä voidaan päätellä että CustomArrayListin tehokkuus on pienimmillään O(1) jos arrayn kokoa ei tarvitse suurentaa mutta sen tehokkuus voi helposti tipahtaa O(n):ään.
@@ -194,7 +190,9 @@ Mittaustulokset tukevat päätelmää.
 
 Työn lähtökohtana on ollut "kuinka iso luolasto voidaan ja kuinka monta hirviötä siinä voi olla ennenkuin algoritmit kyykkäävät". 
 
-Näin ollen maailman luomisessa voitaisiin käyttää myös proseduraalista maailman luomista jossa karttaa generoidaan pelaajan liikkeiden mukaan. Lisäksi hirviöt voisivat kauempana pelaajasta ollessaan käyttää vielä nopeampaa algoritmia, esim. vain kulkeutua pelaajan suuntaan. 
+Näin ollen maailman luomisessa voitaisiin käyttää myös proseduraalista maailman luomista jossa karttaa generoidaan pelaajan liikkeiden mukaan. Lisäksi hirviöt voisivat kauempana pelaajasta ollessaan käyttää vielä nopeampaa algoritmia, esim. vain kulkeutua pelaajan suuntaan. Vaihtoehtoisesti kauempana olevilla hirviöillä voisi olla pino reitinhausta saatavia liikkeitä joita lasketaan taustalla.
+
+AsciiPanelin yksikkötestaus on puuttellinen sillä tämä olisi vaatinut jotain hieman Mockitoa järeämpää.
 
 Field of view -algoritmia olisi myös ollut kiva harjoitella työssä mutta tämä rajattiin pois ajankäytön järkevyyden nimissä.
 
@@ -202,6 +200,8 @@ Jos harjoitustyötä tarkastellaan pelinä niin suuri osa tyypillisistä rogueli
 
 
 # Lähteet
+* [Trystan, Roguelike tutorial](http://trystans.blogspot.com)
+
 * [Nicholas Swift, Easy A* (star) Pathfinding](https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2)
 
 * [Jakob Jenkov, Java Generics - Implementing the Iterable Interface](http://tutorials.jenkov.com/java-generics/implementing-iterable.html)

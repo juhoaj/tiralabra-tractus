@@ -107,28 +107,28 @@ Reitinhaku pelaajan liikuttua vasemmalle, heuristiikka: välimatka ^ 2
 
 Kun A* heuristiikkana on matka^2 ja kartta vakioitu tehdään kekoon kymmentä add -kutsua kohden ~neljä poll ja isEmpty -kutsua:
 
-| Maailman koko       | Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    | Pinon koko reitinhaun lopussa  | pituus / lisätty    | lisätty / maksimi   |
-|---------------------|------------------:|-------------------------:|---------------------:|-------------------------------:|--------------------:|--------------------:|
-| 51x51               | 57                | 150                      | 89                   | 88                             | 0,38	               | 0,59                |
-| 500x500             | 241               | 660                      | 418                  | 417                            | 0,37	               | 0,63                | 
-| 1000x1000           | 669               | 1848                     | 1093                 | 1092                           | 0,36	               | 0,59                |
-| 2001x2001           | 1122              | 3149                     | 1918                 | 1917                           | 0,36	               | 0,61                |
-| 4001x4001           | 2082              | 5814                     | 3490                 | 3489                           | 0,36	               | 0,60                |
+| Maailman koko       | Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    |  pituus / lisätty    |
+|---------------------|------------------:|-------------------------:|---------------------:|---------------------:|
+| 51x51               | 57                | 150                      | 89                   | 0,38	               |
+| 500x500             | 241               | 660                      | 418                  | 0,37	               |
+| 1000x1000           | 669               | 1848                     | 1093                 | 0,36	               |
+| 2001x2001           | 1122              | 3149                     | 1918                 | 0,36	               |
+| 4001x4001           | 2082              | 5814                     | 3490                 | 0,36	               |
 
 Jos maailman koko on 500x500 ja karttaa ei ole vakioitu havaitaan myös sama suhde.
 
-| Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    | Pinon koko reitinhaun lopussa  | pituus / lisätty    | lisätty / maksimi   |
-|------------------:|-------------------------:|---------------------:|-------------------------------:|--------------------:|--------------------:|
-| 233	            | 636	                   | 378	              |377	                           |0,37                 |0,59                 |
-| 209	            | 548	                   | 319	              |318	                           |0,38                 |0,58                 |
-| 386	            | 1055	                   | 619	              |618	                           |0,37                 |0,59                 |
-| 293	            | 810	                   | 473	              |472                             |0,36                 |0,58                 |
+| Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    |  pituus / lisätty    | lisätty / maksimi   |
+|------------------:|-------------------------:|---------------------:|---------------------:|--------------------:|
+| 233	            | 636	                   | 378	              | 0,37                 | 0,59                |
+| 209	            | 548	                   | 319	              | 318	                 | 0,38                |
+| 386	            | 1055	                   | 619	              | 618	                 | 0,37                |
+| 293	            | 810	                   | 473	              | 472                  | 0,36                |
 
 Näin ollen valitun tietorakenteessa on tärkeätä isEmpty kutsun tehokkuuden lisäksi ensisijaisesti insert ja tämän jälkeen poll -kyselyn tehokkuus.
 
-Lähdeaineistosta määrittelyvaiheessa luettu Fibonacci-kekojen sopivuudesta tälläiseen tilanteeseen on validi sillä sen insert -metodin aikavaativuus on vain O(1) siinä missä AVL binääripuulla se on O(log n). Lisäksi A* algoritmissa kekoon lisätään pääsääntöisesti keossa olevia nodeja pienempiä nodeja. Tällöin AVL binääripuulla on jatkuvasti tasapainotettava kekoa ja oltaisiin todennäköisesti lähellä hitainta mahdollista insert-metodin suorituskykyä.
+Lähdeaineistosta määrittelyvaiheessa luettu Fibonacci-kekojen sopivuudesta tälläiseen tilanteeseen on validi sillä lähteiden mukaan Fibonacci-keon insert -metodin käytännön aikavaativuus on huomattavasti sen teoreettista O(log n) aikavaativuutta nopeampi. 
 
-Fibonacci-keko on kuitenkin verrattain vaikea toteuttaa. Myöhemmin kerätystä lähdeaineistosta tutuksi tullut pairing heap on käytännössä yhtä validi. Molempien kekojen insert -metodin aikavaativuus on O(1). Lisäksi pairing Heap -keon delete-metodin käytännön suorituskyky on lähteiden mukaan käytännössä samaa luokkaa kuin Fibonacci-keon O(1). Myös isEmpty -kysely on molemmissa O(1).
+Fibonacci-keko on kuitenkin verrattain vaikea toteuttaa. Myöhemmin kerätystä lähdeaineistosta tutuksi tullut pairing heap mainitaan käytännössä yhtä tehokkaaksi ja helpommaksi toteuttaa. Molemmat keot suoriutuvat A* algoritmin vaatimuksista tehokkaasti. 
 
 
 # Keon testaus
@@ -147,18 +147,16 @@ Ensiksi kokeiltiin reitinhakua ja varmistettiin että reittien pituudet vakioidu
 
 Voidaan todeta että PairingHeap ei vaikuta reitinhakualgoritmin toimintaan negatiivisesti.
 
-Toisaalta verrattaessa PairingHeap ja PriorityQue nopeautta huomattiin että nopeusero oli vain marginaalinen.
+Toisaalta verrattaessa naivisti toteutettua PairingHeap ja PriorityQue nopeautta huomattiin että nopeusero oli vain marginaalinen. Näinollen päädyttiin refaktoroimaan PairingHeap epänaivimmaksi ja saatiin seuraavat huomattavasti paremmat mittaustulokset kun kekoon lisätään n toinen toistaan pienempää Nodea ja poistetaan n/2 Nodea joka vastaa aikaisemman testauksen mukaan keon käyttöä reitinhakualgoritmilla.
 
-![Hirviöiden vuoron kesto viidens siirron keskiarvosta, ms 500 hirviötä, 500x500 maailma](mittaukset/graafi5.png)
+![Hirviöiden vuoron kesto viiden siirron keskiarvosta, ms. 500 hirviötä, 500x500 maailma](mittaukset/graafi5.png)
 
-Näinollen päädyttiin refaktoroimaan PairingHeap epänaivimmaksi ja saatiin seuraavat huomattavasti paremmat mittaustulokset kun kekoon lisätään n toinen toistaan pienempää Nodea ja poistetaan n/2 Nodea joka vastaa aikaisemman testauksen mukaan keon käyttöä reitinhakualgoritmilla.
-
-| Nodea        | Priority Queue      | Pairing Heap      | 
-|--------------|---------------------|------------------:|
-| 1000         | 2                   | 0                 |
-| 10000        | 7                   | 3                 |
-| 100000       | 31                  | 17                |
-| 1000000      | 122                 | 49                |
+| Nodea        | Priority Queue      | refaktoroitu Pairing Heap      | 
+|--------------|---------------------|-------------------------------:|
+| 1000         | 2                   | 0                              |
+| 10000        | 7                   | 3                              |
+| 100000       | 31                  | 17                             |
+| 1000000      | 122                 | 49                             |
 
 
 # CustomArrayListin vertaus

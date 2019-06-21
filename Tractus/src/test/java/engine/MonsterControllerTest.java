@@ -5,7 +5,6 @@
  */
 package engine;
 
-import domain.Command;
 import domain.Creature;
 import domain.World;
 import helpers.CustomArrayList;
@@ -16,10 +15,6 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-/**
- *
- * @author juhojuutilainen
- */
 public class MonsterControllerTest {
     private World worldThatReturnsOneForTerrain;
     private World worldThatReturnsTwoForTerrain;

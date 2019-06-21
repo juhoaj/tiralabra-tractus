@@ -12,10 +12,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import ui.Interface;
 
-/**
- *
- * @author juhojuutilainen
- */
+
 public class GameControllerTest {
     private GameController testGameController;
     private World world;

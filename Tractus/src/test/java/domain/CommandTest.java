@@ -10,16 +10,10 @@ import static org.junit.Assert.*;
 
 
 
-/**
- *
- * @author juhojuutilainen
- */
 public class CommandTest {
     
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
+
      @Test
      public void testNorth() {
          Command north = Command.NORTH;

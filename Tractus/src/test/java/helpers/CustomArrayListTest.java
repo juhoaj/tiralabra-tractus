@@ -12,10 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
-/**
- *
- * @author juhojuutilainen
- */
+
 public class CustomArrayListTest {
     private CustomArrayList intArrayList;
     
@@ -31,9 +28,7 @@ public class CustomArrayListTest {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //.ö-
+
     @Test
     public void classInitialized() {
         assertNotNull(this.intArrayList);

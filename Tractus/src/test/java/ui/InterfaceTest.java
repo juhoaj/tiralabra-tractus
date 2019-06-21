@@ -26,21 +26,19 @@ public class InterfaceTest {
     private PlayerController playerController;
     private MonsterController monsterController;
     private Interface testInterface;
-    private AsciiPanel terminal;
-    private Distance distance;
-    private int[] playerPosition = {5,5};
+    private int[] playerPosition = {10,10};
     
     
     @Before
-    public void setUp() throws IOException {          
+    public void setUp() throws IOException {   
+         
+        
         this.world = mock(World.class);
         this.playerController = mock(PlayerController.class);
         this.playerPosition = new int[2];
         when(this.playerController.getPlayerPosition()).thenReturn(this.playerPosition);
         this.monsterController = mock(MonsterController.class);
-        this.terminal = mock(AsciiPanel.class);
-        this.distance = mock(Distance.class);
-        this.testInterface = new Interface(this.world, this.playerController, this.monsterController, 10, 10, false);    
+        this.testInterface = new Interface(this.world, this.playerController, this.monsterController, 20, 20, false);    
     }
     
     
@@ -69,12 +67,6 @@ public class InterfaceTest {
         } catch (IllegalArgumentException e) { }
     }
     
-    
-    @Test
-    public void characterDrawn() {
-        this.testInterface.drawCharacter('x', 10, 10);
-        // verify(this.terminal).write("x",1,1);
-    }
-    
+
     
 }

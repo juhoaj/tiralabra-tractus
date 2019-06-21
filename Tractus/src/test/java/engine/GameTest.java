@@ -8,10 +8,7 @@ package engine;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author juhojuutilainen
- */
+
 public class GameTest {
     
 

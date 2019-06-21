@@ -9,10 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author juhojuutilainen
- */
 public class RouteFinderNodeTest {
     private int x = 1;
     private int y = 2;

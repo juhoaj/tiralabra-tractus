@@ -9,10 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author juhojuutilainen
- */
 public class NodeTest {
     private Node node0;
     private Node node1;

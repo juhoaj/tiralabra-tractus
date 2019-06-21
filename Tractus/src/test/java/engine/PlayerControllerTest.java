@@ -13,10 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-/**
- *
- * @author juhojuutilainen
- */
+
 public class PlayerControllerTest {
     private World worldThatReturnsOneForTerrain;
     private World worldThatReturnsTwoForTerrain;
@@ -178,6 +175,6 @@ public class PlayerControllerTest {
     public void playerDoesNotGetInsertedIfTerrainNotEmpty() {
         assertEquals(false, this.testPlayerControllerWithWorldTwo.insertPlayer());
     }
-    
+ 
     
 }

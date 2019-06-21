@@ -11,10 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-/**
- *
- * @author juhojuutilainen
- */
+
 public class CaveTest {
     Tile tile;
     Cave testCaveOne;
@@ -35,8 +32,7 @@ public class CaveTest {
     public void caveInitialized() {
         assertNotNull(this.testCaveOne);
     }
-    
-    
+      
     
     @Test
     public void getSizeWorks() {

@@ -2,6 +2,7 @@
 
 * Testausta ja dokumentaatiota
 * Pairing heapin suunnittelua, naivi implementointi ja sovelluksen refaktorointi sitä käyttämään
+* Pairing heapin refaktorointi epänaiviksi suorituskyvyn parantamiseksi
 
 
 ## Miten ohjelma on edistynyt?

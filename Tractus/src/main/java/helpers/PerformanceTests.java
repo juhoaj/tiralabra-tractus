@@ -17,7 +17,7 @@ import java.util.PriorityQueue;
 public class PerformanceTests {
     
     private int ArrayListTestSize = 1000;
-    private int HeapTestSize = 1000000;
+    private int HeapTestSize = 500000;
     
 
     public boolean runTests() {

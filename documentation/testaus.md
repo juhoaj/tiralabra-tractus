@@ -147,11 +147,11 @@ Ensiksi kokeiltiin reitinhakua ja varmistettiin että reittien pituudet vakioidu
 
 Voidaan todeta että PairingHeap ei vaikuta reitinhakualgoritmin toimintaan negatiivisesti.
 
-Toisaalta verrattaessa PairingHeap ja PriorityQue nopeautta huomattiin että nopeusero on marginaalinen.
+Toisaalta verrattaessa PairingHeap ja PriorityQue nopeautta huomattiin että nopeusero oli vain marginaalinen.
 
 ![Hirviöiden vuoron kesto viidens siirron keskiarvosta, ms 500 hirviötä, 500x500 maailma](mittaukset/graafi5.png)
 
-Näinollen päädyttiin refaktoroimaan PairingHeap ja saatiin seuraavat mittaustulokset.
+Näinollen päädyttiin refaktoroimaan PairingHeap epänaivimmaksi ja saatiin seuraavat huomattavasti paremmat mittaustulokset kun kekoon lisätään n toinen toistaan pienempää Nodea ja poistetaan n/2 Nodea joka vastaa aikaisemman testauksen mukaan keon käyttöä reitinhakualgoritmilla.
 
 | Nodea        | Priority Queue      | Pairing Heap      | 
 |--------------|---------------------|------------------:|

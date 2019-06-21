@@ -115,33 +115,39 @@ Näin ollen voidaan perustellusti väittää että reitinhakualgoritmin käytän
 
 ````
 
-def decreaseKey(x,k,H):
-    if x != H:
-        remove(x)
-        #the node x is removed from the child list where it was
-        key(x) = k
-        H = link(H,x)
+function insert(elem, heap)
+  return merge(Heap(elem, []), heap)
 
-    else:
-        key(H) = k
+function find-min(heap)
+  if heap == Empty
+    error
+  else
+    return heap.elem
+
+function delete-min(heap)
+  if heap == Empty
+    error
+  else
+    return merge-pairs(heap.subheaps)
+
+function merge(heap1, heap2)
+  if heap1 == Empty
+    return heap2
+  elsif heap2 == Empty
+    return heap1
+  elsif heap1.elem < heap2.elem
+    return Heap(heap1.elem, heap2 :: heap1.subheaps)
+  else
+    return Heap(heap2.elem, heap1 :: heap2.subheaps)
 
 def twoPassPairing(x):
     #x is assumed to be a pointer to the first node of a list of tree roots
     #two pass pairing executes and combines trees into a single tree
     #returns a pointer to the root of result tree
 
-def delete(x,H):
-    y = twoPassPairing(leftmost-child(x))
-    if x == H:
-        H = y
-    else:
-        remove(x)
-        #the subtree rooted at x is removed
-        H = link(H,y)
-
 ````
 
-Pseudokoodia tarkastelemalla voidaan päätellä että PairingHeap on  verrattain ripeä, lähelle O(1) kun siihen lisätään toinen toistaan pienempiä lukuja ja puu pysyy 'kapeana ja korkeana' ja verrattain hidas, lähelle O(log n) päinvastaisessa tilanteessa.
+Pseudokoodia tarkastelemalla voidaan päätellä että PairingHeap on  verrattain ripeä, O(log n) lähestyen O(1) kun siihen lisätään toinen toistaan pienempiä lukuja ja puu pysyy 'kapeana ja korkeana' ja verrattain hidas, lähelle O(log n) päinvastaisessa tilanteessa.
 
 Reitinhaku toteutettiin kahteen kertaan, [ensimmäisen kerran naivisti](https://github.com/juhoaj/tiralabra-tractus/blob/7ad2b26149c4d214acd819b7a24d15e43653e77a/Tractus/src/main/java/helpers/PairingHeap.java) ja tämän jälkeen tehokkaammin. Ks. [Testaus](testaus.md).  
 
@@ -149,8 +155,7 @@ Kun tietorakenteisiin asetetaan n kpl. toistaan pienempiä tai suurempia Nodeja 
 
 ![PairingHeap, lisätäään n Nodea ja poistetaan n/2 Nodea (x-akseli), ms (y-akseli) ](mittaukset/graafi7.png)
 
-
-
+Tästä voidaan nähdä että toteutettu PairingHeapin paraskin mahdollinen suorituskyky on O(log n) mutta sen suorituskyky riippuu vahvasti siitä mihin sitä käytetään.
 
 ## CustomArrayList nopeus 
 

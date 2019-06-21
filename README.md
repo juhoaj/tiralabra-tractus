@@ -31,8 +31,3 @@ Viikkoraportit:
 * [Viikkoraportti, viikko 6](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_6.md)
 
 * [Viikkoraportti, viikko 7](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/viikkoraportti_7.md)
-
-
-Todo:
-* Dokumentaatio kuntoon (keon testaus ja toteutus -dokumentointi)
-* Interface testaus loppuun

@@ -98,12 +98,12 @@ A* algoritmin aikavaativuuksi on lähteissä mainittu O(b^d) `b`:n kuvatessa puu
 
 
 | Maailman koko       | Reitin pituus     | Nodeja lisätty pinoon    | Pinon maksimikoko    | Nodeja käsitelty | pituus / lisätty    |
-|---------------------|------------------:| -------------------------:|---------------------:|-----------------:|--------------------:|--------------------:|
-| 51x51               | 57                | 150                      | 89                   | 62                             | 0,38	               |
-| 500x500             | 241               | 660                      | 418                  | 243                            | 0,37	               |
-| 1000x1000           | 669               | 1848                     | 1093                 | 756                           | 0,36	               |
-| 2001x2001           | 1122              | 3149                     | 1918                 | 1232                           | 0,36	               |
-| 4001x4001           | 2082              | 5814                     | 3490                 | 2325                           | 0,36	               |
+|---------------------|------------------:| -------------------------:|---------------------:|-----------------:|-------------------:|
+| 51x51               | 57                | 150                      | 89                   | 62                | 0,38	             |
+| 500x500             | 241               | 660                      | 418                  | 243               | 0,37	             |
+| 1000x1000           | 669               | 1848                     | 1093                 | 756               | 0,36	             |
+| 2001x2001           | 1122              | 3149                     | 1918                 | 1232              | 0,36	             |
+| 4001x4001           | 2082              | 5814                     | 3490                 | 2325              | 0,36	             |
 
 
 (Vakioidun ja sattumanvaraisesti luodun maailman mittaustulosten vastaavuus kuvattu [Testaus](testaus.md)-dokumentissa kappaleessa 'Reitinhaun käyttäytymisen testaus keon valinnan tueksi'.)

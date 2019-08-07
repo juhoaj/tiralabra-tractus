@@ -4,7 +4,7 @@
 
 Peli on vuoropohjainen. Pelaaja liikkuu ensin yhden tiilen verran johonkin suuntaan ja tämän jälkeen hirviöt liikkuvat kohti pelaajaa. Hirviöt osaavat kaivautua seinien läpi, yhden seinätiilen läpi kaivautuminen vie oletusarvoisesti yhden vuoron. 
 
-Peli luo oletusarvoisesti 500x500 tiilen kokoisen maailman jossa on 500 hirviötä jotka kukin kulkevat lyhyintä reittiänsä pitkin kohti pelaajaa. 
+Peli luo oletusarvoisesti 500x500 tiilen kokoisen maailman jossa on 500 hirviötä jotka kukin kulkevat lyhyttä reittiä pitkin kohti pelaajaa. 
 
 
 * [Käyttöohje](https://github.com/juhoaj/tiralabra-tractus/blob/master/documentation/käyttöohje.md) – miten sovellusta käytetään
